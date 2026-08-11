@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-color-mode="competition">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,6 +23,15 @@
     --comp-efl: #1E9E4A;
     --comp-fa: #D9A404;
     --comp-fifa: #5B6472;
+    /* Used only in the home/away color mode — fixture cells fill by venue
+       instead of by competition. --tbd-* covers fixtures with no confirmed
+       venue yet (Champions League/EFL Cup/FA Cup placeholder windows). */
+    --home-fill: #D00000;
+    --home-text: #FEFEFE;
+    --away-fill: #2D364C;
+    --away-text: #FDD52E;
+    --tbd-fill: #8a8a8a;
+    --tbd-text: #FEFEFE;
     --result-win: #2E9E5B;
     --result-loss: #D9483F;
     --result-draw: #7A7F87;
@@ -58,7 +67,11 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    transition: background-color 0.3s ease;
   }
+  /* Home/away mode inverts the banner: white fill, red text — the
+     competition-mode rules above (red fill, white text) are the default. */
+  html[data-color-mode="homeaway"] header { background: #ffffff; }
   .header-top {
     display: flex;
     align-items: center;
@@ -98,19 +111,20 @@
     text-transform: uppercase;
     text-align: center;
     color: #ffffff;
+    transition: color 0.3s ease;
   }
-  /* Competition swatch key: floating box, bottom-right, fixed in the
-     viewport so it stays put as month slides are paged through. */
+  html[data-color-mode="homeaway"] header h1 { color: var(--header-red); }
+  /* Color key: floating box, bottom-right, fixed in the viewport so it
+     stays put as month slides are paged through. Holds the mode toggle
+     on top and whichever item list matches the active color mode below. */
   .legend {
     position: fixed;
     right: 18px;
     bottom: 14px;
     z-index: 20;
-    display: grid;
-    grid-template-columns: repeat(3, auto);
-    align-items: center;
-    row-gap: 6px;
-    column-gap: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: 12px;
@@ -127,6 +141,67 @@
     opacity: 0;
     pointer-events: none;
   }
+  /* Small sliding segmented control, same technique as #teamToggle, that
+     picks which color mode is active — and therefore which item list
+     below is shown and how the calendar itself is colored. */
+  .legend-toggle {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    padding: 2px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--bg);
+  }
+  .legend-toggle-indicator {
+    position: absolute;
+    top: 2px;
+    bottom: 2px;
+    left: 2px;
+    width: calc(50% - 2px);
+    background: var(--arsenal-red);
+    border-radius: 999px;
+    transition: transform 0.38s cubic-bezier(0.65, 0, 0.35, 1);
+  }
+  .legend-toggle[data-active="homeaway"] .legend-toggle-indicator {
+    transform: translateX(100%);
+  }
+  .legend-toggle-btn {
+    position: relative;
+    z-index: 1;
+    flex: 1 1 auto;
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    font-family: inherit;
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    text-align: center;
+    white-space: nowrap;
+    padding: 4px 9px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: color 0.38s cubic-bezier(0.65, 0, 0.35, 1);
+  }
+  .legend-toggle-btn:hover { color: var(--text); }
+  .legend-toggle-btn.active { color: #ffffff; }
+  .legend-toggle-btn.active:hover { color: #ffffff; }
+  .legend-items {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    align-items: center;
+    row-gap: 6px;
+    column-gap: 14px;
+  }
+  .legend-items-homeaway {
+    grid-template-columns: repeat(2, auto);
+    display: none;
+  }
+  html[data-color-mode="homeaway"] .legend-items-competition { display: none; }
+  html[data-color-mode="homeaway"] .legend-items-homeaway { display: grid; }
   .legend-item { display: flex; align-items: center; gap: 6px; }
   .swatch {
     width: 10px;
@@ -141,6 +216,8 @@
   .swatch.comp-efl { background: var(--comp-efl); }
   .swatch.comp-fa { background: var(--comp-fa); }
   .swatch.comp-fifa { background: var(--comp-fifa); }
+  .swatch.is-home { background: var(--home-fill); }
+  .swatch.is-away { background: var(--away-fill); }
 
   .header-live {
     display: flex;
@@ -151,12 +228,16 @@
     padding-top: 9px;
     border-top: 1px solid rgba(255,255,255,0.28);
     font-size: 12px;
+    transition: border-color 0.3s ease;
   }
+  html[data-color-mode="homeaway"] .header-live { border-top-color: rgba(176,36,47,0.22); }
   #liveClock {
     color: rgba(255,255,255,0.82);
     font-weight: 500;
     font-variant-numeric: tabular-nums;
+    transition: color 0.3s ease;
   }
+  html[data-color-mode="homeaway"] #liveClock { color: rgba(176,36,47,0.75); }
   #liveCountdown {
     display: flex;
     align-items: center;
@@ -164,38 +245,50 @@
     font-weight: 600;
     font-variant-numeric: tabular-nums;
     color: #ffffff;
+    transition: color 0.3s ease;
   }
+  html[data-color-mode="homeaway"] #liveCountdown { color: var(--header-red); }
   #liveCountdown .live-label {
     color: rgba(255,255,255,0.7);
     font-weight: 600;
     text-transform: uppercase;
     font-size: 10px;
     letter-spacing: 0.3px;
+    transition: color 0.3s ease;
   }
+  html[data-color-mode="homeaway"] #liveCountdown .live-label { color: rgba(176,36,47,0.7); }
   #liveCountdown .opp-name { font-weight: 700; color: #ffffff; }
+  html[data-color-mode="homeaway"] #liveCountdown .opp-name { color: var(--header-red); }
   /* The opponent name itself is the pill now (competition tag removed) —
-     colored by the fixture's competition, same palette as the day-cell
-     swatches and legend. */
-  #liveCountdown .opp-name.comp-friendly,
-  #liveCountdown .opp-name.comp-shield,
-  #liveCountdown .opp-name.comp-pl,
-  #liveCountdown .opp-name.comp-cl,
-  #liveCountdown .opp-name.comp-efl,
-  #liveCountdown .opp-name.comp-fa,
-  #liveCountdown .opp-name.comp-fifa {
-    color: #fff;
+     colored by the active mode's palette, same as the day-cell fills and
+     legend. Every pill carries both the comp-* and is-* class; only the
+     rule set matching html[data-color-mode] is active. */
+  html[data-color-mode="competition"] #liveCountdown .opp-name.comp-friendly,
+  html[data-color-mode="competition"] #liveCountdown .opp-name.comp-shield,
+  html[data-color-mode="competition"] #liveCountdown .opp-name.comp-pl,
+  html[data-color-mode="competition"] #liveCountdown .opp-name.comp-cl,
+  html[data-color-mode="competition"] #liveCountdown .opp-name.comp-efl,
+  html[data-color-mode="competition"] #liveCountdown .opp-name.comp-fa,
+  html[data-color-mode="competition"] #liveCountdown .opp-name.comp-fifa,
+  html[data-color-mode="homeaway"] #liveCountdown .opp-name.is-home,
+  html[data-color-mode="homeaway"] #liveCountdown .opp-name.is-away,
+  html[data-color-mode="homeaway"] #liveCountdown .opp-name.is-tbd {
     border-radius: 5px;
     padding: 2px 8px;
     box-shadow: 0 0 0 1px rgba(255,255,255,0.6);
   }
-  #liveCountdown .opp-name.comp-friendly { background: var(--comp-friendly); }
-  #liveCountdown .opp-name.comp-shield { background: var(--comp-shield); }
-  #liveCountdown .opp-name.comp-pl { background: var(--comp-pl); }
-  #liveCountdown .opp-name.comp-cl { background: var(--comp-cl); }
-  #liveCountdown .opp-name.comp-efl { background: var(--comp-efl); }
-  #liveCountdown .opp-name.comp-fa { background: var(--comp-fa); }
-  #liveCountdown .opp-name.comp-fifa { background: var(--comp-fifa); }
-  #liveCountdown .time-left { color: rgba(255,255,255,0.8); font-weight: 500; }
+  html[data-color-mode="competition"] #liveCountdown .opp-name.comp-friendly { background: var(--comp-friendly); color: #fff; }
+  html[data-color-mode="competition"] #liveCountdown .opp-name.comp-shield { background: var(--comp-shield); color: #fff; }
+  html[data-color-mode="competition"] #liveCountdown .opp-name.comp-pl { background: var(--comp-pl); color: #fff; }
+  html[data-color-mode="competition"] #liveCountdown .opp-name.comp-cl { background: var(--comp-cl); color: #fff; }
+  html[data-color-mode="competition"] #liveCountdown .opp-name.comp-efl { background: var(--comp-efl); color: #fff; }
+  html[data-color-mode="competition"] #liveCountdown .opp-name.comp-fa { background: var(--comp-fa); color: #fff; }
+  html[data-color-mode="competition"] #liveCountdown .opp-name.comp-fifa { background: var(--comp-fifa); color: #fff; }
+  html[data-color-mode="homeaway"] #liveCountdown .opp-name.is-home { background: var(--home-fill); color: var(--home-text); }
+  html[data-color-mode="homeaway"] #liveCountdown .opp-name.is-away { background: var(--away-fill); color: var(--away-text); }
+  html[data-color-mode="homeaway"] #liveCountdown .opp-name.is-tbd { background: var(--tbd-fill); color: var(--tbd-text); }
+  #liveCountdown .time-left { color: rgba(255,255,255,0.8); font-weight: 500; transition: color 0.3s ease; }
+  html[data-color-mode="homeaway"] #liveCountdown .time-left { color: rgba(176,36,47,0.7); }
   #liveCountdown .time-left.live-now {
     display: inline-flex;
     align-items: center;
@@ -203,7 +296,9 @@
     color: #fff;
     font-weight: 800;
     letter-spacing: 0.5px;
+    transition: color 0.3s ease;
   }
+  html[data-color-mode="homeaway"] #liveCountdown .time-left.live-now { color: var(--header-red); }
   #liveCountdown .time-left.live-now::before {
     content: "";
     width: 6px;
@@ -211,7 +306,9 @@
     border-radius: 50%;
     background: #fff;
     animation: liveDotPulse 1.4s ease-in-out infinite;
+    transition: background-color 0.3s ease;
   }
+  html[data-color-mode="homeaway"] #liveCountdown .time-left.live-now::before { background: var(--header-red); }
   @keyframes liveDotPulse {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.25; }
@@ -235,6 +332,7 @@
      and cells with no fixture never change, so they're left untouched. */
   #track.team-fading .fixture,
   #track.team-fading .day-venue,
+  #track.team-fading .day-comp-icon,
   #track.team-fading .day-time,
   #track.team-fading .day-score {
     opacity: 0;
@@ -329,30 +427,46 @@
   }
   .day.today .day-num { color: #8a6a00; }
 
-  /* When a day has a fixture, the competition color fills the whole cell */
+  /* When a day has a fixture, the current color mode's palette fills the
+     whole cell. Every fixture cell always carries BOTH the competition
+     class (comp-*) and the home/away class (is-*) — only one set of rules
+     is "on" at a time, gated by html[data-color-mode], so switching modes
+     is a single attribute flip with no re-render, and the existing
+     background-color transition on .day cross-fades it automatically. */
   .day.has-fixture { border-color: transparent; }
-  .day.has-fixture.comp-friendly { background: var(--comp-friendly); }
-  .day.has-fixture.comp-shield { background: var(--comp-shield); }
-  .day.has-fixture.comp-pl { background: var(--comp-pl); }
-  .day.has-fixture.comp-cl { background: var(--comp-cl); }
-  .day.has-fixture.comp-efl { background: var(--comp-efl); }
-  .day.has-fixture.comp-fa { background: var(--comp-fa); }
-  .day.has-fixture.comp-fifa { background: var(--comp-fifa); }
+  html[data-color-mode="competition"] .day.has-fixture.comp-friendly { background: var(--comp-friendly); }
+  html[data-color-mode="competition"] .day.has-fixture.comp-shield { background: var(--comp-shield); }
+  html[data-color-mode="competition"] .day.has-fixture.comp-pl { background: var(--comp-pl); }
+  html[data-color-mode="competition"] .day.has-fixture.comp-cl { background: var(--comp-cl); }
+  html[data-color-mode="competition"] .day.has-fixture.comp-efl { background: var(--comp-efl); }
+  html[data-color-mode="competition"] .day.has-fixture.comp-fa { background: var(--comp-fa); }
+  html[data-color-mode="competition"] .day.has-fixture.comp-fifa { background: var(--comp-fifa); }
+  html[data-color-mode="homeaway"] .day.has-fixture.is-home { background: var(--home-fill); }
+  html[data-color-mode="homeaway"] .day.has-fixture.is-away { background: var(--away-fill); }
+  html[data-color-mode="homeaway"] .day.has-fixture.is-tbd { background: var(--tbd-fill); }
   /* Matches that have already been played get a 25%-lighter tint of their
-     competition color, so completed fixtures read as visually "past" at a
-     glance while keeping the same hue as upcoming ones. */
-  .day.has-fixture.fixture-past.comp-friendly { background: color-mix(in srgb, var(--comp-friendly) 75%, white); }
-  .day.has-fixture.fixture-past.comp-shield { background: color-mix(in srgb, var(--comp-shield) 75%, white); }
-  .day.has-fixture.fixture-past.comp-pl { background: color-mix(in srgb, var(--comp-pl) 75%, white); }
-  .day.has-fixture.fixture-past.comp-cl { background: color-mix(in srgb, var(--comp-cl) 75%, white); }
-  .day.has-fixture.fixture-past.comp-efl { background: color-mix(in srgb, var(--comp-efl) 75%, white); }
-  .day.has-fixture.fixture-past.comp-fa { background: color-mix(in srgb, var(--comp-fa) 75%, white); }
-  .day.has-fixture.fixture-past.comp-fifa { background: color-mix(in srgb, var(--comp-fifa) 75%, white); }
+     fill color, so completed fixtures read as visually "past" at a glance
+     while keeping the same hue as upcoming ones. */
+  html[data-color-mode="competition"] .day.has-fixture.fixture-past.comp-friendly { background: color-mix(in srgb, var(--comp-friendly) 75%, white); }
+  html[data-color-mode="competition"] .day.has-fixture.fixture-past.comp-shield { background: color-mix(in srgb, var(--comp-shield) 75%, white); }
+  html[data-color-mode="competition"] .day.has-fixture.fixture-past.comp-pl { background: color-mix(in srgb, var(--comp-pl) 75%, white); }
+  html[data-color-mode="competition"] .day.has-fixture.fixture-past.comp-cl { background: color-mix(in srgb, var(--comp-cl) 75%, white); }
+  html[data-color-mode="competition"] .day.has-fixture.fixture-past.comp-efl { background: color-mix(in srgb, var(--comp-efl) 75%, white); }
+  html[data-color-mode="competition"] .day.has-fixture.fixture-past.comp-fa { background: color-mix(in srgb, var(--comp-fa) 75%, white); }
+  html[data-color-mode="competition"] .day.has-fixture.fixture-past.comp-fifa { background: color-mix(in srgb, var(--comp-fifa) 75%, white); }
+  html[data-color-mode="homeaway"] .day.has-fixture.fixture-past.is-home { background: color-mix(in srgb, var(--home-fill) 75%, white); }
+  html[data-color-mode="homeaway"] .day.has-fixture.fixture-past.is-away { background: color-mix(in srgb, var(--away-fill) 75%, white); }
+  html[data-color-mode="homeaway"] .day.has-fixture.fixture-past.is-tbd { background: color-mix(in srgb, var(--tbd-fill) 75%, white); }
   .day.has-fixture .day-num { color: rgba(255,255,255,0.85); }
+  html[data-color-mode="homeaway"] .day.has-fixture.is-home .day-num { color: var(--home-text); }
+  html[data-color-mode="homeaway"] .day.has-fixture.is-away .day-num { color: var(--away-text); }
   .day.has-fixture.today {
     outline: 3px solid var(--header-red);
     outline-offset: -3px;
   }
+  /* Competition mode's corner label (H/A/N venue letter) and home/away
+     mode's corner label (competition initials) occupy the same spot —
+     only the one matching the active mode is shown. */
   .day-venue {
     position: absolute;
     top: 4px;
@@ -364,6 +478,22 @@
     color: rgba(255,255,255,0.85);
     transition: opacity 0.22s ease;
   }
+  html[data-color-mode="homeaway"] .day-venue { display: none; }
+  .day-comp-icon {
+    position: absolute;
+    top: 4px;
+    right: 6px;
+    z-index: 1;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.2px;
+    line-height: 1;
+    color: rgba(255,255,255,0.85);
+    transition: opacity 0.22s ease;
+  }
+  html[data-color-mode="competition"] .day-comp-icon { display: none; }
+  html[data-color-mode="homeaway"] .day.has-fixture.is-home .day-comp-icon { color: var(--home-text); }
+  html[data-color-mode="homeaway"] .day.has-fixture.is-away .day-comp-icon { color: var(--away-text); }
   .day-time {
     position: absolute;
     bottom: 3px;
@@ -379,6 +509,8 @@
     text-overflow: ellipsis;
     transition: opacity 0.22s ease;
   }
+  html[data-color-mode="homeaway"] .day.has-fixture.is-home .day-time { color: var(--home-text); }
+  html[data-color-mode="homeaway"] .day.has-fixture.is-away .day-time { color: var(--away-text); }
   /* Final score pill for completed matches, replacing the kickoff time.
      Always inset 3px from the cell's bottom-right corner — same fixed
      inset on every cell, today's or not, so the pill looks identical
@@ -594,7 +726,6 @@
   .modal-close:hover { background: var(--border); }
   .modal-tag {
     display: inline-block;
-    color: #fff;
     font-size: 11px;
     font-weight: 700;
     text-transform: uppercase;
@@ -603,13 +734,16 @@
     border-radius: 6px;
     margin-bottom: 14px;
   }
-  .modal-tag.comp-friendly { background: var(--comp-friendly); }
-  .modal-tag.comp-shield { background: var(--comp-shield); }
-  .modal-tag.comp-pl { background: var(--comp-pl); }
-  .modal-tag.comp-cl { background: var(--comp-cl); }
-  .modal-tag.comp-efl { background: var(--comp-efl); }
-  .modal-tag.comp-fa { background: var(--comp-fa); }
-  .modal-tag.comp-fifa { background: var(--comp-fifa); }
+  html[data-color-mode="competition"] .modal-tag.comp-friendly { background: var(--comp-friendly); color: #fff; }
+  html[data-color-mode="competition"] .modal-tag.comp-shield { background: var(--comp-shield); color: #fff; }
+  html[data-color-mode="competition"] .modal-tag.comp-pl { background: var(--comp-pl); color: #fff; }
+  html[data-color-mode="competition"] .modal-tag.comp-cl { background: var(--comp-cl); color: #fff; }
+  html[data-color-mode="competition"] .modal-tag.comp-efl { background: var(--comp-efl); color: #fff; }
+  html[data-color-mode="competition"] .modal-tag.comp-fa { background: var(--comp-fa); color: #fff; }
+  html[data-color-mode="competition"] .modal-tag.comp-fifa { background: var(--comp-fifa); color: #fff; }
+  html[data-color-mode="homeaway"] .modal-tag.is-home { background: var(--home-fill); color: var(--home-text); }
+  html[data-color-mode="homeaway"] .modal-tag.is-away { background: var(--away-fill); color: var(--away-text); }
+  html[data-color-mode="homeaway"] .modal-tag.is-tbd { background: var(--tbd-fill); color: var(--tbd-text); }
   .modal-title-row {
     display: flex;
     align-items: center;
@@ -677,13 +811,16 @@
     text-transform: uppercase;
     letter-spacing: 0.3px;
   }
-  .result-comp.comp-friendly { color: var(--comp-friendly); }
-  .result-comp.comp-shield { color: var(--comp-shield); }
-  .result-comp.comp-pl { color: var(--comp-pl); }
-  .result-comp.comp-cl { color: var(--comp-cl); }
-  .result-comp.comp-efl { color: var(--comp-efl); }
-  .result-comp.comp-fa { color: var(--comp-fa); }
-  .result-comp.comp-fifa { color: var(--comp-fifa); }
+  html[data-color-mode="competition"] .result-comp.comp-friendly { color: var(--comp-friendly); }
+  html[data-color-mode="competition"] .result-comp.comp-shield { color: var(--comp-shield); }
+  html[data-color-mode="competition"] .result-comp.comp-pl { color: var(--comp-pl); }
+  html[data-color-mode="competition"] .result-comp.comp-cl { color: var(--comp-cl); }
+  html[data-color-mode="competition"] .result-comp.comp-efl { color: var(--comp-efl); }
+  html[data-color-mode="competition"] .result-comp.comp-fa { color: var(--comp-fa); }
+  html[data-color-mode="competition"] .result-comp.comp-fifa { color: var(--comp-fifa); }
+  html[data-color-mode="homeaway"] .result-comp.is-home { color: var(--home-fill); }
+  html[data-color-mode="homeaway"] .result-comp.is-away { color: var(--away-fill); }
+  html[data-color-mode="homeaway"] .result-comp.is-tbd { color: var(--tbd-fill); }
   .result-fulltime {
     font-size: 11px;
     font-weight: 700;
@@ -1115,12 +1252,23 @@
 <div id="dots"></div>
 <div id="hint">Scroll or swipe to change month</div>
 <div class="legend">
-  <div class="legend-item"><span class="swatch comp-pl"></span> Premier League</div>
-  <div class="legend-item"><span class="swatch comp-cl"></span> Champions League</div>
-  <div class="legend-item"><span class="swatch comp-efl"></span> EFL Cup</div>
-  <div class="legend-item"><span class="swatch comp-fa"></span> FA Cup</div>
-  <div class="legend-item"><span class="swatch comp-friendly"></span> Friendly</div>
-  <div class="legend-item"><span class="swatch comp-shield"></span> Community Shield</div>
+  <div class="legend-toggle" id="colorModeToggle" role="group" aria-label="Color cells by" data-active="competition">
+    <span class="legend-toggle-indicator" aria-hidden="true"></span>
+    <button type="button" class="legend-toggle-btn" data-mode="competition">Competition</button>
+    <button type="button" class="legend-toggle-btn" data-mode="homeaway">Home/Away</button>
+  </div>
+  <div class="legend-items legend-items-competition">
+    <div class="legend-item"><span class="swatch comp-pl"></span> Premier League</div>
+    <div class="legend-item"><span class="swatch comp-cl"></span> Champions League</div>
+    <div class="legend-item"><span class="swatch comp-efl"></span> EFL Cup</div>
+    <div class="legend-item"><span class="swatch comp-fa"></span> FA Cup</div>
+    <div class="legend-item"><span class="swatch comp-friendly"></span> Friendly</div>
+    <div class="legend-item"><span class="swatch comp-shield"></span> Community Shield</div>
+  </div>
+  <div class="legend-items legend-items-homeaway">
+    <div class="legend-item"><span class="swatch is-home"></span> Home</div>
+    <div class="legend-item"><span class="swatch is-away"></span> Away</div>
+  </div>
 </div>
 <button id="backToTop" title="Back to August 2026" aria-label="Back to top">
   <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1411,8 +1559,11 @@ const womenCrestByOpponent = {
 // since the 2026/27 season (Premier League ball-in for real on 22 Aug 2026)
 // hasn't kicked off yet — the only match played so far, the Girona friendly,
 // isn't one of the competitions tracked here. "injured" reflects the real
-// club injury list as of 4 Aug 2026 (William Saliba — back injury, no
-// return date; Jurrien Timber — groin/hip, targeting 21 Aug 2026).
+// club injury list as of 9 Aug 2026 (William Saliba — lower back, resting
+// two weeks, no return date; Jurrien Timber — groin/hip, back in training
+// but "still weeks away" per Arteta, no return date). Christian Nørgaard
+// left for Everton and Bruno Guimarães (#39) joined from Newcastle this
+// window, both reflected below.
 const menPlayers = [
   { num: 1, first: "David", last: "Raya", pos: "GK", injured: false },
   { num: 13, first: "Kepa", last: "Arrizabalaga", pos: "GK", injured: false },
@@ -1430,11 +1581,11 @@ const menPlayers = [
 
   { num: 8, first: "Martin", last: "Ødegaard", pos: "MF", injured: false },
   { num: 10, first: "Eberechi", last: "Eze", pos: "MF", injured: false },
-  { num: 16, first: "Christian", last: "Nørgaard", pos: "MF", injured: false },
   { num: 21, first: "Fábio", last: "Vieira", pos: "MF", injured: false },
   { num: 22, first: "Ethan", last: "Nwaneri", pos: "MF", injured: false },
   { num: 23, first: "Mikel", last: "Merino", pos: "MF", injured: false },
   { num: 36, first: "Martín", last: "Zubimendi", pos: "MF", injured: false },
+  { num: 39, first: "Bruno", last: "Guimarães", pos: "MF", injured: false },
   { num: 41, first: "Declan", last: "Rice", pos: "MF", injured: false },
 
   { num: 7, first: "Bukayo", last: "Saka", pos: "FW", injured: false },
@@ -1454,9 +1605,10 @@ const menPlayers = [
 // same position-group ordering as the men's squad. Jenna Nighswonger was listed
 // on the roster page with no shirt number (her #22 has already been reassigned
 // to Ona Batlle) and is in the process of joining Bay FC, so she's omitted here
-// as no longer an active first-team member. "injured" reflects the real club
-// injury list as of 5 Aug 2026 (Leah Williamson — knee, recovering from Euro 2025
-// final surgery; Michelle Agyemang — knee; Katie Reid — knee), per
+// as no longer an active first-team member. Re-checked against the official
+// roster on 11 Aug 2026 — unchanged. "injured" reflects the real club
+// injury list as of 11 Aug 2026 (Leah Williamson — knee, recovering from Euro 2025
+// final surgery; Michelle Agyemang — ACL; Katie Reid — ACL), per
 // premierinjuries.com's WSL injury table.
 const womenPlayers = [
   { num: 1, first: "Daphne", last: "van Domselaar", pos: "GK", injured: false },
@@ -1547,12 +1699,15 @@ function statsFor(player, compKey) {
   return (player.stats && player.stats[compKey]) || zero;
 }
 
-// Placeholder fixtures with a "dateEnd" (e.g. Champions League windows whose exact
-// day isn't set yet) get shown on every day in their range, not just the first.
 let fixtureMap = {};
 function computeFixtureMap() {
   const map = {};
   fixtures.forEach(f => {
+    // Hide FIFA breaks and not-yet-confirmed placeholder windows (Champions
+    // League matchday slots, EFL Cup / FA Cup rounds without a known
+    // opponent yet) — these carry a rangeLabel instead of a firm date and
+    // opponent, so they're left out of the calendar entirely.
+    if (f.rangeLabel) return;
     if (f.dateEnd) {
       dateRangeArray(f.date, f.dateEnd).forEach(d => { map[d] = f; });
     } else {
@@ -1573,6 +1728,14 @@ function compClass(comp) {
   return "comp-pl"; // Premier League (default when no comp is set)
 }
 
+// Home/away color-mode equivalent of compClass() — fixtures with no
+// confirmed venue yet fall back to "tbd" rather than defaulting either way.
+function homeAwayClass(fx) {
+  if (fx.home === true) return "is-home";
+  if (fx.home === false) return "is-away";
+  return "is-tbd";
+}
+
 // Short label shown on day-cell chips when there's no confirmed opponent yet
 // (so no crest to display) — Champions League / EFL Cup / FA Cup placeholders,
 // and FIFA international breaks (no club fixture at all).
@@ -1583,6 +1746,20 @@ function compAbbrev(comp) {
   if (comp === "FIFA Break") return "FIFA";
   return "•";
 }
+
+// Competition-initials corner badge shown in home/away color mode (where
+// the cell fill no longer conveys competition). FIFA breaks aren't real
+// fixtures, so they intentionally have no badge — moot now that they're
+// hidden entirely, but kept for safety if that ever changes.
+const compInitials = {
+  "Premier League": "PL",
+  "FA Cup": "FA",
+  "Champions League": "UCL",
+  "EFL Cup": "ELC",
+  "Community Shield": "CS",
+  "Friendly": "FR",
+  "Barclays WSL": "WSL"
+};
 
 const monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 const dowNames = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
@@ -1659,7 +1836,9 @@ function formatShortResultDate(fx, dateStr) {
 }
 
 function openModal(fx, dateStr) {
-  const cls = compClass(fx.comp);
+  // Both classes are applied always — html[data-color-mode] (see CSS)
+  // decides which one's colors actually render.
+  const cls = compClass(fx.comp) + " " + homeAwayClass(fx);
 
   if (fx.score) {
     // Finished match: show the crest-vs-crest scoreboard + goal scorers
@@ -1924,8 +2103,15 @@ function renderFixtures() {
 
     const fx = fixtureMap[dateStr];
     if (fx) {
-      cell.className += " has-fixture " + compClass(fx.comp) + (dateStr < todayStr ? " fixture-past" : "");
+      // Every fixture cell carries both the competition class and the
+      // home/away class at all times — html[data-color-mode] (see CSS)
+      // decides which one actually paints, so toggling color mode never
+      // needs a re-render.
+      cell.className += " has-fixture " + compClass(fx.comp) + " " + homeAwayClass(fx) + (dateStr < todayStr ? " fixture-past" : "");
 
+      // Competition mode's corner label (H/A/N venue letter) and home/away
+      // mode's corner label (competition initials) — both are rendered;
+      // CSS shows only the one matching the active mode.
       const venueLabel = fx.comp === "Community Shield" ? "N"
         : fx.home === true ? "H"
         : fx.home === false ? "A"
@@ -1937,6 +2123,14 @@ function renderFixtures() {
         cell.appendChild(venueEl);
       }
 
+      const initials = compInitials[fx.comp || "Premier League"];
+      if (initials) {
+        const badgeEl = document.createElement("div");
+        badgeEl.className = "day-comp-icon";
+        badgeEl.textContent = initials;
+        cell.appendChild(badgeEl);
+      }
+
       if (fx.score) {
         // Match already played — show the final score instead of kickoff time.
         const scoreEl = document.createElement("div");
@@ -1944,7 +2138,12 @@ function renderFixtures() {
           : fx.score.arsenal < fx.score.opponent ? "loss"
           : "draw";
         scoreEl.className = "day-score result-" + result;
-        scoreEl.textContent = fx.score.arsenal + "–" + fx.score.opponent;
+        // Show the score in the order the two teams actually lined up —
+        // Arsenal's number first when they're at home, second when away —
+        // instead of always leading with Arsenal's score regardless of venue.
+        scoreEl.textContent = fx.home === false
+          ? fx.score.opponent + "–" + fx.score.arsenal
+          : fx.score.arsenal + "–" + fx.score.opponent;
         cell.appendChild(scoreEl);
       } else if (fx.time) {
         const timeEl = document.createElement("div");
@@ -2095,7 +2294,7 @@ function updateLiveInfo() {
   if (live) {
     const oppLabel = live.fx.opp;
     liveCountdownEl.innerHTML =
-      `<span class="opp-name ${compClass(live.fx.comp)}">${oppLabel}</span>` +
+      `<span class="opp-name ${compClass(live.fx.comp)} ${homeAwayClass(live.fx)}">${oppLabel}</span>` +
       `<span class="time-left live-now">LIVE</span>`;
     return;
   }
@@ -2129,7 +2328,7 @@ function updateLiveInfo() {
 
   liveCountdownEl.innerHTML =
     `<span class="live-label">Next Match:</span>` +
-    `<span class="opp-name ${compClass(fx.comp)}">${oppLabel}</span>` +
+    `<span class="opp-name ${compClass(fx.comp)} ${homeAwayClass(fx)}">${oppLabel}</span>` +
     `<span class="time-left">in ${timeLeft}</span>`;
 }
 setInterval(updateLiveInfo, 30000);
@@ -2200,6 +2399,29 @@ teamToggleBtns.forEach(btn => {
   btn.addEventListener('click', () => applyTeam(btn.dataset.team));
 });
 
+// ---- Competition / Home-Away color mode toggle ----
+// Every fixture cell, badge, modal tag, and the header banner already carry
+// both rule sets at all times (see the html[data-color-mode="..."] CSS
+// selectors throughout) — switching modes is just flipping one attribute
+// on <html>, and the existing color/background-color transitions on those
+// elements cross-fade the swap with no re-render needed.
+const colorModeToggle = document.getElementById('colorModeToggle');
+const colorModeToggleBtns = Array.from(colorModeToggle.querySelectorAll('.legend-toggle-btn'));
+
+function setColorMode(mode) {
+  document.documentElement.dataset.colorMode = mode;
+  colorModeToggle.dataset.active = mode;
+  colorModeToggleBtns.forEach(btn => {
+    const isActive = btn.dataset.mode === mode;
+    btn.classList.toggle('active', isActive);
+    btn.setAttribute('aria-pressed', String(isActive));
+  });
+}
+colorModeToggleBtns.forEach(btn => {
+  btn.addEventListener('click', () => setColorMode(btn.dataset.mode));
+});
+
+setColorMode('competition');
 applyTeam('men', false);
 
 // Dot navigation
