@@ -373,6 +373,7 @@
     left: 6px;
     z-index: 1;
     font-size: 11px;
+    line-height: 1;
     color: var(--muted);
     font-weight: 600;
     /* The number itself never changes across a team switch, only its color
@@ -428,6 +429,7 @@
     right: 6px;
     z-index: 1;
     font-size: 12px;
+    line-height: 1;
     font-weight: 800;
     letter-spacing: 0.2px;
     color: rgba(255,255,255,0.85);
@@ -440,9 +442,12 @@
     right: 6px;
     z-index: 1;
     font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 0.2px;
     line-height: 1;
+    /* Deliberately not bold — three-letter initials (WSL/UCL/ELC) are wide
+       enough at a heavier weight to run into the date number on narrow
+       cells, especially on mobile. */
+    font-weight: 500;
+    letter-spacing: 0.1px;
     color: rgba(255,255,255,0.85);
     transition: opacity 0.22s ease;
   }
@@ -1122,9 +1127,14 @@
       left: 50%;
       transform: translateX(-50%);
       max-width: 42px;
-      font-size: 8.5px;
+      font-size: 9px;
       letter-spacing: -0.2px;
     }
+    /* Extra margin on top of the lighter weight set above — three-letter
+       initials (WSL/UCL/ELC) still need a touch less room on these
+       narrower mobile cells to clear the date number beside them. */
+    .day-venue,
+    .day-comp-icon { font-size: 9.5px; }
     .day-score {
       left: 3px;
       right: 3px;
