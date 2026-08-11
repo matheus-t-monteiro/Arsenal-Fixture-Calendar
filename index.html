@@ -114,57 +114,41 @@
     transition: color 0.3s ease;
   }
   html[data-color-mode="homeaway"] header h1 { color: var(--header-red); }
-  /* Color key: floating box, bottom-right, fixed in the viewport so it
-     stays put as month slides are paged through. Holds the mode toggle
-     on top and whichever item list matches the active color mode below. */
-  .legend {
+  /* Color mode toggle: small sliding segmented control (same technique as
+     #teamToggle), fixed bottom-right so it stays put as month slides are
+     paged through. Just the switch — no swatch key — so it's always one
+     tap away instead of living behind a collapse/expand affordance. */
+  #colorModeToggle {
     position: fixed;
     right: 18px;
     bottom: 14px;
     z-index: 20;
     display: flex;
-    flex-direction: column;
-    gap: 8px;
-    background: var(--card);
+    align-items: center;
+    gap: 2px;
+    padding: 3px;
     border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 10px 14px;
+    border-radius: 999px;
+    background: var(--card);
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--text);
-    max-width: calc(100% - 36px);
     opacity: 1;
     transition: opacity 0.3s ease;
   }
-  .legend.faded {
+  #colorModeToggle.faded {
     opacity: 0;
     pointer-events: none;
   }
-  /* Small sliding segmented control, same technique as #teamToggle, that
-     picks which color mode is active — and therefore which item list
-     below is shown and how the calendar itself is colored. */
-  .legend-toggle {
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: 2px;
-    padding: 2px;
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    background: var(--bg);
-  }
   .legend-toggle-indicator {
     position: absolute;
-    top: 2px;
-    bottom: 2px;
-    left: 2px;
-    width: calc(50% - 2px);
+    top: 3px;
+    bottom: 3px;
+    left: 3px;
+    width: calc(50% - 3px);
     background: var(--arsenal-red);
     border-radius: 999px;
     transition: transform 0.38s cubic-bezier(0.65, 0, 0.35, 1);
   }
-  .legend-toggle[data-active="homeaway"] .legend-toggle-indicator {
+  #colorModeToggle[data-active="homeaway"] .legend-toggle-indicator {
     transform: translateX(100%);
   }
   .legend-toggle-btn {
@@ -175,13 +159,13 @@
     background: transparent;
     color: var(--muted);
     font-family: inherit;
-    font-size: 9px;
+    font-size: 11px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.3px;
     text-align: center;
     white-space: nowrap;
-    padding: 4px 9px;
+    padding: 5px 12px;
     border-radius: 999px;
     cursor: pointer;
     transition: color 0.38s cubic-bezier(0.65, 0, 0.35, 1);
@@ -189,35 +173,6 @@
   .legend-toggle-btn:hover { color: var(--text); }
   .legend-toggle-btn.active { color: #ffffff; }
   .legend-toggle-btn.active:hover { color: #ffffff; }
-  .legend-items {
-    display: grid;
-    grid-template-columns: repeat(3, auto);
-    align-items: center;
-    row-gap: 6px;
-    column-gap: 14px;
-  }
-  .legend-items-homeaway {
-    grid-template-columns: repeat(2, auto);
-    display: none;
-  }
-  html[data-color-mode="homeaway"] .legend-items-competition { display: none; }
-  html[data-color-mode="homeaway"] .legend-items-homeaway { display: grid; }
-  .legend-item { display: flex; align-items: center; gap: 6px; }
-  .swatch {
-    width: 10px;
-    height: 10px;
-    border-radius: 2px;
-    box-shadow: 0 0 0 1px rgba(0,0,0,0.12);
-  }
-  .swatch.comp-friendly { background: var(--comp-friendly); }
-  .swatch.comp-shield { background: var(--comp-shield); }
-  .swatch.comp-pl { background: var(--comp-pl); }
-  .swatch.comp-cl { background: var(--comp-cl); }
-  .swatch.comp-efl { background: var(--comp-efl); }
-  .swatch.comp-fa { background: var(--comp-fa); }
-  .swatch.comp-fifa { background: var(--comp-fifa); }
-  .swatch.is-home { background: var(--home-fill); }
-  .swatch.is-away { background: var(--away-fill); }
 
   .header-live {
     display: flex;
@@ -983,6 +938,7 @@
   .team-toggle-btn:hover { color: var(--text); }
   .team-toggle-btn.active { color: #ffffff; }
   .team-toggle-btn.active:hover { color: #ffffff; }
+  .tt-short { display: none; }
 
   #squadOverlay {
     position: fixed;
@@ -1145,17 +1101,19 @@
     .brand { flex-wrap: wrap; row-gap: 4px; justify-content: center; }
     .logo { width: 44px; height: 44px; }
     header h1 { font-size: 17px; letter-spacing: 0.3px; }
-    .legend {
+    #colorModeToggle {
       right: 8px;
       /* Sit above the "scroll or swipe" hint instead of overlapping it. */
       bottom: 46px;
-      grid-template-columns: repeat(2, auto);
-      column-gap: 8px;
-      row-gap: 4px;
-      padding: 8px 10px;
-      font-size: 9.5px;
     }
+    .legend-toggle-btn { font-size: 9px; padding: 4px 8px; }
     .header-live { font-size: 11px; }
+    /* Full "Men"/"Women" labels are wide enough to cover the centered
+       month title on narrow screens — swap to single-letter labels and
+       shrink the pill to free up that space. */
+    .tt-full { display: none; }
+    .tt-short { display: inline; }
+    .team-toggle-btn { min-width: 30px; padding: 5px 10px; }
     .slide { padding: calc(var(--header-h, 128px) + 14px) 24px 40px 14px; }
     .fixture .crest-only { max-width: 38px; max-height: 38px; }
     .fixture .comp-label { font-size: 10px; }
@@ -1163,8 +1121,9 @@
       right: auto;
       left: 50%;
       transform: translateX(-50%);
-      max-width: 50px;
-      font-size: 11px;
+      max-width: 42px;
+      font-size: 8.5px;
+      letter-spacing: -0.2px;
     }
     .day-score {
       left: 3px;
@@ -1251,24 +1210,10 @@
 
 <div id="dots"></div>
 <div id="hint">Scroll or swipe to change month</div>
-<div class="legend">
-  <div class="legend-toggle" id="colorModeToggle" role="group" aria-label="Color cells by" data-active="competition">
-    <span class="legend-toggle-indicator" aria-hidden="true"></span>
-    <button type="button" class="legend-toggle-btn" data-mode="competition">Competition</button>
-    <button type="button" class="legend-toggle-btn" data-mode="homeaway">Home/Away</button>
-  </div>
-  <div class="legend-items legend-items-competition">
-    <div class="legend-item"><span class="swatch comp-pl"></span> Premier League</div>
-    <div class="legend-item"><span class="swatch comp-cl"></span> Champions League</div>
-    <div class="legend-item"><span class="swatch comp-efl"></span> EFL Cup</div>
-    <div class="legend-item"><span class="swatch comp-fa"></span> FA Cup</div>
-    <div class="legend-item"><span class="swatch comp-friendly"></span> Friendly</div>
-    <div class="legend-item"><span class="swatch comp-shield"></span> Community Shield</div>
-  </div>
-  <div class="legend-items legend-items-homeaway">
-    <div class="legend-item"><span class="swatch is-home"></span> Home</div>
-    <div class="legend-item"><span class="swatch is-away"></span> Away</div>
-  </div>
+<div id="colorModeToggle" role="group" aria-label="Color cells by" data-active="competition">
+  <span class="legend-toggle-indicator" aria-hidden="true"></span>
+  <button type="button" class="legend-toggle-btn" data-mode="competition">Competition</button>
+  <button type="button" class="legend-toggle-btn" data-mode="homeaway">Home/Away</button>
 </div>
 <button id="backToTop" title="Back to August 2026" aria-label="Back to top">
   <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1280,8 +1225,12 @@
 <button id="squadToggle" aria-haspopup="dialog" aria-controls="squadPanel" aria-expanded="false" aria-label="Open squad list">Squad</button>
 <div id="teamToggle" role="group" aria-label="Choose team" data-active="men">
   <span class="team-toggle-indicator" aria-hidden="true"></span>
-  <button type="button" class="team-toggle-btn" data-team="men">Men</button>
-  <button type="button" class="team-toggle-btn" data-team="women">Women</button>
+  <button type="button" class="team-toggle-btn" data-team="men" aria-label="Men">
+    <span class="tt-full" aria-hidden="true">Men</span><span class="tt-short" aria-hidden="true">M</span>
+  </button>
+  <button type="button" class="team-toggle-btn" data-team="women" aria-label="Women">
+    <span class="tt-full" aria-hidden="true">Women</span><span class="tt-short" aria-hidden="true">W</span>
+  </button>
 </div>
 
 <div id="squadOverlay" role="dialog" aria-modal="true" aria-labelledby="squadTitle">
@@ -2437,15 +2386,13 @@ const dotEls = Array.from(dotsEl.children);
 const backToTopEl = document.getElementById('backToTop');
 backToTopEl.addEventListener('click', () => goTo(0));
 
-const legendEl = document.querySelector('.legend');
-
 function updateChrome() {
   dotEls.forEach((d, i) => d.classList.toggle('active', i === index));
   const onInfoSlide = index >= monthsToRender.length;
   backToTopEl.classList.toggle('visible', index > 0);
-  // The competition key is meaningless on the "About this calendar" slide,
-  // so fade it out there rather than leaving it floating over prose.
-  legendEl.classList.toggle('faded', onInfoSlide);
+  // The color mode toggle is meaningless on the "About this calendar"
+  // slide, so fade it out there rather than leaving it floating over prose.
+  colorModeToggle.classList.toggle('faded', onInfoSlide);
 }
 
 // Weighted ease-in-out cubic
