@@ -1,0 +1,2336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arsenal 2026/27 Calendar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fafafa;
+    --card: #ffffff;
+    --border: #e5e5e5;
+    --text: #1a1a1a;
+    --muted: #8a8a8a;
+    --arsenal-red: #EF0107;
+    --header-red: #B0242F;
+    --comp-friendly: #F08A24;
+    --comp-shield: #EF0107;
+    --comp-pl: #6C2EB9;
+    --comp-cl: #1D5FE0;
+    --comp-efl: #1E9E4A;
+    --comp-fa: #D9A404;
+    --comp-fifa: #5B6472;
+    --result-win: #2E9E5B;
+    --result-loss: #D9483F;
+    --result-draw: #7A7F87;
+    --gold: #B8952F;
+    /* Light tint of the header/today-outline red, used as today's fill. */
+    --today: color-mix(in srgb, var(--header-red) 12%, white);
+    --vh: 100vh;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Barlow', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    background-color: var(--bg);
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDgwIDEwODAiPgo8ZyBmaWxsPSIjQjg5NTJGIiBmaWxsLW9wYWNpdHk9IjAuMDciPgo8Zz4KPGc+CjxwYXRoIGQ9Ik00ODkuNDEsNDQxLjkyYy0yNC4zOCwzLjczLTQ2LjQ2LDE2LjQ3LTYxLjg2LDM1LjczbDQ5LjM2LDI4LjUyYzMuNjItMy4xOCw3Ljg1LTUuNTgsMTIuNTgtNy4yM0w0ODkuNDEsNDQxLjkyeiIvPgo8cGF0aCBkPSJNNDI3LjMzLDQyNy41MmMtMjcuNjcsMTguOTMtNDcuODIsNDcuOTMtNTUuNzIsODEuNTJjLTI1LjA1LDAuODktNDQuMzksMS4zNy01Ny44OSwxLjM3Yy0xNC4xMiwwLTI2LjA1LTExLjA0LTMwLjczLTI2LjU0aC0xMS45MWMtMy4xLDAtNy40OS0zLjY4LTcuNDktMTQuODNjMC0xMS4xMyw0LjM5LTE0LjksNy40OS0xNC45aDExLjkxYzQuNjgtMTUuNSwxNi42MS0yNi42MywzMC43My0yNi42M0g0MjcuMzN6Ii8+CjxwYXRoIGQ9Ik01MDQuNzYsNTI3LjkzYy02LjcsMC0xMi4xNCw1LjM0LTEyLjE0LDEyLjA0YzAsNi42Nyw1LjQ0LDEyLjIsMTIuMTQsMTIuMmM2Ljc0LDAsMTIuMDktNS41NCwxMi4wOS0xMi4yQzUxNi44NSw1MzMuMjcsNTExLjUsNTI3LjkzLDUwNC43Niw1MjcuOTN6Ii8+CjxwYXRoIGQ9Ik00NjEuNDMsNTMyLjc4bC00OS4zNi0yOC4zMmMtOC45MiwyMi45NS04LjkyLDQ4LjQ0LDAuMDYsNzEuNDVsNDkuMy0yOC42NEM0NjAuNjksNTQyLjQ5LDQ2MC42OSw1MzcuNjMsNDYxLjQzLDUzMi43OHoiLz4KPHBhdGggZD0iTTU0OC42MSw1NDIuOGMxMy44OC0zLjgsMjguNjYtNy40OSw0My42NS0xMC42MmMzLjQ3LTAuNyw3LjM5LTEuNTcsMTEuNTEtMi40NmMtMC45Ni04LjctMi45OS0xNy4yNi02LjE2LTI1LjM3bC00OS42NCwyOC40M2MwLjU5LDIuNDQsMC43MSw0LjY1LDAuNzEsNy4xM0M1NDguNjcsNTQwLjkxLDU0OC42MSw1NDEuODgsNTQ4LjYxLDU0Mi44eiIvPgo8cGF0aCBkPSJNNTgyLjExLDQ3Ny42NWMtMTUuNDgtMTkuMjUtMzcuNDQtMzItNjEuODItMzUuNTlsLTAuMTUsNTYuOTdjNC43MywxLjc4LDguNzcsMy45NiwxMi40OCw3LjE0TDU4Mi4xMSw0NzcuNjV6Ii8+CjxwYXRoIGQ9Ik01MDQuNzUsNDEwLjIxYy0xNzAuNSw0LjIxLTE3MS44MiwyNTQuODEsMCwyNTkuNThDNjc2LjgsNjY0Ljk5LDY3NS40Niw0MTQuNCw1MDQuNzUsNDEwLjIxeiBNNTEzLjQ2LDQzNC4yYzMyLjUzLDIuNjQsNjEuMTEsMTkuOTUsNzguOCw0NS40NWwtNjAuNDgsMzQuOTZjLTQuODUtNS4xNi0xMS4yNi04Ljk1LTE4LjMyLTEwLjYyVjQzNC4yeiBNNDk2LjE1LDQzNC4ydjY5LjhjLTcuMTEsMS42Ny0xMy4zNCw1LjQ2LTE4LjMxLDEwLjYybC02MC40Ni0zNC45NkM0MzUuMDksNDU0LjE1LDQ2My40Nyw0MzYuODMsNDk2LjE1LDQzNC4yeiBNNDA5LjAxLDU4NS42OWMtMTMuNDctMjguMTgtMTQuMTgtNjEuNC0wLjMxLTkxLjA0bDYwLjQ2LDM0Ljc5Yy0xLjk5LDcuMDEtMS45OSwxNC4zOSwwLjEzLDIxLjE1QzQ2Mi40Nyw1NTQuNTcsNDE0LjUsNTgyLjUxLDQwOS4wMSw1ODUuNjl6IE00OTYuMTUsNjQ1Ljg5Yy0zMi43My0yLjUzLTYwLjY2LTIwLjAyLTc4Ljc3LTQ1LjM2YzE0Ljg1LTguNjIsNDUuODctMjYuNiw2MC41NS0zNS4wOGM0Ljk4LDUuMTIsMTEuMiw4Ljc0LDE4LjIyLDEwLjQ0VjY0NS44OXogTTQ4NS44OCw1MzkuOThjMC4wNy0yNC42NCwzNy42Mi0yNC42NywzNy42OSwwQzUyMy4xNSw1NjQuOTQsNDg2LjMsNTY0LjksNDg1Ljg4LDUzOS45OHogTTUxMy40Niw2NDUuODJWNTc1LjljNy4wNS0xLjY3LDEzLjE5LTUuMzksMTguMTgtMTAuNDRjMTQuODYsOC42Miw0NS40NCwyNi4zOCw2MC40LDM1LjA4QzU3NC41Nyw2MjUuODUsNTQ1Ljk5LDY0My4yMyw1MTMuNDYsNjQ1LjgyeiBNNjAyLjM5LDU4MS45MmMtMC41MSwxLjItMS4wNywyLjQtMS42MiwzLjUyYy0xLjc2LTAuOTktNTcuMDUtMzIuODktNjAuNDYtMzQuODVjMi4wOC03LjIsMS45OS0xNC44MywwLTIxLjE1bDYwLjQ2LTM0Ljg5QzYxNS4yNyw1MjQuNjgsNjEzLjAxLDU1Ny43OCw2MDIuMzksNTgxLjkyeiIvPgo8cGF0aCBkPSJNODUyLjUsNDI3LjUyYy0xLjU1LDE5LjE1LTQsMzguMTMtNy4yOSw1Ni44OGwtMTQxLjQ1LDkuNTdjLTEuMDYsNi40OS01LjYzLDEzLjY1LTE2LjEyLDE2LjEybC00Ny41OCwxMS4yOWMtNS4zMi0zOC45NC0yNy4wOS03Mi41Ny01Ny44Mi05My44Nkg4NTIuNXoiLz4KPC9nPgo8cGF0aCBkPSJNMzkyLjU3LDYxNy43NGMtMzcuNTYsMjEuMDEtNzYuMTYsMzYuNzQtMTE1LjksNDYuNzFoLTQzLjU1bC01LjYzLTExLjMzYzUyLjMzLTEwLjU0LDEwOC4zMy00NS40NiwxNDIuODctODguMThDMzczLjg2LDU4My44OCwzODEuNTksNjAyLjE3LDM5Mi41Nyw2MTcuNzR6Ii8+CjwvZz4KPC9nPgo8L3N2Zz4K"),
+      url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDgwIDEwODAiPgo8ZyBmaWxsPSIjQjg5NTJGIiBmaWxsLW9wYWNpdHk9IjAuMDciPgo8Zz4KPGc+CjxwYXRoIGQ9Ik00ODkuNDEsNDQxLjkyYy0yNC4zOCwzLjczLTQ2LjQ2LDE2LjQ3LTYxLjg2LDM1LjczbDQ5LjM2LDI4LjUyYzMuNjItMy4xOCw3Ljg1LTUuNTgsMTIuNTgtNy4yM0w0ODkuNDEsNDQxLjkyeiIvPgo8cGF0aCBkPSJNNDI3LjMzLDQyNy41MmMtMjcuNjcsMTguOTMtNDcuODIsNDcuOTMtNTUuNzIsODEuNTJjLTI1LjA1LDAuODktNDQuMzksMS4zNy01Ny44OSwxLjM3Yy0xNC4xMiwwLTI2LjA1LTExLjA0LTMwLjczLTI2LjU0aC0xMS45MWMtMy4xLDAtNy40OS0zLjY4LTcuNDktMTQuODNjMC0xMS4xMyw0LjM5LTE0LjksNy40OS0xNC45aDExLjkxYzQuNjgtMTUuNSwxNi42MS0yNi42MywzMC43My0yNi42M0g0MjcuMzN6Ii8+CjxwYXRoIGQ9Ik01MDQuNzYsNTI3LjkzYy02LjcsMC0xMi4xNCw1LjM0LTEyLjE0LDEyLjA0YzAsNi42Nyw1LjQ0LDEyLjIsMTIuMTQsMTIuMmM2Ljc0LDAsMTIuMDktNS41NCwxMi4wOS0xMi4yQzUxNi44NSw1MzMuMjcsNTExLjUsNTI3LjkzLDUwNC43Niw1MjcuOTN6Ii8+CjxwYXRoIGQ9Ik00NjEuNDMsNTMyLjc4bC00OS4zNi0yOC4zMmMtOC45MiwyMi45NS04LjkyLDQ4LjQ0LDAuMDYsNzEuNDVsNDkuMy0yOC42NEM0NjAuNjksNTQyLjQ5LDQ2MC42OSw1MzcuNjMsNDYxLjQzLDUzMi43OHoiLz4KPHBhdGggZD0iTTU0OC42MSw1NDIuOGMxMy44OC0zLjgsMjguNjYtNy40OSw0My42NS0xMC42MmMzLjQ3LTAuNyw3LjM5LTEuNTcsMTEuNTEtMi40NmMtMC45Ni04LjctMi45OS0xNy4yNi02LjE2LTI1LjM3bC00OS42NCwyOC40M2MwLjU5LDIuNDQsMC43MSw0LjY1LDAuNzEsNy4xM0M1NDguNjcsNTQwLjkxLDU0OC42MSw1NDEuODgsNTQ4LjYxLDU0Mi44eiIvPgo8cGF0aCBkPSJNNTgyLjExLDQ3Ny42NWMtMTUuNDgtMTkuMjUtMzcuNDQtMzItNjEuODItMzUuNTlsLTAuMTUsNTYuOTdjNC43MywxLjc4LDguNzcsMy45NiwxMi40OCw3LjE0TDU4Mi4xMSw0NzcuNjV6Ii8+CjxwYXRoIGQ9Ik01MDQuNzUsNDEwLjIxYy0xNzAuNSw0LjIxLTE3MS44MiwyNTQuODEsMCwyNTkuNThDNjc2LjgsNjY0Ljk5LDY3NS40Niw0MTQuNCw1MDQuNzUsNDEwLjIxeiBNNTEzLjQ2LDQzNC4yYzMyLjUzLDIuNjQsNjEuMTEsMTkuOTUsNzguOCw0NS40NWwtNjAuNDgsMzQuOTZjLTQuODUtNS4xNi0xMS4yNi04Ljk1LTE4LjMyLTEwLjYyVjQzNC4yeiBNNDk2LjE1LDQzNC4ydjY5LjhjLTcuMTEsMS42Ny0xMy4zNCw1LjQ2LTE4LjMxLDEwLjYybC02MC40Ni0zNC45NkM0MzUuMDksNDU0LjE1LDQ2My40Nyw0MzYuODMsNDk2LjE1LDQzNC4yeiBNNDA5LjAxLDU4NS42OWMtMTMuNDctMjguMTgtMTQuMTgtNjEuNC0wLjMxLTkxLjA0bDYwLjQ2LDM0Ljc5Yy0xLjk5LDcuMDEtMS45OSwxNC4zOSwwLjEzLDIxLjE1QzQ2Mi40Nyw1NTQuNTcsNDE0LjUsNTgyLjUxLDQwOS4wMSw1ODUuNjl6IE00OTYuMTUsNjQ1Ljg5Yy0zMi43My0yLjUzLTYwLjY2LTIwLjAyLTc4Ljc3LTQ1LjM2YzE0Ljg1LTguNjIsNDUuODctMjYuNiw2MC41NS0zNS4wOGM0Ljk4LDUuMTIsMTEuMiw4Ljc0LDE4LjIyLDEwLjQ0VjY0NS44OXogTTQ4NS44OCw1MzkuOThjMC4wNy0yNC42NCwzNy42Mi0yNC42NywzNy42OSwwQzUyMy4xNSw1NjQuOTQsNDg2LjMsNTY0LjksNDg1Ljg4LDUzOS45OHogTTUxMy40Niw2NDUuODJWNTc1LjljNy4wNS0xLjY3LDEzLjE5LTUuMzksMTguMTgtMTAuNDRjMTQuODYsOC42Miw0NS40NCwyNi4zOCw2MC40LDM1LjA4QzU3NC41Nyw2MjUuODUsNTQ1Ljk5LDY0My4yMyw1MTMuNDYsNjQ1LjgyeiBNNjAyLjM5LDU4MS45MmMtMC41MSwxLjItMS4wNywyLjQtMS42MiwzLjUyYy0xLjc2LTAuOTktNTcuMDUtMzIuODktNjAuNDYtMzQuODVjMi4wOC03LjIsMS45OS0xNC44MywwLTIxLjE1bDYwLjQ2LTM0Ljg5QzYxNS4yNyw1MjQuNjgsNjEzLjAxLDU1Ny43OCw2MDIuMzksNTgxLjkyeiIvPgo8cGF0aCBkPSJNODUyLjUsNDI3LjUyYy0xLjU1LDE5LjE1LTQsMzguMTMtNy4yOSw1Ni44OGwtMTQxLjQ1LDkuNTdjLTEuMDYsNi40OS01LjYzLDEzLjY1LTE2LjEyLDE2LjEybC00Ny41OCwxMS4yOWMtNS4zMi0zOC45NC0yNy4wOS03Mi41Ny01Ny44Mi05My44Nkg4NTIuNXoiLz4KPC9nPgo8cGF0aCBkPSJNMzkyLjU3LDYxNy43NGMtMzcuNTYsMjEuMDEtNzYuMTYsMzYuNzQtMTE1LjksNDYuNzFoLTQzLjU1bC01LjYzLTExLjMzYzUyLjMzLTEwLjU0LDEwOC4zMy00NS40NiwxNDIuODctODguMThDMzczLjg2LDU4My44OCwzODEuNTksNjAyLjE3LDM5Mi41Nyw2MTcuNzR6Ii8+CjwvZz4KPC9nPgo8L3N2Zz4K");
+    background-position: 0 0, 35px 35px;
+    background-repeat: repeat, repeat;
+    background-size: 70px 70px, 70px 70px;
+    color: var(--text);
+    overscroll-behavior: none;
+  }
+
+  header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 20;
+    background: var(--header-red);
+    border-bottom: 1px solid rgba(0,0,0,0.18);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+    padding: 14px 150px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .header-top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+  }
+  .logo {
+    width: 104px;
+    height: 104px;
+    flex: 0 0 auto;
+    fill: var(--gold);
+  }
+  .logo-flip {
+    transform: scaleX(-1);
+  }
+  .star-grid {
+    display: grid;
+    grid-template-columns: repeat(7, auto);
+    gap: 2px 4px;
+    color: var(--gold);
+    font-size: 8px;
+    line-height: 1;
+    flex: 0 0 auto;
+  }
+  header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    text-align: center;
+    color: #ffffff;
+  }
+  /* Competition swatch key: floating box, bottom-right, fixed in the
+     viewport so it stays put as month slides are paged through. */
+  .legend {
+    position: fixed;
+    right: 18px;
+    bottom: 14px;
+    z-index: 20;
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    align-items: center;
+    row-gap: 6px;
+    column-gap: 14px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 10px 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text);
+    max-width: calc(100% - 36px);
+    opacity: 1;
+    transition: opacity 0.3s ease;
+  }
+  .legend.faded {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .legend-item { display: flex; align-items: center; gap: 6px; }
+  .swatch {
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.12);
+  }
+  .swatch.comp-friendly { background: var(--comp-friendly); }
+  .swatch.comp-shield { background: var(--comp-shield); }
+  .swatch.comp-pl { background: var(--comp-pl); }
+  .swatch.comp-cl { background: var(--comp-cl); }
+  .swatch.comp-efl { background: var(--comp-efl); }
+  .swatch.comp-fa { background: var(--comp-fa); }
+  .swatch.comp-fifa { background: var(--comp-fifa); }
+
+  .header-live {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding-top: 9px;
+    border-top: 1px solid rgba(255,255,255,0.28);
+    font-size: 12px;
+  }
+  #liveClock {
+    color: rgba(255,255,255,0.82);
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+  }
+  #liveCountdown {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    color: #ffffff;
+  }
+  #liveCountdown .live-label {
+    color: rgba(255,255,255,0.7);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 10px;
+    letter-spacing: 0.3px;
+  }
+  #liveCountdown .opp-name { font-weight: 700; color: #ffffff; }
+  /* The opponent name itself is the pill now (competition tag removed) —
+     colored by the fixture's competition, same palette as the day-cell
+     swatches and legend. */
+  #liveCountdown .opp-name.comp-friendly,
+  #liveCountdown .opp-name.comp-shield,
+  #liveCountdown .opp-name.comp-pl,
+  #liveCountdown .opp-name.comp-cl,
+  #liveCountdown .opp-name.comp-efl,
+  #liveCountdown .opp-name.comp-fa,
+  #liveCountdown .opp-name.comp-fifa {
+    color: #fff;
+    border-radius: 5px;
+    padding: 2px 8px;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.6);
+  }
+  #liveCountdown .opp-name.comp-friendly { background: var(--comp-friendly); }
+  #liveCountdown .opp-name.comp-shield { background: var(--comp-shield); }
+  #liveCountdown .opp-name.comp-pl { background: var(--comp-pl); }
+  #liveCountdown .opp-name.comp-cl { background: var(--comp-cl); }
+  #liveCountdown .opp-name.comp-efl { background: var(--comp-efl); }
+  #liveCountdown .opp-name.comp-fa { background: var(--comp-fa); }
+  #liveCountdown .opp-name.comp-fifa { background: var(--comp-fifa); }
+  #liveCountdown .time-left { color: rgba(255,255,255,0.8); font-weight: 500; }
+  #liveCountdown .time-left.live-now {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: #fff;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+  }
+  #liveCountdown .time-left.live-now::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #fff;
+    animation: liveDotPulse 1.4s ease-in-out infinite;
+  }
+  @keyframes liveDotPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.25; }
+  }
+
+  /* Paged scroll viewport */
+  #viewport {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+  }
+  #track {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    will-change: transform;
+  }
+  /* While switching the men's/women's team, only fixture-specific content
+     (the crest/comp chip, venue label, kickoff time, final-score pill)
+     fades out and back in — month titles, weekday headers, day numbers,
+     and cells with no fixture never change, so they're left untouched. */
+  #track.team-fading .fixture,
+  #track.team-fading .day-venue,
+  #track.team-fading .day-time,
+  #track.team-fading .day-score {
+    opacity: 0;
+  }
+
+  .slide {
+    width: 100%;
+    height: var(--vh, 100vh);
+    display: flex;
+    flex-direction: column;
+    padding: calc(var(--header-h, 108px) + 20px) 150px 34px;
+  }
+
+  .month-title {
+    flex: 0 0 auto;
+    font-size: clamp(22px, 4vw, 32px);
+    font-weight: 700;
+    margin: 0 0 12px 0;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    text-align: center;
+  }
+  .grid {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: auto repeat(6, 1fr);
+    gap: 6px;
+  }
+  .dow {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--muted);
+    text-align: center;
+    padding-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+  .day {
+    /* Tracks this cell's own border-width so absolutely-positioned children
+       (the score pill) can offset by exactly that much and land flush on
+       the true outer edge, whether the border is 1px (normal) or 2px
+       (today's thicker highlight) — see .day-score below. */
+    --cell-border-w: 1px;
+    position: relative;
+    background: var(--card);
+    border: 1px solid var(--card);
+    border-radius: 8px;
+    min-height: 0;
+    height: 100%;
+    padding: 4px;
+    display: flex;
+    overflow: hidden;
+    /* Cell nodes persist across a team switch (renderFixtures only mutates
+       their class list), so a plain color transition is enough to make the
+       background/border cross-fade smoothly whenever those classes change
+       — it's a no-op for cells whose fixture status doesn't change. */
+    transition: background-color 0.28s ease, border-color 0.28s ease;
+  }
+  .day.empty {
+    background: transparent;
+    border: none;
+  }
+  .day.today {
+    --cell-border-w: 2px;
+    background: var(--today);
+    border-width: 2px;
+    border-color: var(--header-red);
+  }
+  /* Past dates with no fixture — invert the cell's fill and number color
+     instead of leaving them plain white, so they read as "gone by". */
+  .day.past {
+    background: var(--muted);
+    border-color: var(--muted);
+  }
+  .day.past .day-num {
+    color: var(--card);
+  }
+  .day-num {
+    position: absolute;
+    top: 4px;
+    left: 6px;
+    z-index: 1;
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 600;
+    /* The number itself never changes across a team switch, only its color
+       (white on a fixture cell vs. muted otherwise) — cross-fade that
+       instead of snapping, so it matches the cell's own color transition. */
+    transition: color 0.28s ease;
+  }
+  .day.today .day-num { color: #8a6a00; }
+
+  /* When a day has a fixture, the competition color fills the whole cell */
+  .day.has-fixture { border-color: transparent; }
+  .day.has-fixture.comp-friendly { background: var(--comp-friendly); }
+  .day.has-fixture.comp-shield { background: var(--comp-shield); }
+  .day.has-fixture.comp-pl { background: var(--comp-pl); }
+  .day.has-fixture.comp-cl { background: var(--comp-cl); }
+  .day.has-fixture.comp-efl { background: var(--comp-efl); }
+  .day.has-fixture.comp-fa { background: var(--comp-fa); }
+  .day.has-fixture.comp-fifa { background: var(--comp-fifa); }
+  /* Matches that have already been played get a 25%-lighter tint of their
+     competition color, so completed fixtures read as visually "past" at a
+     glance while keeping the same hue as upcoming ones. */
+  .day.has-fixture.fixture-past.comp-friendly { background: color-mix(in srgb, var(--comp-friendly) 75%, white); }
+  .day.has-fixture.fixture-past.comp-shield { background: color-mix(in srgb, var(--comp-shield) 75%, white); }
+  .day.has-fixture.fixture-past.comp-pl { background: color-mix(in srgb, var(--comp-pl) 75%, white); }
+  .day.has-fixture.fixture-past.comp-cl { background: color-mix(in srgb, var(--comp-cl) 75%, white); }
+  .day.has-fixture.fixture-past.comp-efl { background: color-mix(in srgb, var(--comp-efl) 75%, white); }
+  .day.has-fixture.fixture-past.comp-fa { background: color-mix(in srgb, var(--comp-fa) 75%, white); }
+  .day.has-fixture.fixture-past.comp-fifa { background: color-mix(in srgb, var(--comp-fifa) 75%, white); }
+  .day.has-fixture .day-num { color: rgba(255,255,255,0.85); }
+  .day.has-fixture.today {
+    outline: 3px solid var(--header-red);
+    outline-offset: -3px;
+  }
+  .day-venue {
+    position: absolute;
+    top: 4px;
+    right: 6px;
+    z-index: 1;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.2px;
+    color: rgba(255,255,255,0.85);
+    transition: opacity 0.22s ease;
+  }
+  .day-time {
+    position: absolute;
+    bottom: 3px;
+    right: 6px;
+    z-index: 1;
+    max-width: 60px;
+    font-size: 10px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: rgba(255,255,255,0.85);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: opacity 0.22s ease;
+  }
+  /* Final score pill for completed matches, replacing the kickoff time.
+     Always inset 3px from the cell's bottom-right corner — same fixed
+     inset on every cell, today's or not, so the pill looks identical
+     everywhere instead of sitting flush on the edge for most cells but
+     pulled in only on today's (which used to look inconsistent). */
+  .day-score {
+    position: absolute;
+    bottom: 3px;
+    right: 3px;
+    z-index: 1;
+    max-width: 70px;
+    padding: 1px 7px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #ffffff;
+    background: rgba(0,0,0,0.22);
+    transition: opacity 0.22s ease;
+  }
+  /* Shared win/loss/draw fills — used by the day-cell score pill and the
+     modal's final-score badge. */
+  .result-win { background: var(--result-win); }
+  .result-loss { background: var(--result-loss); }
+  .result-draw { background: var(--result-draw); }
+
+  .fixture {
+    flex: 1 1 auto;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+    transition: opacity 0.22s ease;
+  }
+  .fixture:hover { filter: brightness(1.1); }
+  .fixture.no-click { cursor: default; }
+  .fixture.no-click:hover { filter: none; }
+  .fixture:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: -2px;
+  }
+  .fixture .crest-only {
+    width: 100%;
+    height: 100%;
+    max-width: 64px;
+    max-height: 64px;
+    object-fit: contain;
+  }
+  .fixture .comp-label {
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+  }
+
+  /* Info slide */
+  .info-slide {
+    align-items: center;
+  }
+  .info-slide .box {
+    width: 100%;
+    max-width: 520px;
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    padding-right: 6px;
+    font-size: 13.5px;
+    line-height: 1.7;
+    color: var(--muted);
+  }
+  .info-slide .box strong { color: var(--text); }
+  .info-slide .box a {
+    color: var(--arsenal-red);
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(239,1,7,0.35);
+  }
+  .info-slide .box a:hover { border-bottom-color: var(--arsenal-red); }
+  .info-slide h2 { font-size: 26px; margin: 0 0 16px 0; }
+
+  /* Dot navigation */
+  #dots {
+    position: fixed;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+  }
+  .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #d5d5d5;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: background 0.25s, transform 0.25s;
+  }
+  .dot.active {
+    background: var(--arsenal-red);
+    transform: scale(1.35);
+  }
+
+  /* Swipe hint (mobile) */
+  #hint {
+    position: fixed;
+    bottom: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 10.5px;
+    color: var(--muted);
+    z-index: 20;
+    opacity: 0.8;
+    pointer-events: none;
+  }
+
+  /* Back to top */
+  #backToTop {
+    position: fixed;
+    left: 18px;
+    bottom: 14px;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font: inherit;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 7px 12px;
+    border-radius: 999px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    opacity: 0;
+    transform: translateY(6px);
+    pointer-events: none;
+    transition: opacity 0.25s, transform 0.25s, background 0.2s;
+  }
+  #backToTop.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  #backToTop:hover { background: var(--bg); }
+  #backToTop svg { width: 11px; height: 11px; flex: 0 0 auto; }
+
+  /* Fixture detail modal */
+  #modalOverlay {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    background: rgba(15,15,15,0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+  }
+  #modalOverlay.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .modal-card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 26px 26px 18px;
+    width: 100%;
+    max-width: 380px;
+    max-height: 80vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    position: relative;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.35);
+    transform: translateY(10px) scale(0.97);
+    transition: transform 0.2s ease;
+  }
+  #modalOverlay.open .modal-card {
+    transform: translateY(0) scale(1);
+  }
+  .modal-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: none;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-close:hover { background: var(--border); }
+  .modal-tag {
+    display: inline-block;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    margin-bottom: 14px;
+  }
+  .modal-tag.comp-friendly { background: var(--comp-friendly); }
+  .modal-tag.comp-shield { background: var(--comp-shield); }
+  .modal-tag.comp-pl { background: var(--comp-pl); }
+  .modal-tag.comp-cl { background: var(--comp-cl); }
+  .modal-tag.comp-efl { background: var(--comp-efl); }
+  .modal-tag.comp-fa { background: var(--comp-fa); }
+  .modal-tag.comp-fifa { background: var(--comp-fifa); }
+  .modal-title-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding-right: 24px;
+  }
+  .modal-crest {
+    width: 42px;
+    height: 42px;
+    flex: 0 0 auto;
+    object-fit: contain;
+  }
+  .modal-opp {
+    font-size: 21px;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: -0.2px;
+    min-width: 0;
+  }
+  .modal-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .modal-row:last-child { margin-bottom: 0; }
+  /* modalHomeAwayRow always follows modalVenueRow in the DOM (even when
+     hidden), so :last-child alone can't tell when the venue row is the
+     last *visible* row. Zero its own bottom margin and let the home/away
+     row (which IS a true :last-child when shown) supply the gap above
+     itself instead, so there's never a stray trailing margin under
+     whichever row ends up last. */
+  #modalVenueRow { margin-bottom: 0; }
+  #modalHomeAwayRow { margin-top: 10px; }
+  .modal-row .icon {
+    flex: 0 0 auto;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.7;
+    margin-top: 1px;
+  }
+  .modal-row .icon svg { width: 15px; height: 15px; }
+  .modal-row strong { color: var(--text); font-weight: 600; }
+
+  /* Finished-match scoreboard (shown instead of the tag/title/date rows
+     when a fixture has a recorded score). */
+  #modalResult { margin-bottom: 18px; }
+  .result-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 18px;
+    padding-right: 24px;
+  }
+  .result-comp {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+  .result-comp.comp-friendly { color: var(--comp-friendly); }
+  .result-comp.comp-shield { color: var(--comp-shield); }
+  .result-comp.comp-pl { color: var(--comp-pl); }
+  .result-comp.comp-cl { color: var(--comp-cl); }
+  .result-comp.comp-efl { color: var(--comp-efl); }
+  .result-comp.comp-fa { color: var(--comp-fa); }
+  .result-comp.comp-fifa { color: var(--comp-fifa); }
+  .result-fulltime {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+  .result-board {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+  .result-team {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 7px;
+    flex: 1 1 0;
+    min-width: 0;
+  }
+  .result-crest-wrap { display: flex; align-items: center; justify-content: center; }
+  .result-crest {
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+  }
+  .result-crest-placeholder {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--border);
+  }
+  .result-team-name {
+    font-size: 12.5px;
+    font-weight: 600;
+    text-align: center;
+    line-height: 1.25;
+  }
+  .result-score {
+    display: flex;
+    align-items: baseline;
+    gap: 7px;
+    font-size: 30px;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    flex: 0 0 auto;
+    color: var(--text);
+    background: none;
+  }
+  .result-dash { color: var(--muted); font-weight: 500; }
+  .result-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 0 0 14px;
+  }
+  .result-scorers {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: start;
+    gap: 0 10px;
+  }
+  .result-scorer-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 12.5px;
+    line-height: 1.7;
+    color: var(--text);
+  }
+  .result-scorer-list-right { text-align: right; }
+  .result-ball {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    margin-top: 3px;
+    color: var(--muted);
+    opacity: 0.7;
+  }
+  .result-ball svg { width: 13px; height: 13px; }
+
+  /* Squad list toggle + collapsible left overlay panel */
+  /* A labeled pill sitting just below the header banner (tracked via
+     --header-h, kept in sync with the header's real rendered height in
+     JS), on the page background instead of overlapping the header's
+     logo/title artwork. */
+  #squadToggle {
+    position: fixed;
+    top: calc(var(--header-h, 108px) + 10px);
+    left: 14px;
+    z-index: 21;
+    padding: 7px 14px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--card);
+    color: var(--text);
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  #squadToggle:hover { background: var(--bg); }
+
+  /* Men's/Women's calendar toggle — a two-option segmented pill on the
+     opposite (right) side of the header from #squadToggle, same vertical
+     position. Both options are always visible; a sliding red indicator
+     glides behind whichever one is active, eased with the same cubic
+     curve used for the month-paging animation elsewhere on the page. */
+  #teamToggle {
+    position: fixed;
+    top: calc(var(--header-h, 108px) + 10px);
+    right: 14px;
+    z-index: 21;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    padding: 3px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--card);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  .team-toggle-indicator {
+    position: absolute;
+    top: 3px;
+    bottom: 3px;
+    left: 3px;
+    width: calc(50% - 3px);
+    background: var(--arsenal-red);
+    border-radius: 999px;
+    transition: transform 0.38s cubic-bezier(0.65, 0, 0.35, 1);
+  }
+  #teamToggle[data-active="women"] .team-toggle-indicator {
+    transform: translateX(100%);
+  }
+  .team-toggle-btn {
+    position: relative;
+    z-index: 1;
+    min-width: 56px;
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    text-align: center;
+    padding: 5px 12px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: color 0.38s cubic-bezier(0.65, 0, 0.35, 1);
+  }
+  .team-toggle-btn:hover { color: var(--text); }
+  .team-toggle-btn.active { color: #ffffff; }
+  .team-toggle-btn.active:hover { color: #ffffff; }
+
+  #squadOverlay {
+    position: fixed;
+    inset: 0;
+    z-index: 55;
+    background: rgba(15,15,15,0.55);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+  }
+  #squadOverlay.open { opacity: 1; pointer-events: auto; }
+
+  .squad-panel {
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    width: 340px;
+    max-width: 88vw;
+    background: var(--card);
+    box-shadow: 8px 0 32px rgba(0,0,0,0.28);
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+    display: flex;
+    flex-direction: column;
+  }
+  #squadOverlay.open .squad-panel { transform: translateX(0); }
+
+  .squad-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 18px 12px;
+    border-bottom: 1px solid var(--border);
+    flex: 0 0 auto;
+  }
+  .squad-panel-header h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.2px;
+  }
+  .squad-close {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: none;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 17px;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+  }
+  .squad-close:hover { background: var(--border); }
+
+  .squad-panel-controls {
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--border);
+    flex: 0 0 auto;
+  }
+  .squad-select-label {
+    display: block;
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .squad-select {
+    width: 100%;
+    padding: 8px 32px 8px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text);
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    /* Native select arrows sit flush against the edge with no way to pad
+       them, so draw our own and give it proper breathing room. */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M4 6.5L8 10.5L12 6.5' stroke='%238a8a8a' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 12px 12px;
+  }
+
+  .squad-table-wrap {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 0 18px 18px;
+  }
+  .squad-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11.5px;
+  }
+  .squad-table thead th {
+    position: sticky;
+    top: 0;
+    background: var(--card);
+    text-align: right;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    color: var(--muted);
+    padding: 8px 4px 6px;
+    border-bottom: 1px solid var(--border);
+  }
+  .squad-table th.col-name, .squad-table td.col-name { text-align: left; }
+  .squad-table th.col-num, .squad-table td.col-num { text-align: left; }
+  .squad-table td {
+    padding: 6px 4px;
+    border-bottom: 1px solid var(--border);
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    color: var(--text);
+  }
+  .squad-group-row td {
+    text-align: left;
+    padding: 10px 4px 4px;
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--header-red);
+    border-bottom: 1px solid var(--border);
+  }
+  .squad-num { color: var(--muted); font-weight: 600; }
+  .squad-name {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: 600;
+  }
+  .squad-injury-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 11px;
+    height: 11px;
+    flex: 0 0 auto;
+    color: var(--result-loss);
+  }
+  .squad-injury-icon svg { width: 100%; height: 100%; }
+
+  @media (max-width: 600px) {
+    header { padding: 10px 14px; }
+    /* The decorative star clusters don't leave enough room for the logo +
+       title on narrow screens and were breaking the header into a lopsided
+       3-line wrap, so they're dropped on mobile. */
+    .star-grid { display: none; }
+    .brand { flex-wrap: wrap; row-gap: 4px; justify-content: center; }
+    .logo { width: 44px; height: 44px; }
+    header h1 { font-size: 17px; letter-spacing: 0.3px; }
+    .legend {
+      right: 8px;
+      /* Sit above the "scroll or swipe" hint instead of overlapping it. */
+      bottom: 46px;
+      grid-template-columns: repeat(2, auto);
+      column-gap: 8px;
+      row-gap: 4px;
+      padding: 8px 10px;
+      font-size: 9.5px;
+    }
+    .header-live { font-size: 11px; }
+    .slide { padding: calc(var(--header-h, 128px) + 14px) 24px 40px 14px; }
+    .fixture .crest-only { max-width: 38px; max-height: 38px; }
+    .fixture .comp-label { font-size: 10px; }
+    .day-time {
+      right: auto;
+      left: 50%;
+      transform: translateX(-50%);
+      max-width: 50px;
+      font-size: 11px;
+    }
+    .day-score {
+      left: 3px;
+      right: 3px;
+      bottom: 3px;
+      transform: none;
+      width: auto;
+      max-width: none;
+      text-align: center;
+      border-radius: 4px;
+      font-size: 11px;
+      padding: 2px 4px;
+    }
+    #dots { right: 6px; gap: 6px; }
+    .dot { width: 5px; height: 5px; }
+    #backToTop { left: 8px; padding: 6px 10px; font-size: 10px; }
+    .info-slide .box { font-size: 12.5px; line-height: 1.6; }
+    .modal-card { padding: 20px; max-height: 85vh; }
+    .modal-opp { font-size: 18px; }
+    .squad-panel { width: 300px; }
+  }
+</style>
+</head>
+<body>
+
+<svg style="display:none" aria-hidden="true">
+  <symbol id="cannon-logo" viewBox="0 0 1080 1080">
+    <g>
+      <g>
+        <path d="M489.41,441.92c-24.38,3.73-46.46,16.47-61.86,35.73l49.36,28.52c3.62-3.18,7.85-5.58,12.58-7.23L489.41,441.92z"/>
+        <path d="M427.33,427.52c-27.67,18.93-47.82,47.93-55.72,81.52c-25.05,0.89-44.39,1.37-57.89,1.37
+          c-14.12,0-26.05-11.04-30.73-26.54h-11.91c-3.1,0-7.49-3.68-7.49-14.83c0-11.13,4.39-14.9,7.49-14.9h11.91
+          c4.68-15.5,16.61-26.63,30.73-26.63H427.33z"/>
+        <path d="M504.76,527.93c-6.7,0-12.14,5.34-12.14,12.04c0,6.67,5.44,12.2,12.14,12.2c6.74,0,12.09-5.54,12.09-12.2
+          C516.85,533.27,511.5,527.93,504.76,527.93z"/>
+        <path d="M461.43,532.78l-49.36-28.32c-8.92,22.95-8.92,48.44,0.06,71.45l49.3-28.64C460.69,542.49,460.69,537.63,461.43,532.78z"
+          />
+        <path d="M548.61,542.8c13.88-3.8,28.66-7.49,43.65-10.62c3.47-0.7,7.39-1.57,11.51-2.46c-0.96-8.7-2.99-17.26-6.16-25.37
+          l-49.64,28.43c0.59,2.44,0.71,4.65,0.71,7.13C548.67,540.91,548.61,541.88,548.61,542.8z"/>
+        <path d="M582.11,477.65c-15.48-19.25-37.44-32-61.82-35.59l-0.15,56.97c4.73,1.78,8.77,3.96,12.48,7.14L582.11,477.65z"/>
+        <path d="M504.75,410.21c-170.5,4.21-171.82,254.81,0,259.58C676.8,664.99,675.46,414.4,504.75,410.21z M513.46,434.2
+          c32.53,2.64,61.11,19.95,78.8,45.45l-60.48,34.96c-4.85-5.16-11.26-8.95-18.32-10.62V434.2z M496.15,434.2v69.8
+          c-7.11,1.67-13.34,5.46-18.31,10.62l-60.46-34.96C435.09,454.15,463.47,436.83,496.15,434.2z M409.01,585.69
+          c-13.47-28.18-14.18-61.4-0.31-91.04l60.46,34.79c-1.99,7.01-1.99,14.39,0.13,21.15C462.47,554.57,414.5,582.51,409.01,585.69z
+          M496.15,645.89c-32.73-2.53-60.66-20.02-78.77-45.36c14.85-8.62,45.87-26.6,60.55-35.08c4.98,5.12,11.2,8.74,18.22,10.44V645.89z
+          M485.88,539.98c0.07-24.64,37.62-24.67,37.69,0C523.15,564.94,486.3,564.9,485.88,539.98z M513.46,645.82V575.9
+          c7.05-1.67,13.19-5.39,18.18-10.44c14.86,8.62,45.44,26.38,60.4,35.08C574.57,625.85,545.99,643.23,513.46,645.82z M602.39,581.92
+          c-0.51,1.2-1.07,2.4-1.62,3.52c-1.76-0.99-57.05-32.89-60.46-34.85c2.08-7.2,1.99-14.83,0-21.15l60.46-34.89
+          C615.27,524.68,613.01,557.78,602.39,581.92z"/>
+        <path d="M852.5,427.52c-1.55,19.15-4,38.13-7.29,56.88l-141.45,9.57c-1.06,6.49-5.63,13.65-16.12,16.12l-47.58,11.29
+          c-5.32-38.94-27.09-72.57-57.82-93.86H852.5z"/>
+      </g>
+      <path d="M392.57,617.74c-37.56,21.01-76.16,36.74-115.9,46.71h-43.55l-5.63-11.33c52.33-10.54,108.33-45.46,142.87-88.18
+        C373.86,583.88,381.59,602.17,392.57,617.74z"/>
+    </g>
+  </symbol>
+</svg>
+
+<header>
+  <div class="header-top">
+    <div class="brand">
+      <div class="star-grid" aria-hidden="true">
+        <span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span>
+        <span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span>
+      </div>
+      <svg class="logo logo-flip" viewBox="0 0 1080 1080" aria-hidden="true"><use href="#cannon-logo"></use></svg>
+      <h1 id="pageTitle">Arsenal 2026/27 Calendar</h1>
+      <svg class="logo" viewBox="0 0 1080 1080" aria-hidden="true"><use href="#cannon-logo"></use></svg>
+      <div class="star-grid" aria-hidden="true">
+        <span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span>
+        <span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span>
+      </div>
+    </div>
+  </div>
+  <div class="header-live">
+    <div id="liveClock"></div>
+    <div id="liveCountdown"></div>
+  </div>
+</header>
+
+<div id="viewport">
+  <div id="track"></div>
+</div>
+
+<div id="dots"></div>
+<div id="hint">Scroll or swipe to change month</div>
+<div class="legend">
+  <div class="legend-item"><span class="swatch comp-pl"></span> Premier League</div>
+  <div class="legend-item"><span class="swatch comp-cl"></span> Champions League</div>
+  <div class="legend-item"><span class="swatch comp-efl"></span> EFL Cup</div>
+  <div class="legend-item"><span class="swatch comp-fa"></span> FA Cup</div>
+  <div class="legend-item"><span class="swatch comp-friendly"></span> Friendly</div>
+  <div class="legend-item"><span class="swatch comp-shield"></span> Community Shield</div>
+</div>
+<button id="backToTop" title="Back to August 2026" aria-label="Back to top">
+  <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M8 13V3M8 3L3.5 7.5M8 3l4.5 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+  Back to top
+</button>
+
+<button id="squadToggle" aria-haspopup="dialog" aria-controls="squadPanel" aria-expanded="false" aria-label="Open squad list">Squad</button>
+<div id="teamToggle" role="group" aria-label="Choose team" data-active="men">
+  <span class="team-toggle-indicator" aria-hidden="true"></span>
+  <button type="button" class="team-toggle-btn" data-team="men">Men</button>
+  <button type="button" class="team-toggle-btn" data-team="women">Women</button>
+</div>
+
+<div id="squadOverlay" role="dialog" aria-modal="true" aria-labelledby="squadTitle">
+  <aside class="squad-panel" id="squadPanel">
+    <div class="squad-panel-header">
+      <h2 id="squadTitle">Squad</h2>
+      <button class="squad-close" id="squadClose" aria-label="Close squad list">&times;</button>
+    </div>
+    <div class="squad-panel-controls">
+      <label class="squad-select-label" for="squadCompSelect">Competition</label>
+      <select id="squadCompSelect" class="squad-select"></select>
+    </div>
+    <div class="squad-table-wrap">
+      <table class="squad-table">
+        <thead>
+          <tr>
+            <th class="col-num">#</th>
+            <th class="col-name">Player</th>
+            <th class="col-stat">App</th>
+            <th class="col-stat">Min</th>
+            <th class="col-stat">G</th>
+            <th class="col-stat">A</th>
+          </tr>
+        </thead>
+        <tbody id="squadTableBody"></tbody>
+      </table>
+    </div>
+  </aside>
+</div>
+
+<div id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalOpp">
+  <div class="modal-card" id="modalCard">
+    <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
+    <div class="modal-tag" id="modalTag"></div>
+    <div class="modal-title-row" id="modalTitleRow">
+      <img id="modalCrest" class="modal-crest" alt="" style="display:none;">
+      <h3 class="modal-opp" id="modalOpp"></h3>
+    </div>
+    <div class="modal-row" id="modalDateRow">
+      <span class="icon" aria-hidden="true">
+        <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="3" width="12" height="11" rx="1.5" stroke="currentColor" stroke-width="1.3"/>
+          <path d="M2 6.5H14" stroke="currentColor" stroke-width="1.3"/>
+          <path d="M5.5 1.5V4.5M10.5 1.5V4.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <span id="modalDate"></span>
+    </div>
+    <div id="modalResult" style="display:none;">
+      <div class="result-header">
+        <span class="result-comp" id="resultComp"></span>
+        <span class="result-fulltime">Full-time</span>
+      </div>
+      <div class="result-board">
+        <div class="result-team">
+          <span class="result-crest-wrap" id="resultCrestLeft"></span>
+          <div class="result-team-name" id="resultNameLeft"></div>
+        </div>
+        <div class="result-score" id="resultScore">
+          <span id="resultScoreLeft"></span><span class="result-dash">&ndash;</span><span id="resultScoreRight"></span>
+        </div>
+        <div class="result-team">
+          <span class="result-crest-wrap" id="resultCrestRight"></span>
+          <div class="result-team-name" id="resultNameRight"></div>
+        </div>
+      </div>
+      <div class="result-divider"></div>
+      <div class="result-scorers">
+        <ul class="result-scorer-list" id="resultScorersLeft"></ul>
+        <span class="result-ball" aria-hidden="true">
+          <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="8" cy="8" r="6.3" stroke="currentColor" stroke-width="1.2"/>
+            <path d="M8 4.6L10.4 6.4L9.5 9.2H6.5L5.6 6.4L8 4.6Z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <ul class="result-scorer-list result-scorer-list-right" id="resultScorersRight"></ul>
+      </div>
+    </div>
+    <div class="modal-row" id="modalVenueRow" style="display:none;">
+      <span class="icon" aria-hidden="true">
+        <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 14.5S13 9.8 13 6.3A5 5 0 1 0 3 6.3C3 9.8 8 14.5 8 14.5Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
+          <circle cx="8" cy="6.3" r="1.8" stroke="currentColor" stroke-width="1.3"/>
+        </svg>
+      </span>
+      <span id="modalVenue"></span>
+    </div>
+    <div class="modal-row" id="modalHomeAwayRow" style="display:none;">
+      <span class="icon" aria-hidden="true">
+        <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3.5 1.5V14.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+          <path d="M3.5 2.5H12L10 5L12 7.5H3.5" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <span id="modalHomeAway"></span>
+    </div>
+  </div>
+</div>
+
+<script>
+// Fixture list: Arsenal Men 2026/27 Premier League season
+const menFixtures = [
+  { date: "2026-08-01", opp: "Girona", home: false, time: "19:00", comp: "Friendly", venue: "Estadi Municipal de Montilivi", score: { arsenal: 4, opponent: 1 },
+    scorers: {
+      arsenal: [ { name: "Kai Havertz", min: 16 }, { name: "Christos Tzolis", min: 30 }, { name: "Max Dowman", min: 53 }, { name: "Gabriel Jesus", min: 55 } ],
+      opponent: [ { name: "Arnau Martínez", min: 50 } ]
+    } },
+  { date: "2026-08-05", opp: "Real Betis", home: true, time: "19:30", comp: "Friendly", venue: "Aviva Stadium", score: { arsenal: 1, opponent: 3 },
+    scorers: {
+      arsenal: [ { name: "Piero Hincapié", min: 32 } ],
+      opponent: [ { name: "Rodrigo Riquelme", min: 9 }, { name: "Nelson Deossa", min: 26 }, { name: "Pablo Fornals", min: 43 } ]
+    } },
+  { date: "2026-08-09", opp: "Borussia Dortmund", home: true, time: "14:00", comp: "Friendly", score: { arsenal: 2, opponent: 3 },
+    scorers: {
+      arsenal: [ { name: "Ethan Nwaneri", min: 54 }, { name: "Viktor Gyökeres", min: 69 } ],
+      opponent: [ { name: "Samuele Inácio", min: 7 }, { name: "Konstantinos Karetsas", min: 29 }, { name: "Joane Gadou", min: 58 } ]
+    } },
+  { date: "2026-08-12", opp: "Como 1907", home: true, time: "19:30", comp: "Friendly" },
+  { date: "2026-08-16", opp: "Manchester City", home: true, time: "15:00", comp: "Community Shield", venue: "Principality Stadium" },
+  { date: "2026-08-21", opp: "Coventry City", home: true, time: "20:00" },
+  { date: "2026-08-31", opp: "Aston Villa", home: false, time: "20:00" },
+  { date: "2026-09-06", opp: "Chelsea", home: true, time: "16:30" },
+  { date: "2026-09-08", dateEnd: "2026-09-10", opp: "Matchday 1", comp: "Champions League", time: null, rangeLabel: "8–10 Sep 2026" },
+  { date: "2026-09-12", opp: "Sunderland", home: false, time: "20:00" },
+  { date: "2026-09-15", dateEnd: "2026-09-16", opp: "Third Round · Opponent TBC", comp: "EFL Cup", time: null, rangeLabel: "15–16 Sep 2026" },
+  { date: "2026-09-19", opp: "Brighton & Hove Albion", home: false, time: "15:00" },
+  { date: "2026-09-21", dateEnd: "2026-10-06", opp: "FIFA Break", comp: "FIFA Break", time: null, rangeLabel: "21 Sep – 6 Oct 2026" },
+  { date: "2026-10-10", opp: "Leeds United", home: true, time: null },
+  { date: "2026-10-13", dateEnd: "2026-10-14", opp: "Matchday 2", comp: "Champions League", time: null, rangeLabel: "13–14 Oct 2026" },
+  { date: "2026-10-17", opp: "Nottingham Forest", home: false, time: null },
+  { date: "2026-10-20", dateEnd: "2026-10-21", opp: "Matchday 3", comp: "Champions League", time: null, rangeLabel: "20–21 Oct 2026" },
+  { date: "2026-10-24", opp: "Everton", home: true, time: null },
+  { date: "2026-10-31", opp: "Liverpool", home: false, time: null },
+  { date: "2026-11-03", dateEnd: "2026-11-04", opp: "Matchday 4", comp: "Champions League", time: null, rangeLabel: "3–4 Nov 2026" },
+  { date: "2026-11-07", opp: "Hull City", home: true, time: null },
+  { date: "2026-11-09", dateEnd: "2026-11-17", opp: "FIFA Break", comp: "FIFA Break", time: null, rangeLabel: "9–17 Nov 2026" },
+  { date: "2026-11-21", opp: "Newcastle United", home: false, time: null },
+  { date: "2026-11-24", dateEnd: "2026-11-25", opp: "Matchday 5", comp: "Champions League", time: null, rangeLabel: "24–25 Nov 2026" },
+  { date: "2026-11-28", opp: "Manchester City", home: true, time: null },
+  { date: "2026-12-02", opp: "Brentford", home: false, time: "20:00" },
+  { date: "2026-12-05", opp: "Tottenham Hotspur", home: false, time: null },
+  { date: "2026-12-08", dateEnd: "2026-12-09", opp: "Matchday 6", comp: "Champions League", time: null, rangeLabel: "8–9 Dec 2026" },
+  { date: "2026-12-12", opp: "AFC Bournemouth", home: true, time: null },
+  { date: "2026-12-19", opp: "Manchester United", home: true, time: null },
+  { date: "2026-12-26", opp: "Crystal Palace", home: false, time: null },
+  { date: "2026-12-30", opp: "Fulham", home: false, time: "20:00" },
+  { date: "2027-01-02", opp: "Ipswich Town", home: true, time: null },
+  { date: "2027-01-06", opp: "Brentford", home: true, time: "20:00" },
+  { date: "2027-01-08", dateEnd: "2027-01-11", opp: "Third Round · Opponent TBC", comp: "FA Cup", time: null, rangeLabel: "8–11 Jan 2027" },
+  { date: "2027-01-16", opp: "Hull City", home: false, time: null },
+  { date: "2027-01-19", dateEnd: "2027-01-20", opp: "Matchday 7", comp: "Champions League", time: null, rangeLabel: "19–20 Jan 2027" },
+  { date: "2027-01-23", opp: "Newcastle United", home: true, time: null },
+  { date: "2027-01-27", opp: "Matchday 8", comp: "Champions League", time: null, rangeLabel: "27 Jan 2027" },
+  { date: "2027-01-30", opp: "Manchester City", home: false, time: null },
+  { date: "2027-02-06", opp: "Liverpool", home: true, time: null },
+  { date: "2027-02-10", opp: "Ipswich Town", home: false, time: "20:00" },
+  { date: "2027-02-20", opp: "Fulham", home: true, time: null },
+  { date: "2027-02-27", opp: "Manchester United", home: false, time: null },
+  { date: "2027-03-03", opp: "Crystal Palace", home: true, time: "20:00" },
+  { date: "2027-03-13", opp: "Chelsea", home: false, time: null },
+  { date: "2027-03-20", opp: "Sunderland", home: true, time: null },
+  { date: "2027-03-22", dateEnd: "2027-03-30", opp: "FIFA Break", comp: "FIFA Break", time: null, rangeLabel: "22–30 Mar 2027" },
+  { date: "2027-04-10", opp: "Coventry City", home: false, time: null },
+  { date: "2027-04-17", opp: "Aston Villa", home: true, time: null },
+  { date: "2027-04-24", opp: "AFC Bournemouth", home: false, time: null },
+  { date: "2027-05-01", opp: "Tottenham Hotspur", home: true, time: null },
+  { date: "2027-05-08", opp: "Leeds United", home: false, time: null },
+  { date: "2027-05-15", opp: "Nottingham Forest", home: true, time: null },
+  { date: "2027-05-23", opp: "Everton", home: false, time: null },
+  { date: "2027-05-30", opp: "Brighton & Hove Albion", home: true, time: null }
+];
+
+// Fixture list: Arsenal Women 2026/27 season (pre-season friendlies + Barclays
+// WSL) — sourced from arsenal.com/fixtures/women/fixtures. Kickoff times are
+// stored in UK local time, same convention as menFixtures; only the first two
+// friendlies and the opening four WSL matches had confirmed times at the time
+// of scraping (5 Aug 2026) — every later WSL fixture shows `time: null` and
+// renders as "Time TBC" until the club/broadcasters confirm a slot.
+const womenFixtures = [
+  { date: "2026-08-23", opp: "Paris FC", home: true, time: "13:00", comp: "Friendly", venue: "Mangata Developments Stadium Meadow Park" },
+  { date: "2026-08-26", opp: "Charlton Women", home: true, time: "19:00", comp: "Friendly", venue: "Mangata Developments Stadium Meadow Park" },
+  { date: "2026-09-06", opp: "Brighton Women", home: false, time: "12:00", comp: "Barclays WSL", venue: "Broadfield Stadium" },
+  { date: "2026-09-13", opp: "Crystal Palace Women", home: true, time: "14:45", comp: "Barclays WSL", venue: "Emirates Stadium" },
+  { date: "2026-09-19", opp: "Man United Women", home: true, time: "17:30", comp: "Barclays WSL", venue: "Emirates Stadium" },
+  { date: "2026-09-27", opp: "Chelsea Women", home: false, time: "16:30", comp: "Barclays WSL", venue: "Stamford Bridge" },
+  { date: "2026-10-03", opp: "Manchester City WFC", home: false, time: null, comp: "Barclays WSL", venue: "Etihad Stadium" },
+  { date: "2026-10-17", opp: "Birmingham City WFC", home: true, time: null, comp: "Barclays WSL", venue: "Emirates Stadium" },
+  { date: "2026-10-24", opp: "Tottenham Women", home: false, time: null, comp: "Barclays WSL", venue: "Tottenham Hotspur Stadium" },
+  { date: "2026-10-31", opp: "Aston Villa Women", home: true, time: null, comp: "Barclays WSL", venue: "Emirates Stadium" },
+  { date: "2026-11-06", opp: "Liverpool FCW", home: false, time: null, comp: "Barclays WSL", venue: "Anfield" },
+  { date: "2026-11-13", opp: "London City Lionesses", home: true, time: null, comp: "Barclays WSL", venue: "Emirates Stadium" },
+  { date: "2026-11-20", opp: "West Ham Women", home: true, time: null, comp: "Barclays WSL", venue: "Emirates Stadium" },
+  { date: "2026-12-11", opp: "Everton Women", home: false, time: null, comp: "Barclays WSL", venue: "Goodison Park" },
+  { date: "2026-12-18", opp: "Charlton Women", home: false, time: null, comp: "Barclays WSL", venue: "The Valley" },
+  { date: "2027-01-08", opp: "Brighton Women", home: true, time: null, comp: "Barclays WSL", venue: "Emirates Stadium" },
+  { date: "2027-01-19", opp: "Liverpool FCW", home: true, time: null, comp: "Barclays WSL", venue: "Emirates Stadium" },
+  { date: "2027-01-22", opp: "London City Lionesses", home: false, time: null, comp: "Barclays WSL", venue: "Copperjax Community Stadium" },
+  { date: "2027-01-29", opp: "Manchester City WFC", home: true, time: null, comp: "Barclays WSL", venue: "Emirates Stadium" },
+  { date: "2027-02-05", opp: "Birmingham City WFC", home: false, time: null, comp: "Barclays WSL", venue: "St. Andrew's @ Knighthead Park" },
+  { date: "2027-02-12", opp: "Crystal Palace Women", home: false, time: null, comp: "Barclays WSL", venue: "VBS Community Stadium" },
+  { date: "2027-03-12", opp: "Tottenham Women", home: true, time: null, comp: "Barclays WSL", venue: "Emirates Stadium" },
+  { date: "2027-03-17", opp: "Aston Villa Women", home: false, time: null, comp: "Barclays WSL", venue: "Villa Park" },
+  { date: "2027-03-26", opp: "Chelsea Women", home: true, time: null, comp: "Barclays WSL", venue: "Emirates Stadium" },
+  { date: "2027-04-03", opp: "Everton Women", home: true, time: null, comp: "Barclays WSL", venue: "Emirates Stadium" },
+  { date: "2027-05-01", opp: "West Ham Women", home: false, time: null, comp: "Barclays WSL", venue: "Chigwell Construction Stadium" },
+  { date: "2027-05-08", opp: "Man United Women", home: false, time: null, comp: "Barclays WSL", venue: "Old Trafford" },
+  { date: "2027-05-21", opp: "Charlton Women", home: true, time: null, comp: "Barclays WSL" }
+];
+
+// Expand a "date" -> "dateEnd" window into every date string in between (inclusive).
+function dateRangeArray(startStr, endStr) {
+  const [sy, sm, sd] = startStr.split('-').map(Number);
+  const [ey, em, ed] = endStr.split('-').map(Number);
+  const cur = new Date(Date.UTC(sy, sm - 1, sd));
+  const end = new Date(Date.UTC(ey, em - 1, ed));
+  const days = [];
+  while (cur.getTime() <= end.getTime()) {
+    days.push(cur.getUTCFullYear() + "-" + pad(cur.getUTCMonth() + 1) + "-" + pad(cur.getUTCDate()));
+    cur.setUTCDate(cur.getUTCDate() + 1);
+  }
+  return days;
+}
+
+// Club crests (sourced from arsenal.com's fixtures page), keyed by opponent
+// name exactly as written above. Only covers Friendly / Community Shield /
+// Premier League opponents — Champions League, EFL Cup and FA Cup entries
+// don't have a confirmed opponent yet, so they simply won't match here.
+const menCrestByOpponent = {
+  "Girona": "https://assets.arsenal.com/prod/images/small_square/fa336748c4a5-gironafclogo4.webp",
+  "Real Betis": "https://assets.arsenal.com/prod/images/small_square/04fd19b64fb1-realbetislogo-1.webp",
+  "Borussia Dortmund": "https://assets.arsenal.com/prod/images/small_square/74911f3a4558-borussiadortmund.webp",
+  "Como 1907": "https://assets.arsenal.com/prod/images/small_square/dd8a6f152168-comobyvcrz0p.webp",
+  "Manchester City": "https://assets.arsenal.com/prod/images/small_square/f406c75c9164-mcfc01.webp",
+  "Coventry City": "https://assets.arsenal.com/prod/images/small_square/0ffe116fbae3-coventrycity.webp",
+  "Aston Villa": "https://assets.arsenal.com/prod/images/small_square/5c3ee1e4442e-aston-villa-crest.webp",
+  "Chelsea": "https://assets.arsenal.com/prod/images/small_square/beceaa27d193-chelsea.webp",
+  "Sunderland": "https://assets.arsenal.com/prod/images/small_square/001a28bcfda6-sunderland.webp",
+  "Brighton & Hove Albion": "https://assets.arsenal.com/prod/images/small_square/1345e3f8beea-brightonandhovealbion.webp",
+  "Leeds United": "https://assets.arsenal.com/prod/images/small_square/ad9cd1ad3610-leeds10.webp",
+  "Nottingham Forest": "https://assets.arsenal.com/prod/images/small_square/b2c140e9e6bf-nottinghamforest.webp",
+  "Everton": "https://assets.arsenal.com/prod/images/small_square/bb3dbab8e2d1-everton.webp",
+  "Liverpool": "https://assets.arsenal.com/prod/images/small_square/7edaf678bfd5-lfc.webp",
+  "Hull City": "https://assets.arsenal.com/prod/images/small_square/bc775f76220b-hullcity.webp",
+  "Newcastle United": "https://assets.arsenal.com/prod/images/small_square/4033558dd1b7-newcastleunited.webp",
+  "Brentford": "https://assets.arsenal.com/prod/images/small_square/9c83103d1c34-microsoftteams-image-490.webp",
+  "Tottenham Hotspur": "https://assets.arsenal.com/prod/images/small_square/1796afaa8de3-tottenham2.webp",
+  "AFC Bournemouth": "https://assets.arsenal.com/prod/images/small_square/f853c9ed8a3e-bournemouth.webp",
+  "Manchester United": "https://assets.arsenal.com/prod/images/small_square/d977c0e09f93-manchesterunited.webp",
+  "Crystal Palace": "https://assets.arsenal.com/prod/images/small_square/2e495015454c-crystalpalace1.webp",
+  "Fulham": "https://assets.arsenal.com/prod/images/small_square/477fb3daf688-fulham.webp",
+  "Ipswich Town": "https://assets.arsenal.com/prod/images/small_square/485f9d5fef9d-ipswichtown.webp"
+};
+
+// Arsenal Women opponent crests (sourced from arsenal.com/fixtures/women/fixtures).
+const womenCrestByOpponent = {
+  "Paris FC": "https://assets.arsenal.com/prod/images/small_square/c911993ead71-parisfclogo-small-copy.webp",
+  "Charlton Women": "https://assets.arsenal.com/prod/images/small_square/b33d38896735-charlton.webp",
+  "Brighton Women": "https://assets.arsenal.com/prod/images/small_square/a3d62bc6dd46-brightonandhovealbion.webp",
+  "Crystal Palace Women": "https://assets.arsenal.com/prod/images/small_square/13f315ca1065-crystal-palace-crest.webp",
+  "Man United Women": "https://assets.arsenal.com/prod/images/small_square/f9f92700531c-manchesterunited.webp",
+  "Chelsea Women": "https://assets.arsenal.com/prod/images/small_square/fc5da15294a2-chelsea.webp",
+  "Manchester City WFC": "https://assets.arsenal.com/prod/images/small_square/7816c0b80d55-mcfc.webp",
+  "Birmingham City WFC": "https://assets.arsenal.com/prod/images/small_square/e6c340dfc0a4-birminghamcity.webp",
+  "Tottenham Women": "https://assets.arsenal.com/prod/images/small_square/73779147ef95-tottenham.webp",
+  "Aston Villa Women": "https://assets.arsenal.com/prod/images/small_square/5c3ee1e4442e-aston-villa-crest.webp",
+  "Liverpool FCW": "https://assets.arsenal.com/prod/images/small_square/9ff607973a03-liverpool40.webp",
+  "London City Lionesses": "https://assets.arsenal.com/prod/images/small_square/5d24551f03d2-londoncitylionesses0.webp",
+  "West Ham Women": "https://assets.arsenal.com/prod/images/small_square/3b573a55cb35-westhamunited.webp",
+  "Everton Women": "https://assets.arsenal.com/prod/images/small_square/1e0bf060a546-everton.webp"
+};
+
+// First-team squad (sourced from arsenal.com/fixtures/men/players), in the
+// same position-group order the club's own site lists them: goalkeepers,
+// defenders, midfielders, forwards. Per-competition stats start at zero
+// since the 2026/27 season (Premier League ball-in for real on 22 Aug 2026)
+// hasn't kicked off yet — the only match played so far, the Girona friendly,
+// isn't one of the competitions tracked here. "injured" reflects the real
+// club injury list as of 4 Aug 2026 (William Saliba — back injury, no
+// return date; Jurrien Timber — groin/hip, targeting 21 Aug 2026).
+const menPlayers = [
+  { num: 1, first: "David", last: "Raya", pos: "GK", injured: false },
+  { num: 13, first: "Kepa", last: "Arrizabalaga", pos: "GK", injured: false },
+  { num: 30, first: "Illan", last: "Meslier", pos: "GK", injured: false },
+  { num: 35, first: "Tommy", last: "Setford", pos: "GK", injured: false },
+
+  { num: 2, first: "William", last: "Saliba", pos: "DF", injured: true },
+  { num: 3, first: "Cristhian", last: "Mosquera", pos: "DF", injured: false },
+  { num: 4, first: "Ben", last: "White", pos: "DF", injured: false },
+  { num: 5, first: "Piero", last: "Hincapié", pos: "DF", injured: false },
+  { num: 6, first: "Gabriel", last: "Magalhães", pos: "DF", injured: false },
+  { num: 12, first: "Jurriën", last: "Timber", pos: "DF", injured: true },
+  { num: 33, first: "Riccardo", last: "Calafiori", pos: "DF", injured: false },
+  { num: 49, first: "Myles", last: "Lewis-Skelly", pos: "DF", injured: false },
+
+  { num: 8, first: "Martin", last: "Ødegaard", pos: "MF", injured: false },
+  { num: 10, first: "Eberechi", last: "Eze", pos: "MF", injured: false },
+  { num: 16, first: "Christian", last: "Nørgaard", pos: "MF", injured: false },
+  { num: 21, first: "Fábio", last: "Vieira", pos: "MF", injured: false },
+  { num: 22, first: "Ethan", last: "Nwaneri", pos: "MF", injured: false },
+  { num: 23, first: "Mikel", last: "Merino", pos: "MF", injured: false },
+  { num: 36, first: "Martín", last: "Zubimendi", pos: "MF", injured: false },
+  { num: 41, first: "Declan", last: "Rice", pos: "MF", injured: false },
+
+  { num: 7, first: "Bukayo", last: "Saka", pos: "FW", injured: false },
+  { num: 9, first: "Gabriel", last: "Jesus", pos: "FW", injured: false },
+  { num: 11, first: "Gabriel", last: "Martinelli", pos: "FW", injured: false },
+  { num: 14, first: "Viktor", last: "Gyökeres", pos: "FW", injured: false },
+  { num: 17, first: "Christos", last: "Tzolis", pos: "FW", injured: false },
+  { num: 20, first: "Noni", last: "Madueke", pos: "FW", injured: false },
+  { num: 24, first: "Reiss", last: "Nelson", pos: "FW", injured: false },
+  { num: 29, first: "Kai", last: "Havertz", pos: "FW", injured: false }
+  // Stats (app/min/g/a) are per-competition and default to 0 when absent —
+  // see statsFor() below. Add a `stats: { pl: {app,min,g,a}, cl:{...}, ... }`
+  // object to a player once real match data exists to fill it in.
+];
+
+// Arsenal Women first-team squad (sourced from arsenal.com/fixtures/women/players),
+// same position-group ordering as the men's squad. Jenna Nighswonger was listed
+// on the roster page with no shirt number (her #22 has already been reassigned
+// to Ona Batlle) and is in the process of joining Bay FC, so she's omitted here
+// as no longer an active first-team member. "injured" reflects the real club
+// injury list as of 5 Aug 2026 (Leah Williamson — knee, recovering from Euro 2025
+// final surgery; Michelle Agyemang — knee; Katie Reid — knee), per
+// premierinjuries.com's WSL injury table.
+const womenPlayers = [
+  { num: 1, first: "Daphne", last: "van Domselaar", pos: "GK", injured: false },
+  { num: 16, first: "Misa", last: "Rodriguez", pos: "GK", injured: false },
+  { num: 28, first: "Anneke", last: "Borbe", pos: "GK", injured: false },
+  { num: 40, first: "Isabella", last: "Damm", pos: "GK", injured: false },
+
+  { num: 2, first: "Emily", last: "Fox", pos: "DF", injured: false },
+  { num: 3, first: "Lotte", last: "Wubben-Moy", pos: "DF", injured: false },
+  { num: 6, first: "Leah", last: "Williamson", pos: "DF", injured: true },
+  { num: 7, first: "Steph", last: "Catley", pos: "DF", injured: false },
+  { num: 22, first: "Ona", last: "Batlle", pos: "DF", injured: false },
+  { num: 24, first: "Taylor", last: "Hinds", pos: "DF", injured: false },
+  { num: 26, first: "Katie", last: "Reid", pos: "DF", injured: true },
+  { num: 31, first: "Smilla", last: "Holmberg", pos: "DF", injured: false },
+
+  { num: 4, first: "Georgia", last: "Stanway", pos: "MF", injured: false },
+  { num: 8, first: "Mariona", last: "Caldentey", pos: "MF", injured: false },
+  { num: 10, first: "Kim", last: "Little", pos: "MF", injured: false },
+  { num: 12, first: "Frida", last: "Maanum", pos: "MF", injured: false },
+  { num: 14, first: "Geraldine", last: "Reuteler", pos: "MF", injured: false },
+  { num: 32, first: "Kyra", last: "Cooney-Cross", pos: "MF", injured: false },
+
+  { num: 9, first: "Caitlin", last: "Foord", pos: "FW", injured: false },
+  { num: 11, first: "Olivia", last: "Smith", pos: "FW", injured: false },
+  { num: 17, first: "Michelle", last: "Agyemang", pos: "FW", injured: true },
+  { num: 18, first: "Chloe", last: "Kelly", pos: "FW", injured: false },
+  { num: 19, first: "Lisa", last: "Baum", pos: "FW", injured: false },
+  { num: 23, first: "Alessia", last: "Russo", pos: "FW", injured: false },
+  { num: 25, first: "Stina", last: "Blackstenius", pos: "FW", injured: false },
+  { num: 29, first: "Selina", last: "Cerci", pos: "FW", injured: false },
+  { num: 37, first: "Vivienne", last: "Lia", pos: "FW", injured: false }
+];
+
+const menSquadCompetitions = [
+  { key: "total", label: "Total" },
+  { key: "pl", label: "Premier League" },
+  { key: "cl", label: "Champions League" },
+  { key: "efl", label: "EFL Cup" },
+  { key: "fa", label: "FA Cup" },
+  { key: "shield", label: "Community Shield" }
+];
+const menSquadStatCats = ["pl", "cl", "efl", "fa", "shield"];
+
+const womenSquadCompetitions = [
+  { key: "total", label: "Total" },
+  { key: "wsl", label: "Barclays WSL" },
+  { key: "wcl", label: "UEFA Women's Champions League" },
+  { key: "facup", label: "Women's FA Cup" },
+  { key: "fifacc", label: "FIFA Women's Champions Cup" },
+  { key: "leaguecup", label: "FA Women's League Cup" }
+];
+const womenSquadStatCats = ["wsl", "wcl", "facup", "fifacc", "leaguecup"];
+
+const squadPositionOrder = ["GK", "DF", "MF", "FW"];
+const squadPositionLabels = { GK: "Goalkeepers", DF: "Defenders", MF: "Midfielders", FW: "Forwards" };
+
+// ---- Active team state — swapped between "men" and "women" by #teamToggle ----
+let currentTeam = "men";
+let fixtures = menFixtures;
+let crestByOpponent = menCrestByOpponent;
+let players = menPlayers;
+let squadCompetitions = menSquadCompetitions;
+let squadStatCats = menSquadStatCats;
+
+function computeSortedSquad() {
+  return players.slice().sort((a, b) => {
+    const posDiff = squadPositionOrder.indexOf(a.pos) - squadPositionOrder.indexOf(b.pos);
+    if (posDiff !== 0) return posDiff;
+    if (a.num !== b.num) return a.num - b.num;
+    return (a.first + " " + a.last).localeCompare(b.first + " " + b.last);
+  });
+}
+let sortedSquad = computeSortedSquad();
+
+function statsFor(player, compKey) {
+  const zero = { app: 0, min: 0, g: 0, a: 0 };
+  if (compKey === "total") {
+    return squadStatCats.reduce((acc, c) => {
+      const s = (player.stats && player.stats[c]) || zero;
+      acc.app += s.app || 0;
+      acc.min += s.min || 0;
+      acc.g += s.g || 0;
+      acc.a += s.a || 0;
+      return acc;
+    }, { app: 0, min: 0, g: 0, a: 0 });
+  }
+  return (player.stats && player.stats[compKey]) || zero;
+}
+
+// Placeholder fixtures with a "dateEnd" (e.g. Champions League windows whose exact
+// day isn't set yet) get shown on every day in their range, not just the first.
+let fixtureMap = {};
+function computeFixtureMap() {
+  const map = {};
+  fixtures.forEach(f => {
+    if (f.dateEnd) {
+      dateRangeArray(f.date, f.dateEnd).forEach(d => { map[d] = f; });
+    } else {
+      map[f.date] = f;
+    }
+  });
+  fixtureMap = map;
+}
+computeFixtureMap();
+
+function compClass(comp) {
+  if (comp === "Friendly") return "comp-friendly";
+  if (comp === "Community Shield") return "comp-shield";
+  if (comp === "Champions League") return "comp-cl";
+  if (comp === "EFL Cup") return "comp-efl";
+  if (comp === "FA Cup") return "comp-fa";
+  if (comp === "FIFA Break") return "comp-fifa";
+  return "comp-pl"; // Premier League (default when no comp is set)
+}
+
+// Short label shown on day-cell chips when there's no confirmed opponent yet
+// (so no crest to display) — Champions League / EFL Cup / FA Cup placeholders,
+// and FIFA international breaks (no club fixture at all).
+function compAbbrev(comp) {
+  if (comp === "Champions League") return "UCL";
+  if (comp === "EFL Cup") return "EFL";
+  if (comp === "FA Cup") return "FA";
+  if (comp === "FIFA Break") return "FIFA";
+  return "•";
+}
+
+const monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+const dowNames = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+const dayNamesFull = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+
+function formatFullDate(dateStr) {
+  const [y, m, d] = dateStr.split('-').map(Number);
+  const dt = new Date(Date.UTC(y, m - 1, d));
+  return `${dayNamesFull[dt.getUTCDay()]}, ${d} ${monthNames[m - 1]} ${y}`;
+}
+
+// ---- Fixture detail modal (tap/click any match chip to open) ----
+const modalOverlay = document.getElementById('modalOverlay');
+const modalCard = document.getElementById('modalCard');
+const modalClose = document.getElementById('modalClose');
+const modalTag = document.getElementById('modalTag');
+const modalTitleRow = document.getElementById('modalTitleRow');
+const modalOpp = document.getElementById('modalOpp');
+const modalCrest = document.getElementById('modalCrest');
+const modalDateRow = document.getElementById('modalDateRow');
+const modalDate = document.getElementById('modalDate');
+const modalResult = document.getElementById('modalResult');
+const resultComp = document.getElementById('resultComp');
+const resultCrestLeft = document.getElementById('resultCrestLeft');
+const resultCrestRight = document.getElementById('resultCrestRight');
+const resultNameLeft = document.getElementById('resultNameLeft');
+const resultNameRight = document.getElementById('resultNameRight');
+const resultScore = document.getElementById('resultScore');
+const resultScoreLeft = document.getElementById('resultScoreLeft');
+const resultScoreRight = document.getElementById('resultScoreRight');
+const resultScorersLeft = document.getElementById('resultScorersLeft');
+const resultScorersRight = document.getElementById('resultScorersRight');
+const modalVenueRow = document.getElementById('modalVenueRow');
+const modalVenue = document.getElementById('modalVenue');
+const modalHomeAwayRow = document.getElementById('modalHomeAwayRow');
+const modalHomeAway = document.getElementById('modalHomeAway');
+let modalOpen = false;
+let lastFocusedEl = null;
+modalCrest.onerror = function () { this.style.display = 'none'; };
+
+// Small badge for either an opponent's crest image or Arsenal's own cannon
+// emblem (no external crest asset for Arsenal itself, so the existing
+// inline SVG symbol is reused, matching the header logo's styling).
+const arsenalCrestUrl = 'https://upload.wikimedia.org/wikipedia/sco/5/53/Arsenal_FC.svg';
+
+function resultCrestHTML(isArsenal, crestUrl) {
+  if (isArsenal) {
+    return '<img class="result-crest" src="' + arsenalCrestUrl + '" alt="">';
+  }
+  if (crestUrl) {
+    return '<img class="result-crest" src="' + crestUrl + '" alt="" onerror="this.style.display=\'none\';">';
+  }
+  return '<div class="result-crest result-crest-placeholder"></div>';
+}
+
+function renderScorerList(el, scorers) {
+  el.innerHTML = '';
+  (scorers || []).slice().sort((a, b) => a.min - b.min).forEach(s => {
+    const li = document.createElement('li');
+    li.textContent = s.name + ' ' + s.min + "'";
+    el.appendChild(li);
+  });
+}
+
+// Compact "Sat, Aug 1" style date label for the scoreboard header.
+function formatShortResultDate(fx, dateStr) {
+  if (fx.time) {
+    const dt = fixtureDateTime(fx);
+    return dt.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
+  }
+  const [y, m, d] = dateStr.split('-').map(Number);
+  const dt = new Date(Date.UTC(y, m - 1, d));
+  return `${dowNames[dt.getUTCDay()]}, ${monthNames[m - 1].slice(0, 3)} ${d}`;
+}
+
+function openModal(fx, dateStr) {
+  const cls = compClass(fx.comp);
+
+  if (fx.score) {
+    // Finished match: show the crest-vs-crest scoreboard + goal scorers
+    // instead of the tag/title/date rows used for upcoming fixtures.
+    modalTag.style.display = 'none';
+    modalTitleRow.style.display = 'none';
+    modalDateRow.style.display = 'none';
+    modalHomeAwayRow.style.display = 'none';
+
+    resultComp.className = 'result-comp ' + cls;
+    resultComp.textContent = (fx.comp || 'Premier League') + ' · ' + formatShortResultDate(fx, dateStr);
+
+    const homeIsArsenal = fx.home === true;
+    const crestUrl = crestByOpponent[fx.opp];
+
+    resultCrestLeft.innerHTML = resultCrestHTML(homeIsArsenal, crestUrl);
+    resultCrestRight.innerHTML = resultCrestHTML(!homeIsArsenal, crestUrl);
+    resultNameLeft.textContent = homeIsArsenal ? 'Arsenal' : fx.opp;
+    resultNameRight.textContent = homeIsArsenal ? fx.opp : 'Arsenal';
+    resultScoreLeft.textContent = homeIsArsenal ? fx.score.arsenal : fx.score.opponent;
+    resultScoreRight.textContent = homeIsArsenal ? fx.score.opponent : fx.score.arsenal;
+
+    resultScore.className = 'result-score';
+
+    const scorers = fx.scorers || {};
+    renderScorerList(resultScorersLeft, homeIsArsenal ? scorers.arsenal : scorers.opponent);
+    renderScorerList(resultScorersRight, homeIsArsenal ? scorers.opponent : scorers.arsenal);
+
+    modalResult.style.display = 'block';
+  } else {
+    modalTag.className = 'modal-tag ' + cls;
+    modalTag.textContent = fx.comp || 'Premier League';
+    modalTag.style.display = '';
+
+    modalOpp.textContent = fx.opp;
+    modalTitleRow.style.display = '';
+
+    const crestUrl = crestByOpponent[fx.opp];
+    if (crestUrl) {
+      modalCrest.src = crestUrl;
+      modalCrest.style.display = '';
+    } else {
+      modalCrest.removeAttribute('src');
+      modalCrest.style.display = 'none';
+    }
+
+    if (fx.rangeLabel) {
+      modalDate.textContent = fx.rangeLabel;
+    } else if (fx.time) {
+      // Convert the fixture's UK kickoff time (BST/GMT-aware) to an absolute
+      // instant, then render it using the viewer's own locale + timezone.
+      const dt = fixtureDateTime(fx);
+      const dateLabel = dt.toLocaleDateString(undefined, {
+        weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
+      });
+      const timeLabel = dt.toLocaleTimeString(undefined, {
+        hour: 'numeric', minute: '2-digit', timeZoneName: 'short'
+      });
+      modalDate.textContent = `${dateLabel} · ${timeLabel}`;
+    } else {
+      modalDate.textContent = `${formatFullDate(dateStr)} · Time TBC`;
+    }
+    modalDateRow.style.display = '';
+
+    if (fx.home === true) {
+      modalHomeAway.textContent = 'Home fixture';
+      modalHomeAwayRow.style.display = 'flex';
+    } else if (fx.home === false) {
+      modalHomeAway.textContent = 'Away fixture';
+      modalHomeAwayRow.style.display = 'flex';
+    } else {
+      modalHomeAwayRow.style.display = 'none';
+    }
+
+    modalResult.style.display = 'none';
+  }
+
+  if (fx.venue) {
+    modalVenue.textContent = fx.venue;
+    modalVenueRow.style.display = 'flex';
+  } else {
+    modalVenueRow.style.display = 'none';
+  }
+
+  lastFocusedEl = document.activeElement;
+  modalOverlay.classList.add('open');
+  modalOpen = true;
+  modalClose.focus();
+}
+
+function closeModal() {
+  modalOverlay.classList.remove('open');
+  modalOpen = false;
+  if (lastFocusedEl && lastFocusedEl.focus) lastFocusedEl.focus();
+}
+
+modalClose.addEventListener('click', closeModal);
+modalOverlay.addEventListener('click', (e) => {
+  if (e.target === modalOverlay) closeModal();
+});
+
+// ---- Squad list panel (collapsible overlay, opened from the top-left toggle) ----
+const squadToggle = document.getElementById('squadToggle');
+const squadOverlay = document.getElementById('squadOverlay');
+const squadClose = document.getElementById('squadClose');
+const squadCompSelect = document.getElementById('squadCompSelect');
+const squadTableBody = document.getElementById('squadTableBody');
+let squadOpen = false;
+let squadLastFocused = null;
+
+function renderSquadCompOptions() {
+  squadCompSelect.innerHTML = '';
+  squadCompetitions.forEach(c => {
+    const opt = document.createElement('option');
+    opt.value = c.key;
+    opt.textContent = c.label;
+    squadCompSelect.appendChild(opt);
+  });
+}
+renderSquadCompOptions();
+
+function renderSquadTable() {
+  const compKey = squadCompSelect.value;
+  squadTableBody.innerHTML = '';
+  let currentPos = null;
+  sortedSquad.forEach(p => {
+    if (p.pos !== currentPos) {
+      currentPos = p.pos;
+      const groupRow = document.createElement('tr');
+      groupRow.className = 'squad-group-row';
+      const td = document.createElement('td');
+      td.colSpan = 6;
+      td.textContent = squadPositionLabels[p.pos];
+      groupRow.appendChild(td);
+      squadTableBody.appendChild(groupRow);
+    }
+    const s = statsFor(p, compKey);
+    const injuryIcon = p.injured
+      ? '<span class="squad-injury-icon" title="Injured" aria-label="Injured">' +
+        '<svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">' +
+        '<path d="M6 1.5V10.5M1.5 6H10.5" stroke="currentColor" stroke-width="2.7" stroke-linecap="round"/>' +
+        '</svg></span>'
+      : '';
+    const tr = document.createElement('tr');
+    tr.innerHTML =
+      '<td class="col-num squad-num">' + p.num + '</td>' +
+      '<td class="col-name"><span class="squad-name">' + p.first + ' ' + p.last + injuryIcon + '</span></td>' +
+      '<td>' + s.app + '</td>' +
+      '<td>' + s.min + '</td>' +
+      '<td>' + s.g + '</td>' +
+      '<td>' + s.a + '</td>';
+    squadTableBody.appendChild(tr);
+  });
+}
+squadCompSelect.addEventListener('change', renderSquadTable);
+
+function openSquad() {
+  renderSquadTable();
+  squadLastFocused = document.activeElement;
+  squadOverlay.classList.add('open');
+  squadOpen = true;
+  squadToggle.setAttribute('aria-expanded', 'true');
+  squadClose.focus();
+}
+function closeSquad() {
+  squadOverlay.classList.remove('open');
+  squadOpen = false;
+  squadToggle.setAttribute('aria-expanded', 'false');
+  if (squadLastFocused && squadLastFocused.focus) squadLastFocused.focus();
+}
+squadToggle.addEventListener('click', openSquad);
+squadClose.addEventListener('click', closeSquad);
+squadOverlay.addEventListener('click', (e) => {
+  if (e.target === squadOverlay) closeSquad();
+});
+
+// Months to render: Aug 2026 -> May 2027
+const monthsToRender = [
+  [2026,7],[2026,8],[2026,9],[2026,10],[2026,11],
+  [2027,0],[2027,1],[2027,2],[2027,3],[2027,4]
+];
+
+function pad(n) { return n < 10 ? "0"+n : ""+n; }
+
+const today = new Date();
+const todayStr = today.getFullYear()+"-"+pad(today.getMonth()+1)+"-"+pad(today.getDate());
+
+const track = document.getElementById("track");
+const dotsEl = document.getElementById("dots");
+
+const slideLabels = [];
+
+// Build month slides
+monthsToRender.forEach(([year, monthIdx]) => {
+  const slideLabel = monthNames[monthIdx] + " " + year;
+
+  const slide = document.createElement("div");
+  slide.className = "slide";
+
+  const title = document.createElement("h2");
+  title.className = "month-title";
+  title.textContent = slideLabel;
+  slide.appendChild(title);
+
+  const grid = document.createElement("div");
+  grid.className = "grid";
+
+  dowNames.forEach(d => {
+    const el = document.createElement("div");
+    el.className = "dow";
+    el.textContent = d;
+    grid.appendChild(el);
+  });
+
+  const firstDay = new Date(year, monthIdx, 1);
+  const startOffset = firstDay.getDay(); // 0 = Sunday
+  const daysInMonth = new Date(year, monthIdx + 1, 0).getDate();
+  const totalCells = 42; // 6 rows x 7 cols, fixed for consistent layout
+
+  for (let i = 0; i < totalCells; i++) {
+    const dayNum = i - startOffset + 1;
+    const cell = document.createElement("div");
+
+    if (dayNum < 1 || dayNum > daysInMonth) {
+      cell.className = "day empty";
+      grid.appendChild(cell);
+      continue;
+    }
+
+    const dateStr = year + "-" + pad(monthIdx+1) + "-" + pad(dayNum);
+
+    cell.className = "day" + (dateStr === todayStr ? " today" : "");
+    cell.dataset.date = dateStr;
+
+    const num = document.createElement("div");
+    num.className = "day-num";
+    num.textContent = dayNum;
+    cell.appendChild(num);
+
+    // Fixture-dependent content (chip, time/score, venue label) is filled in
+    // by renderFixtures() below — separated out so switching the men's/women's
+    // team toggle can re-populate the same grid without rebuilding it.
+    grid.appendChild(cell);
+  }
+
+  slide.appendChild(grid);
+  track.appendChild(slide);
+  slideLabels.push(slideLabel);
+});
+
+// Populate (or re-populate, on team toggle) every day cell's fixture-dependent
+// content: the has-fixture/comp-*/fixture-past classes, the venue H/A/N label,
+// the kickoff time or final score, and the clickable crest chip. The grid
+// structure itself (built above) never changes when the team toggles — only
+// this content does.
+function renderFixtures() {
+  document.querySelectorAll('.day[data-date]').forEach(cell => {
+    const dateStr = cell.dataset.date;
+    const isToday = dateStr === todayStr;
+    cell.className = "day" + (isToday ? " today" : "");
+    while (cell.children.length > 1) cell.removeChild(cell.lastChild);
+
+    const fx = fixtureMap[dateStr];
+    if (fx) {
+      cell.className += " has-fixture " + compClass(fx.comp) + (dateStr < todayStr ? " fixture-past" : "");
+
+      const venueLabel = fx.comp === "Community Shield" ? "N"
+        : fx.home === true ? "H"
+        : fx.home === false ? "A"
+        : null;
+      if (venueLabel) {
+        const venueEl = document.createElement("div");
+        venueEl.className = "day-venue";
+        venueEl.textContent = venueLabel;
+        cell.appendChild(venueEl);
+      }
+
+      if (fx.score) {
+        // Match already played — show the final score instead of kickoff time.
+        const scoreEl = document.createElement("div");
+        const result = fx.score.arsenal > fx.score.opponent ? "win"
+          : fx.score.arsenal < fx.score.opponent ? "loss"
+          : "draw";
+        scoreEl.className = "day-score result-" + result;
+        scoreEl.textContent = fx.score.arsenal + "–" + fx.score.opponent;
+        cell.appendChild(scoreEl);
+      } else if (fx.time) {
+        const timeEl = document.createElement("div");
+        timeEl.className = "day-time";
+        // Convert the stored UK kickoff time (BST/GMT-aware) into the
+        // viewer's own local time, 12-hour clock with AM/PM.
+        const kickoff = fixtureDateTime(fx);
+        timeEl.textContent = kickoff.toLocaleTimeString(undefined, {
+          hour: 'numeric', minute: '2-digit', hour12: true
+        });
+        cell.appendChild(timeEl);
+      }
+
+      const chip = document.createElement("div");
+      chip.className = "fixture";
+
+      const crestUrl = crestByOpponent[fx.opp];
+      if (crestUrl) {
+        const crestImg = document.createElement("img");
+        crestImg.className = "crest-only";
+        crestImg.src = crestUrl;
+        crestImg.alt = "";
+        crestImg.loading = "lazy";
+        crestImg.onerror = function () { this.style.display = "none"; };
+        chip.appendChild(crestImg);
+      } else {
+        const label = document.createElement("span");
+        label.className = "comp-label";
+        label.textContent = compAbbrev(fx.comp);
+        chip.appendChild(label);
+      }
+
+      // FIFA breaks are informational only — no fixture, so no overlay/click.
+      if (fx.comp === "FIFA Break") {
+        chip.classList.add("no-click");
+      } else {
+        const prefix = fx.home === true ? "vs " : fx.home === false ? "@ " : "";
+        chip.tabIndex = 0;
+        chip.setAttribute("role", "button");
+        chip.setAttribute("aria-label", `${prefix}${fx.opp} — view fixture details`);
+        chip.addEventListener("click", () => openModal(fx, dateStr));
+        chip.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openModal(fx, dateStr); }
+        });
+      }
+      cell.appendChild(chip);
+    } else if (dateStr < todayStr) {
+      // Past date with no fixture — invert the cell's fill/text colors.
+      cell.className += " past";
+    }
+  });
+}
+
+// Info slide (fixture source notes) - final slide in the sequence
+const infoSlide = document.createElement("div");
+infoSlide.className = "slide info-slide";
+infoSlide.innerHTML = `
+  <div class="box">
+    <h2>About this calendar</h2>
+    <p><strong>Fixture data:</strong> Arsenal 2026/27 Premier League schedule, pre-season friendlies, and the FA Community Shield &mdash; sourced from Arsenal.com's official fixtures page.</p>
+    <p><strong>Champions League:</strong> UEFA hasn't paired opponents yet, so league-phase matchdays (1&ndash;8) are shown as date windows rather than exact days. Knockout rounds (play-off through the final) aren't shown here yet &mdash; they depend on Arsenal's progress past the league phase and aren't confirmed.</p>
+    <p>Saturday/Sunday Premier League kickoff times are confirmed closer to each matchweek by broadcasters &mdash; shown as &ldquo;Time TBC&rdquo; until then.</p>
+    <p><strong>EFL Cup:</strong> Arsenal enter at the third round as one of the Premier League's UEFA-competition teams. The opponent isn't drawn yet, so it's shown as a window (15&ndash;16 Sep 2026). Later rounds aren't included since they depend on progression and aren't scheduled yet.</p>
+    <p><strong>FA Cup:</strong> as a Premier League side, Arsenal enter at the third round. The opponent isn't drawn yet, so it's shown as a window (8&ndash;11 Jan 2027). Later rounds aren't included since they depend on progression and aren't scheduled yet.</p>
+    <p>Made by <a href="https://matheusmonteiro.design/" target="_blank" rel="noopener noreferrer">Matheus Monteiro</a></p>
+  </div>
+`;
+track.appendChild(infoSlide);
+slideLabels.push("About");
+
+// ---- Paged, eased scrolling ----
+const slides = Array.from(track.children);
+const total = slides.length;
+let index = 0;
+let currentY = 0;
+let isAnimating = false;
+let wheelLock = false;
+let vh = window.innerHeight;
+
+function setSizes() {
+  vh = window.innerHeight;
+  document.documentElement.style.setProperty('--vh', vh + 'px');
+  currentY = index * vh;
+  track.style.transform = `translateY(${-currentY}px)`;
+}
+setSizes();
+window.addEventListener('resize', setSizes);
+
+// ---- Header height sync (so slide padding always clears the fixed header) ----
+function syncHeaderHeight() {
+  const h = document.querySelector('header').offsetHeight;
+  document.documentElement.style.setProperty('--header-h', h + 'px');
+}
+syncHeaderHeight();
+window.addEventListener('resize', syncHeaderHeight);
+window.addEventListener('load', syncHeaderHeight);
+setTimeout(syncHeaderHeight, 60); // catch late font metrics
+
+// ---- Live clock + countdown to next fixture ----
+// UK clocks: British Summer Time runs from the last Sunday in March to the
+// last Sunday in October. Fixture kickoff times are stored in UK local time.
+function lastSundayOfMonth(year, month) { // month: 1=Jan..12=Dec
+  const last = new Date(Date.UTC(year, month, 0));
+  return last.getUTCDate() - last.getUTCDay();
+}
+function isBST(y, m, d) {
+  if (m < 3 || m > 10) return false;
+  if (m > 3 && m < 10) return true;
+  const marLastSun = lastSundayOfMonth(y, 3);
+  const octLastSun = lastSundayOfMonth(y, 10);
+  if (m === 3) return d >= marLastSun;
+  return d < octLastSun; // October
+}
+function fixtureDateTime(fx) {
+  const [y, m, d] = fx.date.split('-').map(Number);
+  if (fx.time) {
+    const [hh, mm] = fx.time.split(':').map(Number);
+    const offset = isBST(y, m, d) ? 1 : 0; // BST = UTC+1
+    return new Date(Date.UTC(y, m - 1, d, hh - offset, mm));
+  }
+  // Unknown kickoff time: use midday UTC as a placeholder for ordering/day-count
+  return new Date(Date.UTC(y, m - 1, d, 12, 0));
+}
+function formatClock(now) {
+  const dayNames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const monNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return `${dayNames[now.getDay()]} ${now.getDate()} ${monNames[now.getMonth()]} ${now.getFullYear()} · `
+    + `${pad(now.getHours())}:${pad(now.getMinutes())}`;
+}
+
+const liveClockEl = document.getElementById('liveClock');
+const liveCountdownEl = document.getElementById('liveCountdown');
+
+const LIVE_WINDOW_MS = 2 * 60 * 60 * 1000; // matches read "LIVE" for 2 hours after kickoff
+
+function updateLiveInfo() {
+  const now = new Date();
+  liveClockEl.textContent = formatClock(now);
+
+  // A fixture with a real kickoff time counts as "live" from kickoff until
+  // 2 hours later — placeholder entries (FIFA breaks, TBC windows) don't
+  // have a precise kickoff instant, so they never enter this state.
+  const live = fixtures
+    .filter(fx => fx.time)
+    .map(fx => ({ fx, dt: fixtureDateTime(fx) }))
+    .find(x => now.getTime() >= x.dt.getTime() && now.getTime() < x.dt.getTime() + LIVE_WINDOW_MS);
+
+  if (live) {
+    const oppLabel = live.fx.opp;
+    liveCountdownEl.innerHTML =
+      `<span class="opp-name ${compClass(live.fx.comp)}">${oppLabel}</span>` +
+      `<span class="time-left live-now">LIVE</span>`;
+    return;
+  }
+
+  const upcoming = fixtures
+    .map(fx => ({ fx, dt: fixtureDateTime(fx) }))
+    .filter(x => x.dt.getTime() > now.getTime())
+    .sort((a, b) => a.dt - b.dt)[0];
+
+  if (!upcoming) {
+    liveCountdownEl.innerHTML = '<span class="opp-name">Season complete</span>';
+    return;
+  }
+
+  const { fx, dt } = upcoming;
+  const totalSeconds = Math.max(0, Math.floor((dt.getTime() - now.getTime()) / 1000));
+  const days = Math.floor(totalSeconds / 86400);
+  const hours = Math.floor((totalSeconds % 86400) / 3600);
+  const mins = Math.floor((totalSeconds % 3600) / 60);
+
+  const oppLabel = fx.opp;
+  // Show a single unit at a time — days while there's a full day or more
+  // left, then drop to hours once under a day, then to minutes once under
+  // an hour — instead of a fixed "Xd YYh ZZm" readout.
+  const singleUnit = days > 0 ? `${days}d` : hours > 0 ? `${hours}h` : `${mins}m`;
+  const timeLeft = fx.rangeLabel
+    ? `${days} day${days === 1 ? '' : 's'} · window ${fx.rangeLabel}`
+    : fx.time
+      ? singleUnit
+      : `${days} day${days === 1 ? '' : 's'} · kickoff TBC`;
+
+  liveCountdownEl.innerHTML =
+    `<span class="live-label">Next Match:</span>` +
+    `<span class="opp-name ${compClass(fx.comp)}">${oppLabel}</span>` +
+    `<span class="time-left">in ${timeLeft}</span>`;
+}
+setInterval(updateLiveInfo, 30000);
+
+// ---- Men's / Women's team toggle ----
+// Swaps every team-specific dataset (fixtures, crests, squad, competition
+// list) and re-renders everything that's derived from them: the calendar
+// grid's fixture content, the squad panel's competition dropdown + table,
+// the live countdown, and the header/panel titles.
+const teamToggle = document.getElementById('teamToggle');
+const teamToggleBtns = Array.from(teamToggle.querySelectorAll('.team-toggle-btn'));
+const squadTitleEl = document.getElementById('squadTitle');
+
+const TEAM_FADE_MS = 220; // keep in sync with #track's transition duration
+let teamSwitching = false;
+
+// `animate` is false only for the initial bootstrap call — there's nothing
+// on screen yet to fade out, so it swaps in immediately. Every toggle click
+// fades the grid out, swaps the underlying data while it's invisible, then
+// fades it back in, instead of the fixture content changing instantly.
+function applyTeam(team, animate = true) {
+  if (animate && teamSwitching) return; // ignore clicks mid-fade
+  const swap = () => {
+    currentTeam = team;
+    if (team === 'women') {
+      fixtures = womenFixtures;
+      crestByOpponent = womenCrestByOpponent;
+      players = womenPlayers;
+      squadCompetitions = womenSquadCompetitions;
+      squadStatCats = womenSquadStatCats;
+    } else {
+      fixtures = menFixtures;
+      crestByOpponent = menCrestByOpponent;
+      players = menPlayers;
+      squadCompetitions = menSquadCompetitions;
+      squadStatCats = menSquadStatCats;
+    }
+    computeFixtureMap();
+    sortedSquad = computeSortedSquad();
+    renderFixtures();
+    renderSquadCompOptions();
+    renderSquadTable();
+    updateLiveInfo();
+
+    squadTitleEl.textContent = team === 'women' ? "Women's Squad" : 'Squad';
+    teamToggle.dataset.active = team;
+    teamToggleBtns.forEach(btn => {
+      const isActive = btn.dataset.team === team;
+      btn.classList.toggle('active', isActive);
+      btn.setAttribute('aria-pressed', String(isActive));
+    });
+
+    if (animate) {
+      track.classList.remove('team-fading');
+      teamSwitching = false;
+    }
+  };
+
+  if (animate) {
+    teamSwitching = true;
+    track.classList.add('team-fading');
+    setTimeout(swap, TEAM_FADE_MS);
+  } else {
+    swap();
+  }
+}
+teamToggleBtns.forEach(btn => {
+  btn.addEventListener('click', () => applyTeam(btn.dataset.team));
+});
+
+applyTeam('men', false);
+
+// Dot navigation
+slideLabels.forEach((label, i) => {
+  const dot = document.createElement('button');
+  dot.className = 'dot' + (i === 0 ? ' active' : '');
+  dot.title = label;
+  dot.addEventListener('click', () => goTo(i));
+  dotsEl.appendChild(dot);
+});
+const dotEls = Array.from(dotsEl.children);
+
+const backToTopEl = document.getElementById('backToTop');
+backToTopEl.addEventListener('click', () => goTo(0));
+
+const legendEl = document.querySelector('.legend');
+
+function updateChrome() {
+  dotEls.forEach((d, i) => d.classList.toggle('active', i === index));
+  const onInfoSlide = index >= monthsToRender.length;
+  backToTopEl.classList.toggle('visible', index > 0);
+  // The competition key is meaningless on the "About this calendar" slide,
+  // so fade it out there rather than leaving it floating over prose.
+  legendEl.classList.toggle('faded', onInfoSlide);
+}
+
+// Weighted ease-in-out cubic
+function easeInOutCubic(t) {
+  return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+}
+
+const DURATION = 850;
+let animFrom = 0, animTo = 0, animStart = null;
+
+function step(ts) {
+  if (animStart === null) animStart = ts;
+  const elapsed = ts - animStart;
+  const progress = Math.min(elapsed / DURATION, 1);
+  const eased = easeInOutCubic(progress);
+  currentY = animFrom + (animTo - animFrom) * eased;
+  track.style.transform = `translateY(${-currentY}px)`;
+  if (progress < 1) {
+    requestAnimationFrame(step);
+  } else {
+    isAnimating = false;
+    currentY = animTo;
+  }
+}
+
+function goTo(newIndex) {
+  newIndex = Math.max(0, Math.min(total - 1, newIndex));
+  if (newIndex === index && !isAnimating) return;
+  index = newIndex;
+  animFrom = currentY;
+  animTo = index * vh;
+  animStart = null;
+  isAnimating = true;
+  updateChrome();
+  requestAnimationFrame(step);
+}
+
+// If the event originates inside a scrollable box (the "About" panel or the
+// fixture detail modal), and that box can still scroll further in the
+// gesture's direction, let it scroll natively instead of paging months.
+function findScrollBox(target) {
+  return target && target.closest ? target.closest('.info-slide .box, .modal-card, .squad-table-wrap') : null;
+}
+function scrollBoxBlocksPaging(box, deltaTowardBottom) {
+  const atTop = box.scrollTop <= 0;
+  const atBottom = box.scrollTop + box.clientHeight >= box.scrollHeight - 1;
+  return deltaTowardBottom > 0 ? !atBottom : !atTop;
+}
+
+// Wheel (trackpad / mouse) — one gesture = one month
+function onWheel(e) {
+  if (modalOpen || squadOpen) {
+    const box = findScrollBox(e.target);
+    if (!(box && scrollBoxBlocksPaging(box, e.deltaY))) e.preventDefault();
+    return; // never page months while the modal or squad panel is open
+  }
+  const box = findScrollBox(e.target);
+  if (box && scrollBoxBlocksPaging(box, e.deltaY)) return; // let native scroll happen
+  e.preventDefault();
+  if (wheelLock || Math.abs(e.deltaY) < 8) return;
+  wheelLock = true;
+  const dir = e.deltaY > 0 ? 1 : -1;
+  goTo(index + dir);
+  setTimeout(() => { wheelLock = false; }, DURATION * 0.55);
+}
+window.addEventListener('wheel', onWheel, { passive: false });
+
+// Keyboard
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && modalOpen) { closeModal(); return; }
+  if (e.key === 'Escape' && squadOpen) { closeSquad(); return; }
+  if (modalOpen || squadOpen) return; // don't page months behind an open modal/panel
+  if (['ArrowDown', 'PageDown'].includes(e.key)) { e.preventDefault(); goTo(index + 1); }
+  else if (['ArrowUp', 'PageUp'].includes(e.key)) { e.preventDefault(); goTo(index - 1); }
+  else if (e.key === 'Home') { e.preventDefault(); goTo(0); }
+  else if (e.key === 'End') { e.preventDefault(); goTo(total - 1); }
+});
+
+// Touch swipe
+let touchStartY = null;
+let touchScrollBox = null;
+window.addEventListener('touchstart', (e) => {
+  touchStartY = e.touches[0].clientY;
+  touchScrollBox = findScrollBox(e.target);
+}, { passive: true });
+window.addEventListener('touchmove', (e) => {
+  if (touchScrollBox) {
+    const dy = touchStartY - e.touches[0].clientY; // positive = finger moving up
+    if (scrollBoxBlocksPaging(touchScrollBox, dy)) return; // let the box scroll natively
+  }
+  e.preventDefault();
+}, { passive: false });
+window.addEventListener('touchend', (e) => {
+  if (touchStartY === null) return;
+  const dy = touchStartY - e.changedTouches[0].clientY;
+  if (modalOpen || squadOpen || (touchScrollBox && scrollBoxBlocksPaging(touchScrollBox, dy))) {
+    touchStartY = null;
+    touchScrollBox = null;
+    return;
+  }
+  if (Math.abs(dy) > 40) goTo(index + (dy > 0 ? 1 : -1));
+  touchStartY = null;
+  touchScrollBox = null;
+});
+
+updateChrome();
+</script>
+
+</body>
+</html>
