@@ -726,7 +726,7 @@
   }
   .modal-row {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: 9px;
     font-size: 13.5px;
     line-height: 1.5;
@@ -750,7 +750,6 @@
     align-items: center;
     justify-content: center;
     opacity: 0.7;
-    margin-top: 1px;
   }
   .modal-row .icon svg { width: 15px; height: 15px; }
   .modal-row strong { color: var(--text); font-weight: 600; }
@@ -1312,8 +1311,9 @@
         <ul class="result-scorer-list" id="resultScorersLeft"></ul>
         <span class="result-ball" aria-hidden="true">
           <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="8" cy="8" r="6.3" stroke="currentColor" stroke-width="1.2"/>
-            <path d="M8 4.6L10.4 6.4L9.5 9.2H6.5L5.6 6.4L8 4.6Z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/>
+            <circle cx="8" cy="8" r="6.3" stroke="currentColor" stroke-width="1.1"/>
+            <path d="M8 5.7L10.2 7.3L9.3 9.9H6.7L5.8 7.3L8 5.7Z" stroke="currentColor" stroke-width="0.9" stroke-linejoin="round"/>
+            <path d="M8 5.7V2M10.2 7.3L13.7 6.1M9.3 9.9L11.5 12.9M6.7 9.9L4.5 12.9M5.8 7.3L2.3 6.1" stroke="currentColor" stroke-width="0.9" stroke-linecap="round"/>
           </svg>
         </span>
         <ul class="result-scorer-list result-scorer-list-right" id="resultScorersRight"></ul>
@@ -1358,7 +1358,11 @@ const menFixtures = [
       arsenal: [ { name: "Ethan Nwaneri", min: 54 }, { name: "Viktor Gyökeres", min: 69 } ],
       opponent: [ { name: "Samuele Inácio", min: 7 }, { name: "Konstantinos Karetsas", min: 29 }, { name: "Joane Gadou", min: 58 } ]
     } },
-  { date: "2026-08-12", opp: "Como 1907", home: true, time: "19:30", comp: "Friendly" },
+  { date: "2026-08-12", opp: "Como 1907", home: true, time: "19:30", comp: "Friendly", score: { arsenal: 1, opponent: 1 },
+    scorers: {
+      arsenal: [ { name: "Myles Lewis-Skelly", min: 33 } ],
+      opponent: [ { name: "Martin Baturina", min: 43 } ]
+    } },
   { date: "2026-08-16", opp: "Manchester City", home: true, time: "15:00", comp: "Community Shield", venue: "Principality Stadium" },
   { date: "2026-08-21", opp: "Coventry City", home: true, time: "20:00" },
   { date: "2026-08-31", opp: "Aston Villa", home: false, time: "20:00" },
