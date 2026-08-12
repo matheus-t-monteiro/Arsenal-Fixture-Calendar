@@ -2513,6 +2513,55 @@ window.addEventListener('touchend', (e) => {
 });
 
 updateChrome();
+
+// ---------------------------------------------------------------------
+// Live data overlay. On load, quietly fetch scores/scorers/squad stats
+// from the Netlify Function backend and merge them over the baked-in
+// static data above. If this fails for any reason (offline, function not
+// deployed yet, rate-limited, GitHub Pages with no matching backend,
+// etc.) the calendar just keeps showing the static data — nothing here
+// blocks the initial render, and nothing here is required for the page
+// to work.
+// ---------------------------------------------------------------------
+const LIVE_DATA_URL = "https://a0b4f3.netlify.app/.netlify/functions/arsenal-data";
+
+function liveStatsKey(name) {
+  return name
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .replace(/[øØ]/g, (c) => (c === "ø" ? "o" : "O"))
+    .replace(/[æÆ]/g, (c) => (c === "æ" ? "ae" : "AE"))
+    .toLowerCase()
+    .trim();
+}
+
+function mergeLiveTeamData(teamFixtures, teamPlayers, live) {
+  if (!live) return;
+  teamFixtures.forEach(fx => {
+    const live_fx = live.fixtures && live.fixtures[`${fx.date}|${fx.opp}`];
+    if (!live_fx) return;
+    if (live_fx.score) fx.score = live_fx.score;
+    if (live_fx.scorers) fx.scorers = live_fx.scorers;
+  });
+  teamPlayers.forEach(p => {
+    const liveStats = live.squadStats && live.squadStats[liveStatsKey(p.last)];
+    if (liveStats) p.stats = Object.assign({}, p.stats, liveStats);
+  });
+}
+
+async function loadLiveData() {
+  try {
+    const res = await fetch(LIVE_DATA_URL, { mode: "cors" });
+    if (!res.ok) return;
+    const payload = await res.json();
+    mergeLiveTeamData(menFixtures, menPlayers, payload.men);
+    mergeLiveTeamData(womenFixtures, womenPlayers, payload.women);
+    applyTeam(currentTeam, false); // re-render from the now-merged data
+  } catch (err) {
+    console.warn("Live data unavailable, showing static data.", err);
+  }
+}
+loadLiveData();
 </script>
 
 </body>
