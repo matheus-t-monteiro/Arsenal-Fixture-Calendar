@@ -1363,7 +1363,11 @@ const menFixtures = [
       arsenal: [ { name: "Myles Lewis-Skelly", min: 33 } ],
       opponent: [ { name: "Martin Baturina", min: 43 } ]
     } },
-  { date: "2026-08-16", opp: "Manchester City", home: true, time: "15:00", comp: "Community Shield", venue: "Principality Stadium" },
+  { date: "2026-08-16", opp: "Manchester City", home: true, time: "15:00", comp: "Community Shield", venue: "Principality Stadium", score: { arsenal: 3, opponent: 0 },
+    scorers: {
+      arsenal: [ { name: "Riccardo Calafiori", min: 1 }, { name: "Kai Havertz", min: 28 }, { name: "Martin Ødegaard", min: 48 } ],
+      opponent: []
+    } },
   { date: "2026-08-21", opp: "Coventry City", home: true, time: "20:00" },
   { date: "2026-08-31", opp: "Aston Villa", home: false, time: "20:00" },
   { date: "2026-09-06", opp: "Chelsea", home: true, time: "16:30" },
@@ -1528,40 +1532,42 @@ const womenCrestByOpponent = {
 // left for Everton and Bruno Guimarães (#39) joined from Newcastle this
 // window, both reflected below.
 const menPlayers = [
-  { num: 1, first: "David", last: "Raya", pos: "GK", injured: false },
+  { num: 1, first: "David", last: "Raya", pos: "GK", injured: false, stats: { shield: { app: 1, min: 90, g: 0, a: 0 } } },
   { num: 13, first: "Kepa", last: "Arrizabalaga", pos: "GK", injured: false },
   { num: 30, first: "Illan", last: "Meslier", pos: "GK", injured: false },
   { num: 35, first: "Tommy", last: "Setford", pos: "GK", injured: false },
 
   { num: 2, first: "William", last: "Saliba", pos: "DF", injured: true },
-  { num: 3, first: "Cristhian", last: "Mosquera", pos: "DF", injured: false },
-  { num: 4, first: "Ben", last: "White", pos: "DF", injured: false },
-  { num: 5, first: "Piero", last: "Hincapié", pos: "DF", injured: false },
-  { num: 6, first: "Gabriel", last: "Magalhães", pos: "DF", injured: false },
+  { num: 3, first: "Cristhian", last: "Mosquera", pos: "DF", injured: false, stats: { shield: { app: 1, min: 90, g: 0, a: 0 } } },
+  { num: 4, first: "Ben", last: "White", pos: "DF", injured: false, stats: { shield: { app: 1, min: 90, g: 0, a: 0 } } },
+  { num: 5, first: "Piero", last: "Hincapié", pos: "DF", injured: false, stats: { shield: { app: 1, min: 30, g: 0, a: 0 } } },
+  { num: 6, first: "Gabriel", last: "Magalhães", pos: "DF", injured: false, stats: { shield: { app: 1, min: 90, g: 0, a: 0 } } },
   { num: 12, first: "Jurriën", last: "Timber", pos: "DF", injured: true },
-  { num: 33, first: "Riccardo", last: "Calafiori", pos: "DF", injured: false },
-  { num: 49, first: "Myles", last: "Lewis-Skelly", pos: "DF", injured: false },
+  { num: 33, first: "Riccardo", last: "Calafiori", pos: "DF", injured: false, stats: { shield: { app: 1, min: 60, g: 1, a: 0 } } },
+  { num: 49, first: "Myles", last: "Lewis-Skelly", pos: "DF", injured: false, stats: { shield: { app: 1, min: 75, g: 0, a: 1 } } },
 
-  { num: 8, first: "Martin", last: "Ødegaard", pos: "MF", injured: false },
-  { num: 10, first: "Eberechi", last: "Eze", pos: "MF", injured: false },
+  { num: 8, first: "Martin", last: "Ødegaard", pos: "MF", injured: false, stats: { shield: { app: 1, min: 84, g: 1, a: 0 } } },
+  { num: 10, first: "Eberechi", last: "Eze", pos: "MF", injured: false, stats: { shield: { app: 1, min: 6, g: 0, a: 0 } } },
   { num: 21, first: "Fábio", last: "Vieira", pos: "MF", injured: false },
   { num: 22, first: "Ethan", last: "Nwaneri", pos: "MF", injured: false },
   { num: 23, first: "Mikel", last: "Merino", pos: "MF", injured: false },
-  { num: 36, first: "Martín", last: "Zubimendi", pos: "MF", injured: false },
-  { num: 39, first: "Bruno", last: "Guimarães", pos: "MF", injured: false },
-  { num: 41, first: "Declan", last: "Rice", pos: "MF", injured: false },
+  { num: 36, first: "Martín", last: "Zubimendi", pos: "MF", injured: false, stats: { shield: { app: 1, min: 15, g: 0, a: 0 } } },
+  { num: 39, first: "Bruno", last: "Guimarães", pos: "MF", injured: false, stats: { shield: { app: 1, min: 45, g: 0, a: 0 } } },
+  { num: 41, first: "Declan", last: "Rice", pos: "MF", injured: false, stats: { shield: { app: 1, min: 45, g: 0, a: 0 } } },
 
-  { num: 7, first: "Bukayo", last: "Saka", pos: "FW", injured: false },
+  { num: 7, first: "Bukayo", last: "Saka", pos: "FW", injured: false, stats: { shield: { app: 1, min: 30, g: 0, a: 0 } } },
   { num: 9, first: "Gabriel", last: "Jesus", pos: "FW", injured: false },
   { num: 11, first: "Gabriel", last: "Martinelli", pos: "FW", injured: false },
-  { num: 14, first: "Viktor", last: "Gyökeres", pos: "FW", injured: false },
-  { num: 17, first: "Christos", last: "Tzolis", pos: "FW", injured: false },
-  { num: 20, first: "Noni", last: "Madueke", pos: "FW", injured: false },
+  { num: 14, first: "Viktor", last: "Gyökeres", pos: "FW", injured: false, stats: { shield: { app: 1, min: 15, g: 0, a: 0 } } },
+  { num: 17, first: "Christos", last: "Tzolis", pos: "FW", injured: false, stats: { shield: { app: 1, min: 90, g: 0, a: 2 } } },
+  { num: 20, first: "Noni", last: "Madueke", pos: "FW", injured: false, stats: { shield: { app: 1, min: 60, g: 0, a: 0 } } },
   { num: 24, first: "Reiss", last: "Nelson", pos: "FW", injured: false },
-  { num: 29, first: "Kai", last: "Havertz", pos: "FW", injured: false }
+  { num: 29, first: "Kai", last: "Havertz", pos: "FW", injured: false, stats: { shield: { app: 1, min: 75, g: 1, a: 0 } } }
   // Stats (app/min/g/a) are per-competition and default to 0 when absent —
-  // see statsFor() below. Add a `stats: { pl: {app,min,g,a}, cl:{...}, ... }`
-  // object to a player once real match data exists to fill it in.
+  // see statsFor() below. Populated after each official (non-friendly)
+  // match — pl/cl/efl/fa/shield — with appearances, minutes, goals and
+  // assists for every player who featured. First entries: 2026 Community
+  // Shield (16 Aug 2026), Arsenal 3-0 Manchester City.
 ];
 
 // Arsenal Women first-team squad (sourced from arsenal.com/fixtures/women/players),
