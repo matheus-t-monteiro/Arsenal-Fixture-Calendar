@@ -889,15 +889,17 @@
   }
   #squadToggle:hover { background: var(--bg); }
 
-  /* Men's/Women's calendar toggle — a two-option segmented pill on the
-     opposite (right) side of the header from #squadToggle, same vertical
-     position. Both options are always visible; a sliding red indicator
-     glides behind whichever one is active, eased with the same cubic
-     curve used for the month-paging animation elsewhere on the page. */
+  /* Men's/Women's calendar toggle — a two-option segmented pill fixed to
+     the bottom-right corner, stacked directly above #colorModeToggle (the
+     Competition/Home-Away switch) so both live together in the same
+     corner instead of one sitting up by the header. Both options are
+     always visible; a sliding red indicator glides behind whichever one
+     is active, eased with the same cubic curve used for the month-paging
+     animation elsewhere on the page. */
   #teamToggle {
     position: fixed;
-    top: calc(var(--header-h, 108px) + 10px);
-    right: 14px;
+    right: 18px;
+    bottom: 56px;
     z-index: 21;
     display: flex;
     align-items: center;
@@ -1112,12 +1114,13 @@
     }
     .legend-toggle-btn { font-size: 9px; padding: 4px 8px; }
     .header-live { font-size: 11px; }
-    /* Full "Men"/"Women" labels are wide enough to cover the centered
-       month title on narrow screens — swap to single-letter labels and
-       shrink the pill to free up that space. */
-    .tt-full { display: none; }
-    .tt-short { display: inline; }
-    .team-toggle-btn { min-width: 30px; padding: 5px 10px; }
+    /* Team toggle now lives in the bottom-right corner (stacked above
+       #colorModeToggle) instead of up by the header, so there's no need
+       to abbreviate to single letters here anymore — same full "Men"/
+       "Women" labels as desktop, just repositioned to match
+       #colorModeToggle's mobile placement. */
+    #teamToggle { right: 8px; bottom: 88px; }
+    .team-toggle-btn { font-size: 10px; padding: 5px 10px; }
     .slide { padding: calc(var(--header-h, 128px) + 14px) 24px 40px 14px; }
     .fixture .crest-only { max-width: 38px; max-height: 38px; }
     .fixture .comp-label { font-size: 10px; }
@@ -1432,7 +1435,11 @@ const menFixtures = [
 // of scraping (5 Aug 2026) — every later WSL fixture shows `time: null` and
 // renders as "Time TBC" until the club/broadcasters confirm a slot.
 const womenFixtures = [
-  { date: "2026-08-23", opp: "Paris FC", home: true, time: "13:00", comp: "Friendly", venue: "Mangata Developments Stadium Meadow Park" },
+  { date: "2026-08-23", opp: "Paris FC", home: true, time: "13:00", comp: "Friendly", venue: "Mangata Developments Stadium Meadow Park", score: { arsenal: 1, opponent: 0 },
+    scorers: {
+      arsenal: [ { name: "Olivia Smith", min: 90 } ],
+      opponent: []
+    } },
   { date: "2026-08-26", opp: "Charlton Women", home: true, time: "19:00", comp: "Friendly", venue: "Mangata Developments Stadium Meadow Park" },
   { date: "2026-09-06", opp: "Brighton Women", home: false, time: "12:00", comp: "Barclays WSL", venue: "Broadfield Stadium" },
   { date: "2026-09-13", opp: "Crystal Palace Women", home: true, time: "14:45", comp: "Barclays WSL", venue: "Emirates Stadium" },
@@ -1547,6 +1554,7 @@ const menPlayers = [
   { num: 5, first: "Piero", last: "Hincapié", pos: "DF", injured: false, stats: { shield: { app: 1, min: 30, g: 0, a: 0 }, pl: { app: 1, min: 10, g: 0, a: 0 } } },
   { num: 6, first: "Gabriel", last: "Magalhães", pos: "DF", injured: false, stats: { shield: { app: 1, min: 90, g: 0, a: 0 }, pl: { app: 1, min: 90, g: 0, a: 0 } } },
   { num: 12, first: "Jurriën", last: "Timber", pos: "DF", injured: true },
+  { num: 15, first: "Ezri", last: "Konsa", pos: "DF", injured: false },
   { num: 33, first: "Riccardo", last: "Calafiori", pos: "DF", injured: false, stats: { shield: { app: 1, min: 60, g: 1, a: 0 }, pl: { app: 1, min: 80, g: 0, a: 1 } } },
   { num: 49, first: "Myles", last: "Lewis-Skelly", pos: "DF", injured: false, stats: { shield: { app: 1, min: 75, g: 0, a: 1 }, pl: { app: 1, min: 90, g: 0, a: 0 } } },
 
