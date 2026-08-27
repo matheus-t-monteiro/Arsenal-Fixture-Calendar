@@ -1380,7 +1380,7 @@ const menFixtures = [
   { date: "2026-09-06", opp: "Chelsea", home: true, time: "16:30" },
   { date: "2026-09-08", dateEnd: "2026-09-10", opp: "Matchday 1", comp: "Champions League", time: null, rangeLabel: "8–10 Sep 2026" },
   { date: "2026-09-12", opp: "Sunderland", home: false, time: "20:00" },
-  { date: "2026-09-15", dateEnd: "2026-09-16", opp: "Third Round · Opponent TBC", comp: "EFL Cup", time: null, rangeLabel: "15–16 Sep 2026" },
+  { date: "2026-09-15", dateEnd: "2026-09-16", opp: "Ipswich Town", home: false, comp: "EFL Cup", time: null, rangeLabel: "15–16 Sep 2026 · Third Round (A)" },
   { date: "2026-09-19", opp: "Brighton & Hove Albion", home: false, time: "15:00" },
   { date: "2026-09-21", dateEnd: "2026-10-06", opp: "FIFA Break", comp: "FIFA Break", time: null, rangeLabel: "21 Sep – 6 Oct 2026" },
   { date: "2026-10-10", opp: "Leeds United", home: true, time: "12:30" },
@@ -1440,7 +1440,11 @@ const womenFixtures = [
       arsenal: [ { name: "Olivia Smith", min: 90 } ],
       opponent: []
     } },
-  { date: "2026-08-26", opp: "Charlton Women", home: true, time: "19:00", comp: "Friendly", venue: "Mangata Developments Stadium Meadow Park" },
+  { date: "2026-08-26", opp: "Charlton Women", home: true, time: "19:00", comp: "Friendly", venue: "Mangata Developments Stadium Meadow Park", score: { arsenal: 5, opponent: 1 },
+    scorers: {
+      arsenal: [ { name: "Georgia Stanway", min: 34 }, { name: "Georgia Stanway", min: 44 }, { name: "Kyra Cooney-Cross", min: 56 }, { name: "Olivia Smith", min: 88 }, { name: "Frida Maanum", min: 91 } ],
+      opponent: [ { name: "Lucy Fitzgerald", min: 23 } ]
+    } },
   { date: "2026-09-06", opp: "Brighton Women", home: false, time: "12:00", comp: "Barclays WSL", venue: "Broadfield Stadium" },
   { date: "2026-09-13", opp: "Crystal Palace Women", home: true, time: "14:45", comp: "Barclays WSL", venue: "Emirates Stadium" },
   { date: "2026-09-19", opp: "Man United Women", home: true, time: "17:30", comp: "Barclays WSL", venue: "Emirates Stadium" },
@@ -1620,8 +1624,7 @@ const womenPlayers = [
   { num: 19, first: "Lisa", last: "Baum", pos: "FW", injured: false },
   { num: 23, first: "Alessia", last: "Russo", pos: "FW", injured: false },
   { num: 25, first: "Stina", last: "Blackstenius", pos: "FW", injured: false },
-  { num: 29, first: "Selina", last: "Cerci", pos: "FW", injured: false },
-  { num: 37, first: "Vivienne", last: "Lia", pos: "FW", injured: false }
+  { num: 29, first: "Selina", last: "Cerci", pos: "FW", injured: false }
 ];
 
 const menSquadCompetitions = [
