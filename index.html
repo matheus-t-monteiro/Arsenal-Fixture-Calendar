@@ -1380,7 +1380,7 @@ const menFixtures = [
   { date: "2026-09-06", opp: "Chelsea", home: true, time: "16:30" },
   { date: "2026-09-08", dateEnd: "2026-09-10", opp: "Matchday 1", comp: "Champions League", time: null, rangeLabel: "8–10 Sep 2026" },
   { date: "2026-09-12", opp: "Sunderland", home: false, time: "20:00" },
-  { date: "2026-09-15", dateEnd: "2026-09-16", opp: "Ipswich Town", home: false, comp: "EFL Cup", time: null, rangeLabel: "15–16 Sep 2026 · Third Round (A)" },
+  { date: "2026-09-15", opp: "Ipswich Town", home: false, time: "20:00", comp: "EFL Cup" },
   { date: "2026-09-19", opp: "Brighton & Hove Albion", home: false, time: "15:00" },
   { date: "2026-09-21", dateEnd: "2026-10-06", opp: "FIFA Break", comp: "FIFA Break", time: null, rangeLabel: "21 Sep – 6 Oct 2026" },
   { date: "2026-10-10", opp: "Leeds United", home: true, time: "12:30" },
@@ -2010,6 +2010,21 @@ function pad(n) { return n < 10 ? "0"+n : ""+n; }
 const today = new Date();
 const todayStr = today.getFullYear()+"-"+pad(today.getMonth()+1)+"-"+pad(today.getDate());
 
+// Which month slide to open on: whichever entry in monthsToRender matches
+// today's real year/month. If today falls before the season starts, land on
+// the first month; if after the last rendered month (season's over), land on
+// the last one — either way we never land past the actual month slides onto
+// the trailing "About" slide just because the date fell outside the range.
+function currentMonthSlideIndex() {
+  const y = today.getFullYear();
+  const m = today.getMonth();
+  const i = monthsToRender.findIndex(([yy, mm]) => yy === y && mm === m);
+  if (i !== -1) return i;
+  const [firstY, firstM] = monthsToRender[0];
+  if (y < firstY || (y === firstY && m < firstM)) return 0;
+  return monthsToRender.length - 1;
+}
+
 const track = document.getElementById("track");
 const dotsEl = document.getElementById("dots");
 
@@ -2201,7 +2216,7 @@ slideLabels.push("About");
 // ---- Paged, eased scrolling ----
 const slides = Array.from(track.children);
 const total = slides.length;
-let index = 0;
+let index = currentMonthSlideIndex();
 let currentY = 0;
 let isAnimating = false;
 let wheelLock = false;
@@ -2411,7 +2426,7 @@ applyTeam('men', false);
 // Dot navigation
 slideLabels.forEach((label, i) => {
   const dot = document.createElement('button');
-  dot.className = 'dot' + (i === 0 ? ' active' : '');
+  dot.className = 'dot' + (i === index ? ' active' : '');
   dot.title = label;
   dot.addEventListener('click', () => goTo(i));
   dotsEl.appendChild(dot);
@@ -2420,6 +2435,9 @@ const dotEls = Array.from(dotsEl.children);
 
 const backToTopEl = document.getElementById('backToTop');
 backToTopEl.addEventListener('click', () => goTo(0));
+// Reflect the initial slide (which may not be slide 0, since we open on the
+// current month) in the chrome that's normally only updated by goTo().
+updateChrome();
 
 function updateChrome() {
   dotEls.forEach((d, i) => d.classList.toggle('active', i === index));
