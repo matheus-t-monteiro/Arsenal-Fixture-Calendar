@@ -1378,26 +1378,26 @@ const menFixtures = [
     } },
   { date: "2026-08-31", opp: "Aston Villa", home: false, time: "20:00" },
   { date: "2026-09-06", opp: "Chelsea", home: true, time: "16:30" },
-  { date: "2026-09-08", dateEnd: "2026-09-10", opp: "Matchday 1", comp: "Champions League", time: null, rangeLabel: "8–10 Sep 2026" },
+  { date: "2026-09-09", opp: "Napoli", home: false, time: "20:00", comp: "Champions League" },
   { date: "2026-09-12", opp: "Sunderland", home: false, time: "20:00" },
   { date: "2026-09-15", opp: "Ipswich Town", home: false, time: "20:00", comp: "EFL Cup" },
   { date: "2026-09-19", opp: "Brighton & Hove Albion", home: false, time: "15:00" },
   { date: "2026-09-21", dateEnd: "2026-10-06", opp: "FIFA Break", comp: "FIFA Break", time: null, rangeLabel: "21 Sep – 6 Oct 2026" },
   { date: "2026-10-10", opp: "Leeds United", home: true, time: "12:30" },
-  { date: "2026-10-13", dateEnd: "2026-10-14", opp: "Matchday 2", comp: "Champions League", time: null, rangeLabel: "13–14 Oct 2026" },
+  { date: "2026-10-13", opp: "Lille", home: true, time: "20:00", comp: "Champions League" },
   { date: "2026-10-18", opp: "Nottingham Forest", home: false, time: "16:30" },
-  { date: "2026-10-20", dateEnd: "2026-10-21", opp: "Matchday 3", comp: "Champions League", time: null, rangeLabel: "20–21 Oct 2026" },
+  { date: "2026-10-21", opp: "Bayern Munich", home: false, time: "20:00", comp: "Champions League" },
   { date: "2026-10-24", opp: "Everton", home: true, time: "15:00" },
   { date: "2026-11-01", opp: "Liverpool", home: false, time: "16:30" },
-  { date: "2026-11-03", dateEnd: "2026-11-04", opp: "Matchday 4", comp: "Champions League", time: null, rangeLabel: "3–4 Nov 2026" },
+  { date: "2026-11-04", opp: "Slavia Prague", home: false, time: "20:00", comp: "Champions League" },
   { date: "2026-11-07", opp: "Hull City", home: true, time: null },
   { date: "2026-11-09", dateEnd: "2026-11-17", opp: "FIFA Break", comp: "FIFA Break", time: null, rangeLabel: "9–17 Nov 2026" },
   { date: "2026-11-21", opp: "Newcastle United", home: false, time: null },
-  { date: "2026-11-24", dateEnd: "2026-11-25", opp: "Matchday 5", comp: "Champions League", time: null, rangeLabel: "24–25 Nov 2026" },
+  { date: "2026-11-24", opp: "Borussia Dortmund", home: true, time: "20:00", comp: "Champions League" },
   { date: "2026-11-28", opp: "Manchester City", home: true, time: null },
   { date: "2026-12-02", opp: "Brentford", home: false, time: "20:00" },
   { date: "2026-12-05", opp: "Tottenham Hotspur", home: false, time: null },
-  { date: "2026-12-08", dateEnd: "2026-12-09", opp: "Matchday 6", comp: "Champions League", time: null, rangeLabel: "8–9 Dec 2026" },
+  { date: "2026-12-09", opp: "Real Madrid", home: true, time: "20:00", comp: "Champions League" },
   { date: "2026-12-12", opp: "AFC Bournemouth", home: true, time: null },
   { date: "2026-12-19", opp: "Manchester United", home: true, time: null },
   { date: "2026-12-26", opp: "Crystal Palace", home: false, time: null },
@@ -1406,9 +1406,9 @@ const menFixtures = [
   { date: "2027-01-06", opp: "Brentford", home: true, time: "20:00" },
   { date: "2027-01-08", dateEnd: "2027-01-11", opp: "Third Round · Opponent TBC", comp: "FA Cup", time: null, rangeLabel: "8–11 Jan 2027" },
   { date: "2027-01-16", opp: "Hull City", home: false, time: null },
-  { date: "2027-01-19", dateEnd: "2027-01-20", opp: "Matchday 7", comp: "Champions League", time: null, rangeLabel: "19–20 Jan 2027" },
+  { date: "2027-01-20", opp: "Real Betis", home: false, time: "20:00", comp: "Champions League" },
   { date: "2027-01-23", opp: "Newcastle United", home: true, time: null },
-  { date: "2027-01-27", opp: "Matchday 8", comp: "Champions League", time: null, rangeLabel: "27 Jan 2027" },
+  { date: "2027-01-27", opp: "Sabah", home: true, time: "20:00", comp: "Champions League" },
   { date: "2027-01-30", opp: "Manchester City", home: false, time: null },
   { date: "2027-02-06", opp: "Liverpool", home: true, time: null },
   { date: "2027-02-10", opp: "Ipswich Town", home: false, time: "20:00" },
@@ -2203,9 +2203,9 @@ infoSlide.innerHTML = `
   <div class="box">
     <h2>About this calendar</h2>
     <p><strong>Fixture data:</strong> Arsenal 2026/27 Premier League schedule, pre-season friendlies, and the FA Community Shield &mdash; sourced from Arsenal.com's official fixtures page.</p>
-    <p><strong>Champions League:</strong> UEFA hasn't paired opponents yet, so league-phase matchdays (1&ndash;8) are shown as date windows rather than exact days. Knockout rounds (play-off through the final) aren't shown here yet &mdash; they depend on Arsenal's progress past the league phase and aren't confirmed.</p>
+    <p><strong>Champions League:</strong> the league-phase schedule was confirmed 29 Aug 2026 &mdash; Napoli (a), Lille (h), Bayern Munich (a), Slavia Prague (a), Borussia Dortmund (h), Real Madrid (h), Real Betis (a) and Sabah (h). Knockout rounds (play-off through the final) aren't shown here yet &mdash; they depend on Arsenal's progress past the league phase and aren't confirmed.</p>
     <p>Saturday/Sunday Premier League kickoff times are confirmed closer to each matchweek by broadcasters &mdash; shown as &ldquo;Time TBC&rdquo; until then.</p>
-    <p><strong>EFL Cup:</strong> Arsenal enter at the third round as one of the Premier League's UEFA-competition teams. The opponent isn't drawn yet, so it's shown as a window (15&ndash;16 Sep 2026). Later rounds aren't included since they depend on progression and aren't scheduled yet.</p>
+    <p><strong>EFL Cup:</strong> Arsenal enter at the third round as one of the Premier League's UEFA-competition teams, drawn away to Ipswich Town on 15 Sep 2026. Later rounds aren't included since they depend on progression and aren't scheduled yet.</p>
     <p><strong>FA Cup:</strong> as a Premier League side, Arsenal enter at the third round. The opponent isn't drawn yet, so it's shown as a window (8&ndash;11 Jan 2027). Later rounds aren't included since they depend on progression and aren't scheduled yet.</p>
     <p>Made by <a href="https://matheusmonteiro.design/" target="_blank" rel="noopener noreferrer">Matheus Monteiro</a></p>
   </div>
