@@ -1493,10 +1493,16 @@ function dateRangeArray(startStr, endStr) {
 
 // Club crests (sourced from arsenal.com's fixtures page), keyed by opponent
 // name exactly as written above. The five Champions League opponents below
-// (Napoli/Lille/Bayern Munich/Slavia Prague/Real Madrid) aren't on arsenal.com's
-// CDN, so those are hotlinked from Wikimedia Commons instead — same idea, just
-// a different source. Sabah has no usable crest image available (its Commons
-// file was deleted) so it falls back to the plain "UCL" text chip.
+// (Napoli/Lille/Bayern Munich/Slavia Prague/Real Madrid) are now on arsenal.com's
+// own CDN too (re-scraped 31 Aug 2026, same small_square format/size as every
+// other crest here) — no more Wikimedia hotlinks needed for them. Sabah still
+// has no real crest on arsenal.com (its fixture card just shows the site's
+// generic default club badge), so its crest is instead hotlinked from the
+// infobox image on Sabah FK's English Wikipedia page. All crest images render
+// through the shared .crest-only/.result-crest/.modal-crest CSS classes with
+// object-fit: contain inside a fixed max-width/max-height box, so this
+// non-square Wikipedia image still displays at the exact same size as every
+// arsenal.com-sourced crest.
 const menCrestByOpponent = {
   "Girona": "https://assets.arsenal.com/prod/images/small_square/fa336748c4a5-gironafclogo4.webp",
   "Real Betis": "https://assets.arsenal.com/prod/images/small_square/04fd19b64fb1-realbetislogo-1.webp",
@@ -1521,11 +1527,12 @@ const menCrestByOpponent = {
   "Crystal Palace": "https://assets.arsenal.com/prod/images/small_square/2e495015454c-crystalpalace1.webp",
   "Fulham": "https://assets.arsenal.com/prod/images/small_square/477fb3daf688-fulham.webp",
   "Ipswich Town": "https://assets.arsenal.com/prod/images/small_square/485f9d5fef9d-ipswichtown.webp",
-  "Napoli": "https://upload.wikimedia.org/wikipedia/commons/b/ba/SSC_Napoli.svg",
-  "Lille": "https://upload.wikimedia.org/wikipedia/fr/6/62/Logo_LOSC_Lille_2018.svg",
-  "Bayern Munich": "https://upload.wikimedia.org/wikipedia/commons/1/1b/FC_Bayern_M%C3%BCnchen_logo_%282017%29.svg",
-  "Slavia Prague": "https://upload.wikimedia.org/wikipedia/commons/2/2b/SK_Slavia_Praha_full_logo.svg",
-  "Real Madrid": "https://upload.wikimedia.org/wikipedia/commons/5/56/Real_Madrid_CF.svg"
+  "Napoli": "https://assets.arsenal.com/prod/images/small_square/e50f97b35926-napoli.webp",
+  "Lille": "https://assets.arsenal.com/prod/images/small_square/98bb9fcf56ec-lilleosc2018logosvg.webp",
+  "Bayern Munich": "https://assets.arsenal.com/prod/images/small_square/87eb9124e38a-bayernmunich1sop6b0j3.webp",
+  "Slavia Prague": "https://assets.arsenal.com/prod/images/small_square/a644ce46a17d-slavia-2ixa43tdb.webp",
+  "Real Madrid": "https://assets.arsenal.com/prod/images/small_square/76dd8bd1d291-realmadrid.webp",
+  "Sabah": "https://upload.wikimedia.org/wikipedia/en/a/a9/Sabah_FC_%28Azerbaijan%29.png"
 };
 
 // Arsenal Women opponent crests (sourced from arsenal.com/fixtures/women/fixtures).
