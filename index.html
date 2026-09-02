@@ -1555,15 +1555,15 @@ const womenCrestByOpponent = {
 
 // First-team squad (sourced from arsenal.com/fixtures/men/players), in the
 // same position-group order the club's own site lists them: goalkeepers,
-// defenders, midfielders, forwards. Per-competition stats start at zero
-// since the 2026/27 season (Premier League ball-in for real on 22 Aug 2026)
-// hasn't kicked off yet — the only match played so far, the Girona friendly,
-// isn't one of the competitions tracked here. "injured" reflects the real
-// club injury list as of 9 Aug 2026 (William Saliba — lower back, resting
-// two weeks, no return date; Jurrien Timber — groin/hip, back in training
-// but "still weeks away" per Arteta, no return date). Christian Nørgaard
-// left for Everton and Bruno Guimarães (#39) joined from Newcastle this
-// window, both reflected below.
+// defenders, midfielders, forwards. "injured" reflects the real club injury
+// list as of 9 Aug 2026 (William Saliba — lower back, resting two weeks, no
+// return date; Jurrien Timber — groin/hip, back in training but "still weeks
+// away" per Arteta, no return date). Deadline-day (1 Sept 2026) confirmed
+// departures reflected below: Fábio Vieira permanent to Hamburg, Ethan
+// Nwaneri on a season-long loan to Borussia Dortmund, and Gabriel Jesus
+// permanent to Barcelona — all removed. Gabriel Martinelli's move to Al-Hilal
+// was still just an agreed/unannounced deal as of 2 Sept 2026, so he stays
+// in this array until officially confirmed by a future check.
 const menPlayers = [
   { num: 1, first: "David", last: "Raya", pos: "GK", injured: false, stats: { shield: { app: 1, min: 90, g: 0, a: 0 }, pl: { app: 2, min: 180, g: 0, a: 0 } } },
   { num: 13, first: "Kepa", last: "Arrizabalaga", pos: "GK", injured: false },
@@ -1582,15 +1582,12 @@ const menPlayers = [
 
   { num: 8, first: "Martin", last: "Ødegaard", pos: "MF", injured: false, stats: { shield: { app: 1, min: 84, g: 1, a: 0 }, pl: { app: 2, min: 146, g: 1, a: 0 } } },
   { num: 10, first: "Eberechi", last: "Eze", pos: "MF", injured: false, stats: { shield: { app: 1, min: 6, g: 0, a: 0 }, pl: { app: 2, min: 59, g: 0, a: 0 } } },
-  { num: 21, first: "Fábio", last: "Vieira", pos: "MF", injured: false },
-  { num: 22, first: "Ethan", last: "Nwaneri", pos: "MF", injured: false },
   { num: 23, first: "Mikel", last: "Merino", pos: "MF", injured: false, stats: { pl: { app: 2, min: 34, g: 0, a: 0 } } },
   { num: 36, first: "Martín", last: "Zubimendi", pos: "MF", injured: false, stats: { shield: { app: 1, min: 15, g: 0, a: 0 }, pl: { app: 2, min: 27, g: 0, a: 0 } } },
   { num: 39, first: "Bruno", last: "Guimarães", pos: "MF", injured: false, stats: { shield: { app: 1, min: 45, g: 0, a: 0 }, pl: { app: 1, min: 19, g: 0, a: 0 } } },
   { num: 41, first: "Declan", last: "Rice", pos: "MF", injured: false, stats: { shield: { app: 1, min: 45, g: 0, a: 0 }, pl: { app: 2, min: 153, g: 0, a: 0 } } },
 
   { num: 7, first: "Bukayo", last: "Saka", pos: "FW", injured: false, stats: { shield: { app: 1, min: 30, g: 0, a: 0 }, pl: { app: 2, min: 158, g: 2, a: 0 } } },
-  { num: 9, first: "Gabriel", last: "Jesus", pos: "FW", injured: false },
   { num: 11, first: "Gabriel", last: "Martinelli", pos: "FW", injured: false },
   { num: 14, first: "Viktor", last: "Gyökeres", pos: "FW", injured: false, stats: { shield: { app: 1, min: 15, g: 0, a: 0 } } },
   { num: 17, first: "Christos", last: "Tzolis", pos: "FW", injured: false, stats: { shield: { app: 1, min: 90, g: 0, a: 2 }, pl: { app: 2, min: 121, g: 0, a: 1 } } },
