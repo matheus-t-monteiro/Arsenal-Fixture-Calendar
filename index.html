@@ -1560,15 +1560,22 @@ const womenCrestByOpponent = {
 // return date; Jurrien Timber — groin/hip, back in training but "still weeks
 // away" per Arteta, no return date). Deadline-day (1 Sept 2026) confirmed
 // departures reflected below: Fábio Vieira permanent to Hamburg, Ethan
-// Nwaneri on a season-long loan to Borussia Dortmund, and Gabriel Jesus
-// permanent to Barcelona — all removed. Gabriel Martinelli's move to Al-Hilal
-// was still just an agreed/unannounced deal as of 2 Sept 2026, so he stays
-// in this array until officially confirmed by a future check.
+// Nwaneri on a season-long loan to Borussia Dortmund, Gabriel Jesus permanent
+// to Barcelona, and — confirmed a couple of days later, once the club and
+// Al-Hilal made it official — Gabriel Martinelli permanent to Al-Hilal for a
+// club-record fee. Also removed after a 2 Sept 2026 cross-check against
+// arsenal.com's own live squad list: Tommy Setford (confirmed season-long
+// loan to Stevenage on deadline day — arsenal.com's players page now lists
+// him under "ON LOAN" rather than the active squad) and Reiss Nelson
+// (contract terminated by mutual consent in late Aug 2026, confirmed by
+// arsenal.com's own "Reiss Nelson leaves Arsenal" article — he's since
+// signed for Feyenoord). Shirt numbers for every remaining player were
+// re-checked against that same live squad list on 2 Sept 2026 and all match
+// exactly — no renumbering to record.
 const menPlayers = [
   { num: 1, first: "David", last: "Raya", pos: "GK", injured: false, stats: { shield: { app: 1, min: 90, g: 0, a: 0 }, pl: { app: 2, min: 180, g: 0, a: 0 } } },
   { num: 13, first: "Kepa", last: "Arrizabalaga", pos: "GK", injured: false },
   { num: 30, first: "Illan", last: "Meslier", pos: "GK", injured: false },
-  { num: 35, first: "Tommy", last: "Setford", pos: "GK", injured: false },
 
   { num: 2, first: "William", last: "Saliba", pos: "DF", injured: true },
   { num: 3, first: "Cristhian", last: "Mosquera", pos: "DF", injured: false, stats: { shield: { app: 1, min: 90, g: 0, a: 0 }, pl: { app: 2, min: 169, g: 0, a: 0 } } },
@@ -1588,11 +1595,9 @@ const menPlayers = [
   { num: 41, first: "Declan", last: "Rice", pos: "MF", injured: false, stats: { shield: { app: 1, min: 45, g: 0, a: 0 }, pl: { app: 2, min: 153, g: 0, a: 0 } } },
 
   { num: 7, first: "Bukayo", last: "Saka", pos: "FW", injured: false, stats: { shield: { app: 1, min: 30, g: 0, a: 0 }, pl: { app: 2, min: 158, g: 2, a: 0 } } },
-  { num: 11, first: "Gabriel", last: "Martinelli", pos: "FW", injured: false },
   { num: 14, first: "Viktor", last: "Gyökeres", pos: "FW", injured: false, stats: { shield: { app: 1, min: 15, g: 0, a: 0 } } },
   { num: 17, first: "Christos", last: "Tzolis", pos: "FW", injured: false, stats: { shield: { app: 1, min: 90, g: 0, a: 2 }, pl: { app: 2, min: 121, g: 0, a: 1 } } },
   { num: 20, first: "Noni", last: "Madueke", pos: "FW", injured: false, stats: { shield: { app: 1, min: 60, g: 0, a: 0 }, pl: { app: 1, min: 22, g: 0, a: 0 } } },
-  { num: 24, first: "Reiss", last: "Nelson", pos: "FW", injured: false },
   { num: 29, first: "Kai", last: "Havertz", pos: "FW", injured: false, stats: { shield: { app: 1, min: 75, g: 1, a: 0 }, pl: { app: 2, min: 180, g: 1, a: 0 } } }
   // Stats (app/min/g/a) are per-competition and default to 0 when absent —
   // see statsFor() below. Populated after each official (non-friendly)
@@ -1609,7 +1614,13 @@ const menPlayers = [
 // roster on 11 Aug 2026 — unchanged. "injured" reflects the real club
 // injury list as of 11 Aug 2026 (Leah Williamson — knee, recovering from Euro 2025
 // final surgery; Michelle Agyemang — ACL; Katie Reid — ACL), per
-// premierinjuries.com's WSL injury table.
+// premierinjuries.com's WSL injury table. Élisa De Almeida (#5, DF) added
+// 2 Sept 2026 — confirmed deadline-day signing from PSG, Arsenal Women's
+// eighth summer arrival (arsenal.com's own live squad list hadn't caught up
+// to list her yet as of that date, but the signing itself was confirmed via
+// arsenal.com's news article, so she's included here). Shirt numbers for
+// every other player were re-checked against arsenal.com's live squad list
+// on 2 Sept 2026 and all match exactly — no renumbering to record.
 const womenPlayers = [
   { num: 1, first: "Daphne", last: "van Domselaar", pos: "GK", injured: false },
   { num: 16, first: "Misa", last: "Rodriguez", pos: "GK", injured: false },
@@ -1618,6 +1629,7 @@ const womenPlayers = [
 
   { num: 2, first: "Emily", last: "Fox", pos: "DF", injured: false },
   { num: 3, first: "Lotte", last: "Wubben-Moy", pos: "DF", injured: false },
+  { num: 5, first: "Élisa", last: "De Almeida", pos: "DF", injured: false },
   { num: 6, first: "Leah", last: "Williamson", pos: "DF", injured: true },
   { num: 7, first: "Steph", last: "Catley", pos: "DF", injured: false },
   { num: 22, first: "Ona", last: "Batlle", pos: "DF", injured: false },
