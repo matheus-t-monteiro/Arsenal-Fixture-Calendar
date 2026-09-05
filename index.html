@@ -1097,6 +1097,16 @@
     color: var(--result-loss);
   }
   .squad-injury-icon svg { width: 100%; height: 100%; }
+  .card-swatch {
+    display: inline-block;
+    flex: 0 0 auto;
+    width: 7px;
+    height: 10px;
+    border-radius: 1.5px;
+    border: 1px solid rgba(0, 0, 0, 0.25);
+  }
+  .card-swatch.yellow { background: #F4C430; }
+  .card-swatch.red { background: var(--result-loss); border-color: rgba(0, 0, 0, 0.15); }
 
   @media (max-width: 600px) {
     header { padding: 10px 14px; }
@@ -1265,6 +1275,8 @@
             <th class="col-stat">Min</th>
             <th class="col-stat">G</th>
             <th class="col-stat">A</th>
+            <th class="col-stat col-card" title="Yellow cards" aria-label="Yellow cards"><span class="card-swatch yellow" aria-hidden="true"></span></th>
+            <th class="col-stat col-card" title="Red cards" aria-label="Red cards"><span class="card-swatch red" aria-hidden="true"></span></th>
           </tr>
         </thead>
         <tbody id="squadTableBody"></tbody>
@@ -1581,13 +1593,13 @@ const menPlayers = [
   { num: 3, first: "Cristhian", last: "Mosquera", pos: "DF", injured: false, stats: { shield: { app: 1, min: 90, g: 0, a: 0 }, pl: { app: 2, min: 169, g: 0, a: 0 } } },
   { num: 4, first: "Ben", last: "White", pos: "DF", injured: false, stats: { shield: { app: 1, min: 90, g: 0, a: 0 }, pl: { app: 2, min: 180, g: 0, a: 1 } } },
   { num: 5, first: "Piero", last: "Hincapié", pos: "DF", injured: false, stats: { shield: { app: 1, min: 30, g: 0, a: 0 }, pl: { app: 1, min: 10, g: 0, a: 0 } } },
-  { num: 6, first: "Gabriel", last: "Magalhães", pos: "DF", injured: false, stats: { shield: { app: 1, min: 90, g: 0, a: 0 }, pl: { app: 2, min: 180, g: 0, a: 0 } } },
+  { num: 6, first: "Gabriel", last: "Magalhães", pos: "DF", injured: false, stats: { shield: { app: 1, min: 90, g: 0, a: 0 }, pl: { app: 2, min: 180, g: 0, a: 0, yc: 1, rc: 0 } } },
   { num: 12, first: "Jurriën", last: "Timber", pos: "DF", injured: true },
   { num: 15, first: "Ezri", last: "Konsa", pos: "DF", injured: false, stats: { pl: { app: 1, min: 11, g: 0, a: 0 } } },
   { num: 33, first: "Riccardo", last: "Calafiori", pos: "DF", injured: false, stats: { shield: { app: 1, min: 60, g: 1, a: 0 }, pl: { app: 2, min: 170, g: 0, a: 2 } } },
   { num: 49, first: "Myles", last: "Lewis-Skelly", pos: "DF", injured: false, stats: { shield: { app: 1, min: 75, g: 0, a: 1 }, pl: { app: 2, min: 161, g: 0, a: 0 } } },
 
-  { num: 8, first: "Martin", last: "Ødegaard", pos: "MF", injured: false, stats: { shield: { app: 1, min: 84, g: 1, a: 0 }, pl: { app: 2, min: 146, g: 1, a: 0 } } },
+  { num: 8, first: "Martin", last: "Ødegaard", pos: "MF", injured: false, stats: { shield: { app: 1, min: 84, g: 1, a: 0, yc: 1, rc: 0 }, pl: { app: 2, min: 146, g: 1, a: 0 } } },
   { num: 10, first: "Eberechi", last: "Eze", pos: "MF", injured: false, stats: { shield: { app: 1, min: 6, g: 0, a: 0 }, pl: { app: 2, min: 59, g: 0, a: 0 } } },
   { num: 23, first: "Mikel", last: "Merino", pos: "MF", injured: false, stats: { pl: { app: 2, min: 34, g: 0, a: 0 } } },
   { num: 36, first: "Martín", last: "Zubimendi", pos: "MF", injured: false, stats: { shield: { app: 1, min: 15, g: 0, a: 0 }, pl: { app: 2, min: 27, g: 0, a: 0 } } },
@@ -1596,14 +1608,20 @@ const menPlayers = [
 
   { num: 7, first: "Bukayo", last: "Saka", pos: "FW", injured: false, stats: { shield: { app: 1, min: 30, g: 0, a: 0 }, pl: { app: 2, min: 158, g: 2, a: 0 } } },
   { num: 14, first: "Viktor", last: "Gyökeres", pos: "FW", injured: false, stats: { shield: { app: 1, min: 15, g: 0, a: 0 } } },
-  { num: 17, first: "Christos", last: "Tzolis", pos: "FW", injured: false, stats: { shield: { app: 1, min: 90, g: 0, a: 2 }, pl: { app: 2, min: 121, g: 0, a: 1 } } },
+  { num: 17, first: "Christos", last: "Tzolis", pos: "FW", injured: false, stats: { shield: { app: 1, min: 90, g: 0, a: 2 }, pl: { app: 2, min: 121, g: 0, a: 1, yc: 1, rc: 0 } } },
   { num: 20, first: "Noni", last: "Madueke", pos: "FW", injured: false, stats: { shield: { app: 1, min: 60, g: 0, a: 0 }, pl: { app: 1, min: 22, g: 0, a: 0 } } },
   { num: 29, first: "Kai", last: "Havertz", pos: "FW", injured: false, stats: { shield: { app: 1, min: 75, g: 1, a: 0 }, pl: { app: 2, min: 180, g: 1, a: 0 } } }
-  // Stats (app/min/g/a) are per-competition and default to 0 when absent —
-  // see statsFor() below. Populated after each official (non-friendly)
-  // match — pl/cl/efl/fa/shield — with appearances, minutes, goals and
-  // assists for every player who featured. First entries: 2026 Community
-  // Shield (16 Aug 2026), Arsenal 3-0 Manchester City.
+  // Stats (app/min/g/a/yc/rc) are per-competition and default to 0 when
+  // absent — see statsFor() below. Populated after each official
+  // (non-friendly) match — pl/cl/efl/fa/shield — with appearances, minutes,
+  // goals, assists, yellow cards (yc) and red cards (rc) for every player
+  // who featured. First entries: 2026 Community Shield (16 Aug 2026),
+  // Arsenal 3-0 Manchester City. Yellow-card backfill as of 2 Sept 2026:
+  // Ødegaard (Community Shield, fouling Grealish), Gabriel Magalhães (PL vs
+  // Coventry), Christos Tzolis (PL vs Aston Villa) — one match report also
+  // mentioned two further unnamed Arsenal yellows in the Aston Villa game
+  // that couldn't be reliably attributed to a specific player, so they're
+  // not recorded here. No red cards shown to an Arsenal player yet.
 ];
 
 // Arsenal Women first-team squad (sourced from arsenal.com/fixtures/women/players),
@@ -1696,7 +1714,7 @@ function computeSortedSquad() {
 let sortedSquad = computeSortedSquad();
 
 function statsFor(player, compKey) {
-  const zero = { app: 0, min: 0, g: 0, a: 0 };
+  const zero = { app: 0, min: 0, g: 0, a: 0, yc: 0, rc: 0 };
   if (compKey === "total") {
     return squadStatCats.reduce((acc, c) => {
       const s = (player.stats && player.stats[c]) || zero;
@@ -1704,10 +1722,13 @@ function statsFor(player, compKey) {
       acc.min += s.min || 0;
       acc.g += s.g || 0;
       acc.a += s.a || 0;
+      acc.yc += s.yc || 0;
+      acc.rc += s.rc || 0;
       return acc;
-    }, { app: 0, min: 0, g: 0, a: 0 });
+    }, { app: 0, min: 0, g: 0, a: 0, yc: 0, rc: 0 });
   }
-  return (player.stats && player.stats[compKey]) || zero;
+  const s = (player.stats && player.stats[compKey]) || zero;
+  return { app: s.app || 0, min: s.min || 0, g: s.g || 0, a: s.a || 0, yc: s.yc || 0, rc: s.rc || 0 };
 }
 
 let fixtureMap = {};
@@ -1981,7 +2002,7 @@ function renderSquadTable() {
       const groupRow = document.createElement('tr');
       groupRow.className = 'squad-group-row';
       const td = document.createElement('td');
-      td.colSpan = 6;
+      td.colSpan = 8;
       td.textContent = squadPositionLabels[p.pos];
       groupRow.appendChild(td);
       squadTableBody.appendChild(groupRow);
@@ -2000,7 +2021,9 @@ function renderSquadTable() {
       '<td>' + s.app + '</td>' +
       '<td>' + s.min + '</td>' +
       '<td>' + s.g + '</td>' +
-      '<td>' + s.a + '</td>';
+      '<td>' + s.a + '</td>' +
+      '<td>' + s.yc + '</td>' +
+      '<td>' + s.rc + '</td>';
     squadTableBody.appendChild(tr);
   });
 }
