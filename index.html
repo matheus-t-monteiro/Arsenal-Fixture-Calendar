@@ -1773,6 +1773,7 @@ function compClass(comp) {
   if (comp === "Friendly") return "comp-friendly";
   if (comp === "Community Shield") return "comp-shield";
   if (comp === "Champions League") return "comp-cl";
+  if (comp === "UEFA Women's Champions League") return "comp-cl";
   if (comp === "EFL Cup") return "comp-efl";
   if (comp === "FA Cup") return "comp-fa";
   if (comp === "FIFA Break") return "comp-fifa";
@@ -1792,6 +1793,7 @@ function homeAwayClass(fx) {
 // and FIFA international breaks (no club fixture at all).
 function compAbbrev(comp) {
   if (comp === "Champions League") return "UCL";
+  if (comp === "UEFA Women's Champions League") return "WCL";
   if (comp === "EFL Cup") return "EFL";
   if (comp === "FA Cup") return "FA";
   if (comp === "FIFA Break") return "FIFA";
@@ -1806,6 +1808,7 @@ const compInitials = {
   "Premier League": "PL",
   "FA Cup": "FA",
   "Champions League": "UCL",
+  "UEFA Women's Champions League": "WCL",
   "EFL Cup": "ELC",
   "Community Shield": "CS",
   "Friendly": "FR",
