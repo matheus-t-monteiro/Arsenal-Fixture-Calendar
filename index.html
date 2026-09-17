@@ -1638,14 +1638,27 @@ const menPlayers = [
   { num: 10, first: "Eberechi", last: "Eze", pos: "MF", injured: false, stats: { shield: { app: 1, min: 6, g: 0, a: 0 }, pl: { app: 3, min: 68, g: 0, a: 0 }, cl: { app: 1, min: 66, g: 0, a: 0 }, efl: { app: 1, min: 76, g: 0, a: 1 } } },
   { num: 23, first: "Mikel", last: "Merino", pos: "MF", injured: false, stats: { pl: { app: 3, min: 49, g: 0, a: 0 }, cl: { app: 1, min: 66, g: 0, a: 0 }, efl: { app: 1, min: 90, g: 1, a: 1 } } },
   { num: 36, first: "Martín", last: "Zubimendi", pos: "MF", injured: false, stats: { shield: { app: 1, min: 15, g: 0, a: 0 }, pl: { app: 4, min: 66, g: 0, a: 0 }, cl: { app: 1, min: 8, g: 0, a: 0 }, efl: { app: 1, min: 85, g: 0, a: 1 } } },
-  { num: 39, first: "Bruno", last: "Guimarães", pos: "MF", injured: false, stats: { shield: { app: 1, min: 45, g: 0, a: 0 }, pl: { app: 2, min: 64, g: 1, a: 0 }, cl: { app: 1, min: 24, g: 0, a: 0 }, efl: { app: 1, min: 64, g: 0, a: 0 } } },
+  { num: 39, first: "Bruno", last: "Guimarães", pos: "MF", injured: false, stats: { shield: { app: 1, min: 45, g: 0, a: 0 }, pl: { app: 2, min: 64, g: 1, a: 0 }, cl: { app: 1, min: 24, g: 0, a: 0 }, efl: { app: 1, min: 64, g: 0, a: 1 } } },
   { num: 41, first: "Declan", last: "Rice", pos: "MF", injured: false, stats: { shield: { app: 1, min: 45, g: 0, a: 0 }, pl: { app: 4, min: 324, g: 0, a: 0 }, cl: { app: 1, min: 90, g: 0, a: 0 } } },
 
   { num: 7, first: "Bukayo", last: "Saka", pos: "FW", injured: false, stats: { shield: { app: 1, min: 30, g: 0, a: 0 }, pl: { app: 4, min: 338, g: 3, a: 0 }, cl: { app: 1, min: 73, g: 0, a: 0 } } },
   { num: 14, first: "Viktor", last: "Gyökeres", pos: "FW", injured: false, stats: { shield: { app: 1, min: 15, g: 0, a: 0 }, pl: { app: 1, min: 15, g: 0, a: 0 }, cl: { app: 1, min: 73, g: 0, a: 0 }, efl: { app: 1, min: 90, g: 0, a: 0 } } },
   { num: 17, first: "Christos", last: "Tzolis", pos: "FW", injured: false, stats: { shield: { app: 1, min: 90, g: 0, a: 2 }, pl: { app: 4, min: 292, g: 0, a: 1, yc: 1, rc: 0 }, cl: { app: 1, min: 24, g: 0, a: 1 }, efl: { app: 1, min: 14, g: 0, a: 0 } } },
   { num: 20, first: "Noni", last: "Madueke", pos: "FW", injured: false, stats: { shield: { app: 1, min: 60, g: 0, a: 0 }, pl: { app: 1, min: 22, g: 0, a: 0 }, cl: { app: 1, min: 17, g: 0, a: 0 }, efl: { app: 1, min: 76, g: 1, a: 0 } } },
-  { num: 29, first: "Kai", last: "Havertz", pos: "FW", injured: false, stats: { shield: { app: 1, min: 75, g: 1, a: 0 }, pl: { app: 4, min: 345, g: 2, a: 1 }, cl: { app: 1, min: 17, g: 0, a: 0 } } }
+  { num: 29, first: "Kai", last: "Havertz", pos: "FW", injured: false, stats: { shield: { app: 1, min: 75, g: 1, a: 0 }, pl: { app: 4, min: 345, g: 2, a: 1 }, cl: { app: 1, min: 17, g: 0, a: 0 } } },
+
+  // Academy: first-team involved but not full first-team-squad regulars.
+  // Kept to players who've actually featured (on the pitch) in an official
+  // (non-friendly) first-team match this season — all four made their
+  // 2026/27-season bows together in the 15 Sept 2026 EFL Cup tie at Ipswich
+  // Town (Arsenal 4-2), sourced from Sky Sports' lineup/commentary, VAVEL's
+  // match report and player ratings, and Jeorge Bird's Arsenal Youth blog.
+  // Squad numbers per arsenalyouth.wordpress.com's academy graduate/young
+  // pros listing (Dowman 56, Julienne 45, Ibrahim 44, Salmon 89).
+  { num: 56, first: "Max", last: "Dowman", pos: "ACA", injured: false, stats: { efl: { app: 1, min: 90, g: 2, a: 0 } } },
+  { num: 89, first: "Marli", last: "Salmon", pos: "ACA", injured: false, stats: { efl: { app: 1, min: 90, g: 0, a: 0 } } },
+  { num: 45, first: "Theo", last: "Julienne", pos: "ACA", injured: false, stats: { efl: { app: 1, min: 26, g: 0, a: 0 } } },
+  { num: 44, first: "Ife", last: "Ibrahim", pos: "ACA", injured: false, stats: { efl: { app: 1, min: 5, g: 0, a: 0 } } }
   // Stats (app/min/g/a/yc/rc) are per-competition and default to 0 when
   // absent — see statsFor() below. Populated after each official
   // (non-friendly) match — pl/cl/efl/fa/shield — with appearances, minutes,
@@ -1727,8 +1740,8 @@ const womenSquadCompetitions = [
 ];
 const womenSquadStatCats = ["wsl", "wcl", "facup", "fifacc", "leaguecup"];
 
-const squadPositionOrder = ["GK", "DF", "MF", "FW"];
-const squadPositionLabels = { GK: "Goalkeepers", DF: "Defenders", MF: "Midfielders", FW: "Forwards" };
+const squadPositionOrder = ["GK", "DF", "MF", "FW", "ACA"];
+const squadPositionLabels = { GK: "Goalkeepers", DF: "Defenders", MF: "Midfielders", FW: "Forwards", ACA: "Academy" };
 
 // ---- Active team state — swapped between "men" and "women" by #teamToggle ----
 let currentTeam = "men";
