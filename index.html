@@ -1413,7 +1413,11 @@ const menFixtures = [
       arsenal: [ { name: "Max Dowman", min: 7 }, { name: "Noni Madueke", min: 16 }, { name: "Max Dowman", min: 47 }, { name: "Mikel Merino", min: 58 } ],
       opponent: [ { name: "Anis Mehmeti", min: 62 }, { name: "Chuba Akpom", min: 91 } ]
     } },
-  { date: "2026-09-19", opp: "Brighton & Hove Albion", home: false, time: "15:00" },
+  { date: "2026-09-19", opp: "Brighton & Hove Albion", home: false, time: "15:00", score: { arsenal: 0, opponent: 3 },
+    scorers: {
+      arsenal: [],
+      opponent: [ { name: "Pascal Groß", min: 31 }, { name: "Charalampos Kostoulas", min: 45 }, { name: "Chema Andrés", min: 57 } ]
+    } },
   { date: "2026-09-21", dateEnd: "2026-10-06", opp: "FIFA Break", comp: "FIFA Break", time: null, rangeLabel: "21 Sep – 6 Oct 2026" },
   { date: "2026-10-10", opp: "Leeds United", home: true, time: "12:30" },
   { date: "2026-10-13", opp: "Lille", home: true, time: "20:00", comp: "Champions League" },
@@ -1487,7 +1491,11 @@ const womenFixtures = [
       arsenal: [],
       opponent: []
     } },
-  { date: "2026-09-19", opp: "Man United Women", home: true, time: "17:30", comp: "Barclays WSL", venue: "Emirates Stadium" },
+  { date: "2026-09-19", opp: "Man United Women", home: true, time: "17:30", comp: "Barclays WSL", venue: "Emirates Stadium", score: { arsenal: 1, opponent: 1 },
+    scorers: {
+      arsenal: [ { name: "Smilla Holmberg", min: 95 } ],
+      opponent: [ { name: "Julia Zigiotti Olme", min: 67 } ]
+    } },
   { date: "2026-09-22", opp: "HB Koge", home: true, time: "20:00", comp: "UEFA Women's Champions League", venue: "Mangata Developments Stadium Meadow Park" },
   { date: "2026-09-27", opp: "Chelsea Women", home: false, time: "16:30", comp: "Barclays WSL", venue: "Stamford Bridge" },
   { date: "2026-09-30", opp: "Paris FC", home: false, time: "17:45", comp: "UEFA Women's Champions League", venue: "Stade Sébastien Charléty" },
@@ -1620,32 +1628,32 @@ const womenCrestByOpponent = {
 // re-checked against that same live squad list on 2 Sept 2026 and all match
 // exactly — no renumbering to record.
 const menPlayers = [
-  { num: 1, first: "David", last: "Raya", pos: "GK", injured: false, stats: { shield: { app: 1, min: 90, g: 0, a: 0 }, pl: { app: 4, min: 360, g: 0, a: 0 }, cl: { app: 1, min: 90, g: 0, a: 0 } } },
+  { num: 1, first: "David", last: "Raya", pos: "GK", injured: false, stats: { shield: { app: 1, min: 90, g: 0, a: 0 }, pl: { app: 5, min: 450, g: 0, a: 0 }, cl: { app: 1, min: 90, g: 0, a: 0 } } },
   { num: 13, first: "Kepa", last: "Arrizabalaga", pos: "GK", injured: false, stats: { efl: { app: 1, min: 90, g: 0, a: 0 } } },
   { num: 30, first: "Illan", last: "Meslier", pos: "GK", injured: false },
 
   { num: 2, first: "William", last: "Saliba", pos: "DF", injured: true },
   { num: 3, first: "Cristhian", last: "Mosquera", pos: "DF", injured: true, stats: { shield: { app: 1, min: 90, g: 0, a: 0 }, pl: { app: 2, min: 169, g: 0, a: 0 } } },
-  { num: 4, first: "Ben", last: "White", pos: "DF", injured: false, stats: { shield: { app: 1, min: 90, g: 0, a: 0 }, pl: { app: 4, min: 315, g: 0, a: 1 }, cl: { app: 1, min: 82, g: 0, a: 0 } } },
+  { num: 4, first: "Ben", last: "White", pos: "DF", injured: true, stats: { shield: { app: 1, min: 90, g: 0, a: 0 }, pl: { app: 4, min: 315, g: 0, a: 1 }, cl: { app: 1, min: 82, g: 0, a: 0 } } },
   { num: 5, first: "Piero", last: "Hincapié", pos: "DF", injured: false, stats: { shield: { app: 1, min: 30, g: 0, a: 0 }, pl: { app: 2, min: 40, g: 0, a: 0 }, cl: { app: 1, min: 90, g: 0, a: 0 } } },
-  { num: 6, first: "Gabriel", last: "Magalhães", pos: "DF", injured: false, stats: { shield: { app: 1, min: 90, g: 0, a: 0 }, pl: { app: 4, min: 360, g: 0, a: 0, yc: 1, rc: 0 }, cl: { app: 1, min: 90, g: 0, a: 0 }, efl: { app: 1, min: 45, g: 0, a: 0 } } },
-  { num: 12, first: "Jurriën", last: "Timber", pos: "DF", injured: false, stats: { pl: { app: 1, min: 45, g: 0, a: 0 } } },
-  { num: 15, first: "Ezri", last: "Konsa", pos: "DF", injured: false, stats: { pl: { app: 3, min: 191, g: 0, a: 0 }, cl: { app: 1, min: 90, g: 0, a: 0 }, efl: { app: 1, min: 45, g: 0, a: 0 } } },
-  { num: 33, first: "Riccardo", last: "Calafiori", pos: "DF", injured: false, stats: { shield: { app: 1, min: 60, g: 1, a: 0 }, pl: { app: 4, min: 320, g: 0, a: 2 } } },
+  { num: 6, first: "Gabriel", last: "Magalhães", pos: "DF", injured: false, stats: { shield: { app: 1, min: 90, g: 0, a: 0 }, pl: { app: 5, min: 450, g: 0, a: 0, yc: 1, rc: 0 }, cl: { app: 1, min: 90, g: 0, a: 0 }, efl: { app: 1, min: 45, g: 0, a: 0 } } },
+  { num: 12, first: "Jurriën", last: "Timber", pos: "DF", injured: false, stats: { pl: { app: 2, min: 106, g: 0, a: 0 } } },
+  { num: 15, first: "Ezri", last: "Konsa", pos: "DF", injured: false, stats: { pl: { app: 4, min: 281, g: 0, a: 0 }, cl: { app: 1, min: 90, g: 0, a: 0 }, efl: { app: 1, min: 45, g: 0, a: 0 } } },
+  { num: 33, first: "Riccardo", last: "Calafiori", pos: "DF", injured: false, stats: { shield: { app: 1, min: 60, g: 1, a: 0 }, pl: { app: 5, min: 410, g: 0, a: 2 } } },
   { num: 49, first: "Myles", last: "Lewis-Skelly", pos: "DF", injured: false, stats: { shield: { app: 1, min: 75, g: 0, a: 1 }, pl: { app: 4, min: 266, g: 0, a: 0 }, efl: { app: 1, min: 90, g: 0, a: 0 } } },
 
-  { num: 8, first: "Martin", last: "Ødegaard", pos: "MF", injured: false, stats: { shield: { app: 1, min: 84, g: 1, a: 0, yc: 1, rc: 0 }, pl: { app: 4, min: 311, g: 2, a: 0 }, cl: { app: 1, min: 90, g: 1, a: 0 }, efl: { app: 1, min: 14, g: 0, a: 0 } } },
-  { num: 10, first: "Eberechi", last: "Eze", pos: "MF", injured: false, stats: { shield: { app: 1, min: 6, g: 0, a: 0 }, pl: { app: 3, min: 68, g: 0, a: 0 }, cl: { app: 1, min: 66, g: 0, a: 0 }, efl: { app: 1, min: 76, g: 0, a: 1 } } },
-  { num: 23, first: "Mikel", last: "Merino", pos: "MF", injured: false, stats: { pl: { app: 3, min: 49, g: 0, a: 0 }, cl: { app: 1, min: 66, g: 0, a: 0 }, efl: { app: 1, min: 90, g: 1, a: 1 } } },
-  { num: 36, first: "Martín", last: "Zubimendi", pos: "MF", injured: false, stats: { shield: { app: 1, min: 15, g: 0, a: 0 }, pl: { app: 4, min: 66, g: 0, a: 0 }, cl: { app: 1, min: 8, g: 0, a: 0 }, efl: { app: 1, min: 85, g: 0, a: 1 } } },
-  { num: 39, first: "Bruno", last: "Guimarães", pos: "MF", injured: false, stats: { shield: { app: 1, min: 45, g: 0, a: 0 }, pl: { app: 2, min: 64, g: 1, a: 0 }, cl: { app: 1, min: 24, g: 0, a: 0 }, efl: { app: 1, min: 64, g: 0, a: 1 } } },
-  { num: 41, first: "Declan", last: "Rice", pos: "MF", injured: false, stats: { shield: { app: 1, min: 45, g: 0, a: 0 }, pl: { app: 4, min: 324, g: 0, a: 0 }, cl: { app: 1, min: 90, g: 0, a: 0 } } },
+  { num: 8, first: "Martin", last: "Ødegaard", pos: "MF", injured: false, stats: { shield: { app: 1, min: 84, g: 1, a: 0, yc: 1, rc: 0 }, pl: { app: 5, min: 383, g: 2, a: 0 }, cl: { app: 1, min: 90, g: 1, a: 0 }, efl: { app: 1, min: 14, g: 0, a: 0 } } },
+  { num: 10, first: "Eberechi", last: "Eze", pos: "MF", injured: false, stats: { shield: { app: 1, min: 6, g: 0, a: 0 }, pl: { app: 4, min: 86, g: 0, a: 0 }, cl: { app: 1, min: 66, g: 0, a: 0 }, efl: { app: 1, min: 76, g: 0, a: 1 } } },
+  { num: 23, first: "Mikel", last: "Merino", pos: "MF", injured: false, stats: { pl: { app: 4, min: 78, g: 0, a: 0 }, cl: { app: 1, min: 66, g: 0, a: 0 }, efl: { app: 1, min: 90, g: 1, a: 1 } } },
+  { num: 36, first: "Martín", last: "Zubimendi", pos: "MF", injured: false, stats: { shield: { app: 1, min: 15, g: 0, a: 0 }, pl: { app: 5, min: 95, g: 0, a: 0 }, cl: { app: 1, min: 8, g: 0, a: 0 }, efl: { app: 1, min: 85, g: 0, a: 1 } } },
+  { num: 39, first: "Bruno", last: "Guimarães", pos: "MF", injured: false, stats: { shield: { app: 1, min: 45, g: 0, a: 0 }, pl: { app: 3, min: 125, g: 1, a: 0 }, cl: { app: 1, min: 24, g: 0, a: 0 }, efl: { app: 1, min: 64, g: 0, a: 1 } } },
+  { num: 41, first: "Declan", last: "Rice", pos: "MF", injured: false, stats: { shield: { app: 1, min: 45, g: 0, a: 0 }, pl: { app: 5, min: 414, g: 0, a: 0 }, cl: { app: 1, min: 90, g: 0, a: 0 } } },
 
-  { num: 7, first: "Bukayo", last: "Saka", pos: "FW", injured: false, stats: { shield: { app: 1, min: 30, g: 0, a: 0 }, pl: { app: 4, min: 338, g: 3, a: 0 }, cl: { app: 1, min: 73, g: 0, a: 0 } } },
-  { num: 14, first: "Viktor", last: "Gyökeres", pos: "FW", injured: false, stats: { shield: { app: 1, min: 15, g: 0, a: 0 }, pl: { app: 1, min: 15, g: 0, a: 0 }, cl: { app: 1, min: 73, g: 0, a: 0 }, efl: { app: 1, min: 90, g: 0, a: 0 } } },
-  { num: 17, first: "Christos", last: "Tzolis", pos: "FW", injured: false, stats: { shield: { app: 1, min: 90, g: 0, a: 2 }, pl: { app: 4, min: 292, g: 0, a: 1, yc: 1, rc: 0 }, cl: { app: 1, min: 24, g: 0, a: 1 }, efl: { app: 1, min: 14, g: 0, a: 0 } } },
+  { num: 7, first: "Bukayo", last: "Saka", pos: "FW", injured: false, stats: { shield: { app: 1, min: 30, g: 0, a: 0 }, pl: { app: 5, min: 419, g: 3, a: 0 }, cl: { app: 1, min: 73, g: 0, a: 0 } } },
+  { num: 14, first: "Viktor", last: "Gyökeres", pos: "FW", injured: false, stats: { shield: { app: 1, min: 15, g: 0, a: 0 }, pl: { app: 2, min: 33, g: 0, a: 0 }, cl: { app: 1, min: 73, g: 0, a: 0 }, efl: { app: 1, min: 90, g: 0, a: 0 } } },
+  { num: 17, first: "Christos", last: "Tzolis", pos: "FW", injured: false, stats: { shield: { app: 1, min: 90, g: 0, a: 2 }, pl: { app: 5, min: 364, g: 0, a: 1, yc: 1, rc: 0 }, cl: { app: 1, min: 24, g: 0, a: 1 }, efl: { app: 1, min: 14, g: 0, a: 0 } } },
   { num: 20, first: "Noni", last: "Madueke", pos: "FW", injured: false, stats: { shield: { app: 1, min: 60, g: 0, a: 0 }, pl: { app: 1, min: 22, g: 0, a: 0 }, cl: { app: 1, min: 17, g: 0, a: 0 }, efl: { app: 1, min: 76, g: 1, a: 0 } } },
-  { num: 29, first: "Kai", last: "Havertz", pos: "FW", injured: false, stats: { shield: { app: 1, min: 75, g: 1, a: 0 }, pl: { app: 4, min: 345, g: 2, a: 1 }, cl: { app: 1, min: 17, g: 0, a: 0 } } },
+  { num: 29, first: "Kai", last: "Havertz", pos: "FW", injured: false, stats: { shield: { app: 1, min: 75, g: 1, a: 0 }, pl: { app: 5, min: 435, g: 2, a: 1 }, cl: { app: 1, min: 17, g: 0, a: 0 } } },
 
   // Academy: first-team involved but not full first-team-squad regulars.
   // Kept to players who've actually featured (on the pitch) in an official
@@ -1655,7 +1663,7 @@ const menPlayers = [
   // match report and player ratings, and Jeorge Bird's Arsenal Youth blog.
   // Squad numbers per arsenalyouth.wordpress.com's academy graduate/young
   // pros listing (Dowman 56, Julienne 45, Ibrahim 44, Salmon 89).
-  { num: 56, first: "Max", last: "Dowman", pos: "ACA", injured: false, stats: { efl: { app: 1, min: 90, g: 2, a: 0 } } },
+  { num: 56, first: "Max", last: "Dowman", pos: "ACA", injured: false, stats: { efl: { app: 1, min: 90, g: 2, a: 0 }, pl: { app: 1, min: 9, g: 0, a: 0 } } },
   { num: 89, first: "Marli", last: "Salmon", pos: "ACA", injured: false, stats: { efl: { app: 1, min: 90, g: 0, a: 0 } } },
   { num: 45, first: "Theo", last: "Julienne", pos: "ACA", injured: false, stats: { efl: { app: 1, min: 26, g: 0, a: 0 } } },
   { num: 44, first: "Ife", last: "Ibrahim", pos: "ACA", injured: false, stats: { efl: { app: 1, min: 5, g: 0, a: 0 } } }
@@ -1689,35 +1697,35 @@ const menPlayers = [
 // on 2 Sept 2026 and all match exactly — no renumbering to record.
 const womenPlayers = [
   { num: 1, first: "Daphne", last: "van Domselaar", pos: "GK", injured: true },
-  { num: 16, first: "Misa", last: "Rodriguez", pos: "GK", injured: false, stats: { wsl: { app: 2, min: 180, g: 0, a: 0 } } },
+  { num: 16, first: "Misa", last: "Rodriguez", pos: "GK", injured: false, stats: { wsl: { app: 3, min: 270, g: 0, a: 0 } } },
   { num: 28, first: "Anneke", last: "Borbe", pos: "GK", injured: false },
   { num: 40, first: "Isabella", last: "Damm", pos: "GK", injured: false },
 
-  { num: 2, first: "Emily", last: "Fox", pos: "DF", injured: false, stats: { wsl: { app: 2, min: 180, g: 0, a: 0 } } },
+  { num: 2, first: "Emily", last: "Fox", pos: "DF", injured: false, stats: { wsl: { app: 3, min: 270, g: 0, a: 0 } } },
   { num: 3, first: "Lotte", last: "Wubben-Moy", pos: "DF", injured: false, stats: { wsl: { app: 1, min: 90, g: 0, a: 0 } } },
-  { num: 5, first: "Élisa", last: "De Almeida", pos: "DF", injured: false },
-  { num: 6, first: "Leah", last: "Williamson", pos: "DF", injured: false, stats: { wsl: { app: 2, min: 180, g: 0, a: 0 } } },
-  { num: 7, first: "Steph", last: "Catley", pos: "DF", injured: false, stats: { wsl: { app: 1, min: 90, g: 0, a: 0 } } },
-  { num: 22, first: "Ona", last: "Batlle", pos: "DF", injured: false, stats: { wsl: { app: 2, min: 178, g: 0, a: 0 } } },
+  { num: 5, first: "Élisa", last: "De Almeida", pos: "DF", injured: true },
+  { num: 6, first: "Leah", last: "Williamson", pos: "DF", injured: false, stats: { wsl: { app: 3, min: 270, g: 0, a: 1 } } },
+  { num: 7, first: "Steph", last: "Catley", pos: "DF", injured: false, stats: { wsl: { app: 2, min: 180, g: 0, a: 0 } } },
+  { num: 22, first: "Ona", last: "Batlle", pos: "DF", injured: false, stats: { wsl: { app: 3, min: 260, g: 0, a: 0 } } },
   { num: 24, first: "Taylor", last: "Hinds", pos: "DF", injured: false },
   { num: 26, first: "Katie", last: "Reid", pos: "DF", injured: true },
-  { num: 31, first: "Smilla", last: "Holmberg", pos: "DF", injured: false, stats: { wsl: { app: 1, min: 2, g: 0, a: 0 } } },
+  { num: 31, first: "Smilla", last: "Holmberg", pos: "DF", injured: false, stats: { wsl: { app: 2, min: 34, g: 1, a: 0 } } },
 
-  { num: 4, first: "Georgia", last: "Stanway", pos: "MF", injured: false, stats: { wsl: { app: 2, min: 180, g: 0, a: 0 } } },
-  { num: 8, first: "Mariona", last: "Caldentey", pos: "MF", injured: false, stats: { wsl: { app: 2, min: 146, g: 0, a: 0 } } },
-  { num: 10, first: "Kim", last: "Little", pos: "MF", injured: false, stats: { wsl: { app: 2, min: 105, g: 0, a: 0 } } },
+  { num: 4, first: "Georgia", last: "Stanway", pos: "MF", injured: false, stats: { wsl: { app: 3, min: 270, g: 0, a: 0 } } },
+  { num: 8, first: "Mariona", last: "Caldentey", pos: "MF", injured: false, stats: { wsl: { app: 3, min: 204, g: 0, a: 0 } } },
+  { num: 10, first: "Kim", last: "Little", pos: "MF", injured: false, stats: { wsl: { app: 3, min: 137, g: 0, a: 0 } } },
   { num: 12, first: "Frida", last: "Maanum", pos: "MF", injured: false, stats: { wsl: { app: 2, min: 7, g: 0, a: 0 } } },
   { num: 14, first: "Geraldine", last: "Reuteler", pos: "MF", injured: false },
   { num: 32, first: "Kyra", last: "Cooney-Cross", pos: "MF", injured: false, stats: { wsl: { app: 1, min: 60, g: 0, a: 0 } } },
 
-  { num: 9, first: "Caitlin", last: "Foord", pos: "FW", injured: false, stats: { wsl: { app: 2, min: 42, g: 0, a: 0 } } },
-  { num: 11, first: "Olivia", last: "Smith", pos: "FW", injured: false, stats: { wsl: { app: 2, min: 93, g: 0, a: 0 } } },
+  { num: 9, first: "Caitlin", last: "Foord", pos: "FW", injured: false, stats: { wsl: { app: 3, min: 61, g: 0, a: 0 } } },
+  { num: 11, first: "Olivia", last: "Smith", pos: "FW", injured: false, stats: { wsl: { app: 3, min: 151, g: 0, a: 0 } } },
   { num: 17, first: "Michelle", last: "Agyemang", pos: "FW", injured: true },
-  { num: 18, first: "Chloe", last: "Kelly", pos: "FW", injured: false, stats: { wsl: { app: 2, min: 87, g: 0, a: 0 } } },
-  { num: 19, first: "Lisa", last: "Baum", pos: "FW", injured: false, stats: { wsl: { app: 2, min: 138, g: 1, a: 0 } } },
-  { num: 23, first: "Alessia", last: "Russo", pos: "FW", injured: false, stats: { wsl: { app: 2, min: 173, g: 0, a: 0 } } },
-  { num: 25, first: "Stina", last: "Blackstenius", pos: "FW", injured: false, stats: { wsl: { app: 2, min: 49, g: 0, a: 0 } } },
-  { num: 29, first: "Selina", last: "Cerci", pos: "FW", injured: false }
+  { num: 18, first: "Chloe", last: "Kelly", pos: "FW", injured: false, stats: { wsl: { app: 3, min: 95, g: 0, a: 0 } } },
+  { num: 19, first: "Lisa", last: "Baum", pos: "FW", injured: false, stats: { wsl: { app: 3, min: 209, g: 1, a: 0 } } },
+  { num: 23, first: "Alessia", last: "Russo", pos: "FW", injured: false, stats: { wsl: { app: 3, min: 263, g: 0, a: 0 } } },
+  { num: 25, first: "Stina", last: "Blackstenius", pos: "FW", injured: false, stats: { wsl: { app: 3, min: 120, g: 0, a: 0 } } },
+  { num: 29, first: "Selina", last: "Cerci", pos: "FW", injured: false, stats: { wsl: { app: 1, min: 19, g: 0, a: 0 } } }
 ];
 
 const menSquadCompetitions = [
@@ -1734,11 +1742,9 @@ const womenSquadCompetitions = [
   { key: "total", label: "Total" },
   { key: "wsl", label: "Barclays WSL" },
   { key: "wcl", label: "UEFA Women's Champions League" },
-  { key: "facup", label: "Women's FA Cup" },
-  { key: "fifacc", label: "FIFA Women's Champions Cup" },
-  { key: "leaguecup", label: "FA Women's League Cup" }
+  { key: "facup", label: "Women's FA Cup" }
 ];
-const womenSquadStatCats = ["wsl", "wcl", "facup", "fifacc", "leaguecup"];
+const womenSquadStatCats = ["wsl", "wcl", "facup"];
 
 const squadPositionOrder = ["GK", "DF", "MF", "FW", "ACA"];
 const squadPositionLabels = { GK: "Goalkeepers", DF: "Defenders", MF: "Midfielders", FW: "Forwards", ACA: "Academy" };
