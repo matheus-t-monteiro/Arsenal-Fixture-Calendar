@@ -1496,7 +1496,11 @@ const womenFixtures = [
       arsenal: [ { name: "Smilla Holmberg", min: 95 } ],
       opponent: [ { name: "Julia Zigiotti Olme", min: 67 } ]
     } },
-  { date: "2026-09-22", opp: "HB Koge", home: true, time: "20:00", comp: "UEFA Women's Champions League", venue: "Mangata Developments Stadium Meadow Park" },
+  { date: "2026-09-22", opp: "HB Koge", home: true, time: "20:00", comp: "UEFA Women's Champions League", venue: "Mangata Developments Stadium Meadow Park", score: { arsenal: 1, opponent: 0 },
+    scorers: {
+      arsenal: [ { name: "Mariona Caldentey", min: 93 } ],
+      opponent: []
+    } },
   { date: "2026-09-27", opp: "Chelsea Women", home: false, time: "16:30", comp: "Barclays WSL", venue: "Stamford Bridge" },
   { date: "2026-09-30", opp: "Paris FC", home: false, time: "17:45", comp: "UEFA Women's Champions League", venue: "Stade Sébastien Charléty" },
   { date: "2026-10-04", opp: "Manchester City WFC", home: false, time: "16:30", comp: "Barclays WSL", venue: "Etihad Stadium" },
@@ -1707,25 +1711,25 @@ const womenPlayers = [
   { num: 6, first: "Leah", last: "Williamson", pos: "DF", injured: false, stats: { wsl: { app: 3, min: 270, g: 0, a: 1 } } },
   { num: 7, first: "Steph", last: "Catley", pos: "DF", injured: false, stats: { wsl: { app: 2, min: 180, g: 0, a: 0 } } },
   { num: 22, first: "Ona", last: "Batlle", pos: "DF", injured: false, stats: { wsl: { app: 3, min: 260, g: 0, a: 0 } } },
-  { num: 24, first: "Taylor", last: "Hinds", pos: "DF", injured: false },
+  { num: 24, first: "Taylor", last: "Hinds", pos: "DF", injured: false, stats: { wcl: { app: 1, g: 0, a: 0 } } },
   { num: 26, first: "Katie", last: "Reid", pos: "DF", injured: true },
   { num: 31, first: "Smilla", last: "Holmberg", pos: "DF", injured: false, stats: { wsl: { app: 2, min: 34, g: 1, a: 0 } } },
 
   { num: 4, first: "Georgia", last: "Stanway", pos: "MF", injured: false, stats: { wsl: { app: 3, min: 270, g: 0, a: 0 } } },
-  { num: 8, first: "Mariona", last: "Caldentey", pos: "MF", injured: false, stats: { wsl: { app: 3, min: 204, g: 0, a: 0 } } },
+  { num: 8, first: "Mariona", last: "Caldentey", pos: "MF", injured: false, stats: { wsl: { app: 3, min: 204, g: 0, a: 0 }, wcl: { app: 1, g: 1, a: 0 } } },
   { num: 10, first: "Kim", last: "Little", pos: "MF", injured: false, stats: { wsl: { app: 3, min: 137, g: 0, a: 0 } } },
   { num: 12, first: "Frida", last: "Maanum", pos: "MF", injured: false, stats: { wsl: { app: 2, min: 7, g: 0, a: 0 } } },
   { num: 14, first: "Geraldine", last: "Reuteler", pos: "MF", injured: false },
-  { num: 32, first: "Kyra", last: "Cooney-Cross", pos: "MF", injured: false, stats: { wsl: { app: 1, min: 60, g: 0, a: 0 } } },
+  { num: 32, first: "Kyra", last: "Cooney-Cross", pos: "MF", injured: false, stats: { wsl: { app: 1, min: 60, g: 0, a: 0 }, wcl: { app: 1, g: 0, a: 0 } } },
 
-  { num: 9, first: "Caitlin", last: "Foord", pos: "FW", injured: false, stats: { wsl: { app: 3, min: 61, g: 0, a: 0 } } },
+  { num: 9, first: "Caitlin", last: "Foord", pos: "FW", injured: false, stats: { wsl: { app: 3, min: 61, g: 0, a: 0 }, wcl: { app: 1, g: 0, a: 0 } } },
   { num: 11, first: "Olivia", last: "Smith", pos: "FW", injured: false, stats: { wsl: { app: 3, min: 151, g: 0, a: 0 } } },
   { num: 17, first: "Michelle", last: "Agyemang", pos: "FW", injured: true },
-  { num: 18, first: "Chloe", last: "Kelly", pos: "FW", injured: false, stats: { wsl: { app: 3, min: 95, g: 0, a: 0 } } },
+  { num: 18, first: "Chloe", last: "Kelly", pos: "FW", injured: false, stats: { wsl: { app: 3, min: 95, g: 0, a: 0 }, wcl: { app: 1, g: 0, a: 0 } } },
   { num: 19, first: "Lisa", last: "Baum", pos: "FW", injured: false, stats: { wsl: { app: 3, min: 209, g: 1, a: 0 } } },
   { num: 23, first: "Alessia", last: "Russo", pos: "FW", injured: false, stats: { wsl: { app: 3, min: 263, g: 0, a: 0 } } },
-  { num: 25, first: "Stina", last: "Blackstenius", pos: "FW", injured: false, stats: { wsl: { app: 3, min: 120, g: 0, a: 0 } } },
-  { num: 29, first: "Selina", last: "Cerci", pos: "FW", injured: false, stats: { wsl: { app: 1, min: 19, g: 0, a: 0 } } }
+  { num: 25, first: "Stina", last: "Blackstenius", pos: "FW", injured: false, stats: { wsl: { app: 3, min: 120, g: 0, a: 0 }, wcl: { app: 1, g: 0, a: 0 } } },
+  { num: 29, first: "Selina", last: "Cerci", pos: "FW", injured: false, stats: { wsl: { app: 1, min: 19, g: 0, a: 0 }, wcl: { app: 1, g: 0, a: 0 } } }
 ];
 
 const menSquadCompetitions = [
