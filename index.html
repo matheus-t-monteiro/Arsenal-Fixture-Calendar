@@ -1424,6 +1424,7 @@ const menFixtures = [
   { date: "2026-10-18", opp: "Nottingham Forest", home: false, time: "16:30" },
   { date: "2026-10-21", opp: "Bayern Munich", home: false, time: "20:00", comp: "Champions League" },
   { date: "2026-10-24", opp: "Everton", home: true, time: "15:00" },
+  { date: "2026-10-27", opp: "Fleetwood Town", home: false, time: "20:00", comp: "EFL Cup", venue: "Highbury Stadium" },
   { date: "2026-11-01", opp: "Liverpool", home: false, time: "16:30" },
   { date: "2026-11-04", opp: "Slavia Prague", home: false, time: "20:00", comp: "Champions League" },
   { date: "2026-11-07", opp: "Hull City", home: true, time: "15:00" },
@@ -1506,7 +1507,11 @@ const womenFixtures = [
       arsenal: [],
       opponent: [ { name: "Alyssa Thompson", min: 39 } ]
     } },
-  { date: "2026-09-30", opp: "Paris FC", home: false, time: "17:45", comp: "UEFA Women's Champions League", venue: "Stade Sébastien Charléty" },
+  { date: "2026-09-30", opp: "Paris FC", home: false, time: "17:45", comp: "UEFA Women's Champions League", venue: "Stade Sébastien Charléty", score: { arsenal: 2, opponent: 2 },
+    scorers: {
+      arsenal: [ { name: "Alessia Russo", min: 41 }, { name: "Georgia Stanway", min: 50 } ],
+      opponent: [ { name: "Clara Mateo", min: 72 }, { name: "Maeline Mendy", min: 87 } ]
+    } },
   { date: "2026-10-04", opp: "Manchester City WFC", home: false, time: "16:30", comp: "Barclays WSL", venue: "Etihad Stadium" },
   { date: "2026-10-17", opp: "Birmingham City WFC", home: true, time: "12:45", comp: "Barclays WSL", venue: "Emirates Stadium" },
   { date: "2026-10-24", opp: "Tottenham Women", home: false, time: "12:45", comp: "Barclays WSL", venue: "Tottenham Hotspur Stadium" },
@@ -1705,34 +1710,34 @@ const menPlayers = [
 // on 2 Sept 2026 and all match exactly — no renumbering to record.
 const womenPlayers = [
   { num: 1, first: "Daphne", last: "van Domselaar", pos: "GK", injured: true },
-  { num: 16, first: "Misa", last: "Rodriguez", pos: "GK", injured: false, stats: { wsl: { app: 3, min: 270, g: 0, a: 0 } } },
+  { num: 16, first: "Misa", last: "Rodriguez", pos: "GK", injured: false, stats: { wsl: { app: 3, min: 270, g: 0, a: 0 }, wcl: { app: 1, min: 90, g: 0, a: 0 } } },
   { num: 28, first: "Anneke", last: "Borbe", pos: "GK", injured: false, stats: { wsl: { app: 1, min: 90, g: 0, a: 0 } } },
   { num: 40, first: "Isabella", last: "Damm", pos: "GK", injured: false },
 
-  { num: 2, first: "Emily", last: "Fox", pos: "DF", injured: false, stats: { wsl: { app: 4, min: 360, g: 0, a: 0 } } },
-  { num: 3, first: "Lotte", last: "Wubben-Moy", pos: "DF", injured: false, stats: { wsl: { app: 1, min: 90, g: 0, a: 0 } } },
+  { num: 2, first: "Emily", last: "Fox", pos: "DF", injured: false, stats: { wsl: { app: 4, min: 360, g: 0, a: 0 }, wcl: { app: 1, min: 69, g: 0, a: 1 } } },
+  { num: 3, first: "Lotte", last: "Wubben-Moy", pos: "DF", injured: false, stats: { wsl: { app: 1, min: 90, g: 0, a: 0 }, wcl: { app: 1, min: 90, g: 0, a: 0 } } },
   { num: 5, first: "Élisa", last: "De Almeida", pos: "DF", injured: true },
-  { num: 6, first: "Leah", last: "Williamson", pos: "DF", injured: false, stats: { wsl: { app: 4, min: 360, g: 0, a: 1 } } },
-  { num: 7, first: "Steph", last: "Catley", pos: "DF", injured: false, stats: { wsl: { app: 3, min: 270, g: 0, a: 0 } } },
-  { num: 22, first: "Ona", last: "Batlle", pos: "DF", injured: false, stats: { wsl: { app: 4, min: 341, g: 0, a: 0 } } },
+  { num: 6, first: "Leah", last: "Williamson", pos: "DF", injured: false, stats: { wsl: { app: 4, min: 360, g: 0, a: 1 }, wcl: { app: 1, min: 90, g: 0, a: 0 } } },
+  { num: 7, first: "Steph", last: "Catley", pos: "DF", injured: true, stats: { wsl: { app: 3, min: 270, g: 0, a: 0 } } },
+  { num: 22, first: "Ona", last: "Batlle", pos: "DF", injured: false, stats: { wsl: { app: 4, min: 341, g: 0, a: 0 }, wcl: { app: 1, min: 90, g: 0, a: 0 } } },
   { num: 24, first: "Taylor", last: "Hinds", pos: "DF", injured: false, stats: { wcl: { app: 1, g: 0, a: 0 } } },
   { num: 26, first: "Katie", last: "Reid", pos: "DF", injured: true },
-  { num: 31, first: "Smilla", last: "Holmberg", pos: "DF", injured: false, stats: { wsl: { app: 2, min: 34, g: 1, a: 0 } } },
+  { num: 31, first: "Smilla", last: "Holmberg", pos: "DF", injured: false, stats: { wsl: { app: 2, min: 34, g: 1, a: 0 }, wcl: { app: 1, min: 21, g: 0, a: 0 } } },
 
-  { num: 4, first: "Georgia", last: "Stanway", pos: "MF", injured: false, stats: { wsl: { app: 4, min: 331, g: 0, a: 0 } } },
-  { num: 8, first: "Mariona", last: "Caldentey", pos: "MF", injured: false, stats: { wsl: { app: 4, min: 265, g: 0, a: 0 }, wcl: { app: 1, g: 1, a: 0 } } },
-  { num: 10, first: "Kim", last: "Little", pos: "MF", injured: false, stats: { wsl: { app: 4, min: 219, g: 0, a: 0 } } },
-  { num: 12, first: "Frida", last: "Maanum", pos: "MF", injured: false, stats: { wsl: { app: 2, min: 7, g: 0, a: 0 } } },
+  { num: 4, first: "Georgia", last: "Stanway", pos: "MF", injured: false, stats: { wsl: { app: 4, min: 331, g: 0, a: 0 }, wcl: { app: 1, min: 69, g: 1, a: 1, yc: 1, rc: 0 } } },
+  { num: 8, first: "Mariona", last: "Caldentey", pos: "MF", injured: false, stats: { wsl: { app: 4, min: 265, g: 0, a: 0 }, wcl: { app: 2, min: 90, g: 1, a: 0 } } },
+  { num: 10, first: "Kim", last: "Little", pos: "MF", injured: false, stats: { wsl: { app: 4, min: 219, g: 0, a: 0 }, wcl: { app: 1, min: 57, g: 0, a: 0 } } },
+  { num: 12, first: "Frida", last: "Maanum", pos: "MF", injured: false, stats: { wsl: { app: 2, min: 7, g: 0, a: 0 }, wcl: { app: 1, min: 21, g: 0, a: 0 } } },
   { num: 14, first: "Geraldine", last: "Reuteler", pos: "MF", injured: false, stats: { wsl: { app: 1, min: 8, g: 0, a: 0 } } },
-  { num: 32, first: "Kyra", last: "Cooney-Cross", pos: "MF", injured: false, stats: { wsl: { app: 2, min: 150, g: 0, a: 0 }, wcl: { app: 1, g: 0, a: 0 } } },
+  { num: 32, first: "Kyra", last: "Cooney-Cross", pos: "MF", injured: false, stats: { wsl: { app: 2, min: 150, g: 0, a: 0 }, wcl: { app: 2, min: 90, g: 0, a: 0 } } },
 
-  { num: 9, first: "Caitlin", last: "Foord", pos: "FW", injured: false, stats: { wsl: { app: 4, min: 90, g: 0, a: 0 }, wcl: { app: 1, g: 0, a: 0 } } },
-  { num: 11, first: "Olivia", last: "Smith", pos: "FW", injured: false, stats: { wsl: { app: 3, min: 151, g: 0, a: 0 } } },
+  { num: 9, first: "Caitlin", last: "Foord", pos: "FW", injured: false, stats: { wsl: { app: 4, min: 90, g: 0, a: 0 }, wcl: { app: 2, min: 1, g: 0, a: 0 } } },
+  { num: 11, first: "Olivia", last: "Smith", pos: "FW", injured: false, stats: { wsl: { app: 3, min: 151, g: 0, a: 0 }, wcl: { app: 1, min: 33, g: 0, a: 0 } } },
   { num: 17, first: "Michelle", last: "Agyemang", pos: "FW", injured: true },
-  { num: 18, first: "Chloe", last: "Kelly", pos: "FW", injured: false, stats: { wsl: { app: 4, min: 124, g: 0, a: 0 }, wcl: { app: 1, g: 0, a: 0 } } },
-  { num: 19, first: "Lisa", last: "Baum", pos: "FW", injured: false, stats: { wsl: { app: 4, min: 270, g: 1, a: 0 } } },
-  { num: 23, first: "Alessia", last: "Russo", pos: "FW", injured: false, stats: { wsl: { app: 4, min: 353, g: 0, a: 0 } } },
-  { num: 25, first: "Stina", last: "Blackstenius", pos: "FW", injured: false, stats: { wsl: { app: 4, min: 149, g: 0, a: 0 }, wcl: { app: 1, g: 0, a: 0 } } },
+  { num: 18, first: "Chloe", last: "Kelly", pos: "FW", injured: true, stats: { wsl: { app: 4, min: 124, g: 0, a: 0 }, wcl: { app: 1, g: 0, a: 0 } } },
+  { num: 19, first: "Lisa", last: "Baum", pos: "FW", injured: false, stats: { wsl: { app: 4, min: 270, g: 1, a: 0 }, wcl: { app: 1, min: 89, g: 0, a: 0 } } },
+  { num: 23, first: "Alessia", last: "Russo", pos: "FW", injured: false, stats: { wsl: { app: 4, min: 353, g: 0, a: 0 }, wcl: { app: 1, min: 89, g: 1, a: 0 } } },
+  { num: 25, first: "Stina", last: "Blackstenius", pos: "FW", injured: false, stats: { wsl: { app: 4, min: 149, g: 0, a: 0 }, wcl: { app: 2, min: 1, g: 0, a: 0 } } },
   { num: 29, first: "Selina", last: "Cerci", pos: "FW", injured: false, stats: { wsl: { app: 2, min: 28, g: 0, a: 0 }, wcl: { app: 1, g: 0, a: 0 } } }
 ];
 
@@ -2320,7 +2325,7 @@ infoSlide.innerHTML = `
     <p><strong>Fixture data:</strong> Arsenal 2026/27 Premier League schedule, pre-season friendlies, and the FA Community Shield &mdash; sourced from Arsenal.com's official fixtures page.</p>
     <p><strong>Champions League:</strong> the league-phase schedule was confirmed 29 Aug 2026 &mdash; Napoli (a), Lille (h), Bayern Munich (a), Slavia Prague (a), Borussia Dortmund (h), Real Madrid (h), Real Betis (a) and Sabah (h). Knockout rounds (play-off through the final) aren't shown here yet &mdash; they depend on Arsenal's progress past the league phase and aren't confirmed.</p>
     <p>Saturday/Sunday Premier League kickoff times are confirmed closer to each matchweek by broadcasters &mdash; shown as &ldquo;Time TBC&rdquo; until then.</p>
-    <p><strong>EFL Cup:</strong> Arsenal enter at the third round as one of the Premier League's UEFA-competition teams, drawn away to Ipswich Town on 15 Sep 2026. Later rounds aren't included since they depend on progression and aren't scheduled yet.</p>
+    <p><strong>EFL Cup:</strong> Arsenal enter at the third round as one of the Premier League's UEFA-competition teams, drawn away to Ipswich Town on 15 Sep 2026, then away to Fleetwood Town in the fourth round on 27 Oct 2026. Later rounds aren't included since they depend on progression and aren't scheduled yet.</p>
     <p><strong>FA Cup:</strong> as a Premier League side, Arsenal enter at the third round. The opponent isn't drawn yet, so it's shown as a window (8&ndash;11 Jan 2027). Later rounds aren't included since they depend on progression and aren't scheduled yet.</p>
     <p>Made by <a href="https://matheusmonteiro.design/" target="_blank" rel="noopener noreferrer">Matheus Monteiro</a></p>
   </div>
