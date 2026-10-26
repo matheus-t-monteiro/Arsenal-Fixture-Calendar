@@ -1081,6 +1081,18 @@
     border-bottom: 1px solid var(--border);
   }
   .squad-num { color: var(--muted); font-weight: 600; }
+  .squad-table tfoot td {
+    position: sticky;
+    bottom: 0;
+    background: var(--card);
+    font-weight: 800;
+    border-top: 2px solid #9a9a9a;
+    border-bottom: 2px solid #9a9a9a;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    box-shadow: 0 -4px 10px -3px rgba(0,0,0,0.5), 0 4px 10px -3px rgba(0,0,0,0.5);
+  }
+  .squad-table tfoot td.col-name { text-transform: uppercase; font-size: 10px; letter-spacing: 0.5px; }
   .squad-name {
     display: inline-flex;
     align-items: center;
@@ -1280,6 +1292,7 @@
           </tr>
         </thead>
         <tbody id="squadTableBody"></tbody>
+        <tfoot id="squadTableFoot"></tfoot>
       </table>
     </div>
   </aside>
@@ -2092,6 +2105,7 @@ const squadOverlay = document.getElementById('squadOverlay');
 const squadClose = document.getElementById('squadClose');
 const squadCompSelect = document.getElementById('squadCompSelect');
 const squadTableBody = document.getElementById('squadTableBody');
+const squadTableFoot = document.getElementById('squadTableFoot');
 let squadOpen = false;
 let squadLastFocused = null;
 
@@ -2106,9 +2120,28 @@ function renderSquadCompOptions() {
 }
 renderSquadCompOptions();
 
+// Fixture `comp` label -> squad stat key. Friendlies (and anything not listed
+// here) are deliberately left out, matching how per-player stats are tracked.
+const fixtureCompToStatKey = {
+  "Premier League": "pl", "Champions League": "cl", "EFL Cup": "efl",
+  "FA Cup": "fa", "Community Shield": "shield",
+  "Barclays WSL": "wsl", "UEFA Women's Champions League": "wcl", "Women's FA Cup": "facup"
+};
+// Number of official games the active team has actually played (i.e. fixtures
+// that have a recorded score), optionally limited to one competition.
+function gamesPlayed(compKey) {
+  return fixtures.filter(f => {
+    if (!f.score) return false;
+    const key = fixtureCompToStatKey[f.comp || "Premier League"];
+    if (!key || squadStatCats.indexOf(key) === -1) return false;
+    return compKey === "total" || key === compKey;
+  }).length;
+}
+
 function renderSquadTable() {
   const compKey = squadCompSelect.value;
   squadTableBody.innerHTML = '';
+  const totals = { g: 0, a: 0, yc: 0, rc: 0 };
   let currentPos = null;
   sortedSquad.forEach(p => {
     if (p.pos !== currentPos) {
@@ -2122,6 +2155,7 @@ function renderSquadTable() {
       squadTableBody.appendChild(groupRow);
     }
     const s = statsFor(p, compKey);
+    totals.g += s.g; totals.a += s.a; totals.yc += s.yc; totals.rc += s.rc;
     const injuryIcon = p.injured
       ? '<span class="squad-injury-icon" title="Injured" aria-label="Injured">' +
         '<svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">' +
@@ -2140,6 +2174,21 @@ function renderSquadTable() {
       '<td>' + s.rc + '</td>';
     squadTableBody.appendChild(tr);
   });
+
+  // Totals row: App = games the team has played so far; Min = games x 90;
+  // G / A / cards are the column sums for the selected competition.
+  const games = gamesPlayed(compKey);
+  squadTableFoot.innerHTML =
+    '<tr>' +
+    '<td class="col-num"></td>' +
+    '<td class="col-name">Total</td>' +
+    '<td>' + games + '</td>' +
+    '<td>' + (games * 90) + '</td>' +
+    '<td>' + totals.g + '</td>' +
+    '<td>' + totals.a + '</td>' +
+    '<td>' + totals.yc + '</td>' +
+    '<td>' + totals.rc + '</td>' +
+    '</tr>';
 }
 squadCompSelect.addEventListener('change', renderSquadTable);
 
